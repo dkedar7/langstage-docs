@@ -1,0 +1,71 @@
+site_name: LangStage
+site_description: Every stage for your LangGraph agent — one agent, run it on the web, the terminal, JupyterLab, and VS Code.
+site_url: https://dkedar7.github.io/langstage-docs/
+repo_url: https://github.com/dkedar7/langstage-docs
+repo_name: dkedar7/langstage-docs
+copyright: Built by Kedar Dabhadkar · MIT-licensed
+
+theme:
+  name: material
+  icon:
+    logo: material/drama-masks
+    repo: fontawesome/brands/github
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.instant
+    - navigation.tracking
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate
+    - search.suggest
+    - search.highlight
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - Installation: getting-started/installation.md
+      - Quickstart: getting-started/quickstart.md
+      - Configuration: getting-started/configuration.md
+  - The stages:
+      - Web — langstage: stages/web.md
+      - Terminal — langstage-cli: stages/cli.md
+      - JupyterLab — langstage-jupyter: stages/jupyter.md
+      - VS Code — langstage-vscode: stages/vscode.md
+      - Reference agent — langstage-hermes: stages/hermes.md
+  - Shared core: core.md
+  - Migrating from deepagent-*: migrating.md

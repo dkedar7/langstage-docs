@@ -1,0 +1,2 @@
+# Docs toolchain — the same stack FastAPI's documentation runs on.
+mkdocs-material>=9.5
