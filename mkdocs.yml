@@ -68,4 +68,4 @@ nav:
       - VS Code — langstage-vscode: stages/vscode.md
       - Reference agent — langstage-hermes: stages/hermes.md
   - Shared core: core.md
-  - Migrating from deepagent-*: migrating.md
+  - What changed / migrating: migrating.md
