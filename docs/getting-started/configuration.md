@@ -54,8 +54,12 @@ Never guess which layer won. Every stage prints the resolved value, its source,
 and the names that set it:
 
 ```bash
-langstage --show-config
+langstage config              # web: a subcommand (like `langstage run`)
+langstage-cli --show-config   # single-command stages use the flag
 ```
+
+(`langstage --show-config` also works, but `langstage config` matches the
+`langstage run` subcommand shape.)
 
 You can also dump just the shared core:
 
