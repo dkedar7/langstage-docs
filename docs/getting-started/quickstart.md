@@ -53,7 +53,7 @@ configuration — each value, where it came from, and the env var / TOML key tha
 sets it:
 
 ```bash
-langstage --show-config
+langstage config            # web: a subcommand, like `langstage run`
 langstage-cli --show-config
 langstage-hermes --show-config
 ```

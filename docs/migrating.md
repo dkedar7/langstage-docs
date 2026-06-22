@@ -15,14 +15,18 @@ and commands keep working through a transition window.
 
 ## Name map
 
-| Old package | New package | Latest |
-|---|---|---|
-| `cowork-dash` | **`langstage`** | 0.8.0 |
-| `deepagent-code` | **`langstage-cli`** | 0.5.0 |
-| `deepagent-lab` | **`langstage-jupyter`** | 0.5.0 |
-| `deepagent-vscode` | **`langstage-vscode`** | 0.4.0 |
-| `deepagent-hermes` | **`langstage-hermes`** | 0.3.0 |
-| `langgraph-stream-parser` | *(unchanged — the shared core)* | 0.4.1 |
+| Old package | New package |
+|---|---|
+| `cowork-dash` | **`langstage`** |
+| `deepagent-code` | **`langstage-cli`** |
+| `deepagent-lab` | **`langstage-jupyter`** |
+| `deepagent-vscode` | **`langstage-vscode`** |
+| `deepagent-hermes` | **`langstage-hermes`** |
+| `langgraph-stream-parser` | *(unchanged — the shared core)* |
+
+All are on PyPI — `pip install <new package>` gets the current release. (This table
+intentionally lists no version numbers; a hand-maintained "latest" column only goes
+stale — check PyPI for the current version of each.)
 
 ## What still works
 
