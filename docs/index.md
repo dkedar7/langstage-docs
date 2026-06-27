@@ -2,15 +2,22 @@
 
 **Every stage for your LangGraph agent.**
 
-Write your agent once — any LangGraph `CompiledGraph` — and run it on every
-surface with the *same* spec string, the *same* `langstage.toml` config, and
-the *same* `LANGSTAGE_*` environment variables. The web, your terminal,
-JupyterLab, and VS Code all become stages your one agent can perform on.
+Write your agent once — any LangGraph `CompiledGraph`, from a single ReAct agent
+to a **multi-agent supervisor** — and run it on every surface with the *same*
+spec string, the *same* `langstage.toml` config, and the *same* `LANGSTAGE_*`
+environment variables. The web, your terminal, JupyterLab, and VS Code all
+become stages your agent can perform on.
 
 <figure markdown="span">
   ![The LangStage web app](assets/screenshots/hero.png){ width="760" }
-  <figcaption>One agent, on the web stage — streaming, tool calls, a file browser, and a canvas.</figcaption>
+  <figcaption>Your agent on the web stage — streaming, tool calls, a file browser, and a canvas.</figcaption>
 </figure>
+
+!!! tip "Multi-agent? It already works."
+    A supervisor, swarm, or crew compiles to the same `CompiledStateGraph`
+    LangStage loads — so multi-agent routing and hand-offs run and stream exactly
+    like a single agent, with no extra setup. See
+    [Running a multi-agent supervisor](guides/multi-agent-supervisor.md).
 
 ## 30-second quickstart
 

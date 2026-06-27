@@ -1,5 +1,5 @@
 site_name: LangStage
-site_description: Every stage for your LangGraph agent — one agent, run it on the web, the terminal, JupyterLab, and VS Code.
+site_description: Every stage for your LangGraph agent — run any agent, including a multi-agent supervisor, on the web, the terminal, JupyterLab, and VS Code.
 site_url: https://dkedar7.github.io/langstage-docs/
 repo_url: https://github.com/dkedar7/langstage-docs
 repo_name: dkedar7/langstage-docs
@@ -61,6 +61,8 @@ nav:
       - Installation: getting-started/installation.md
       - Quickstart: getting-started/quickstart.md
       - Configuration: getting-started/configuration.md
+  - Guides:
+      - Multi-agent supervisor: guides/multi-agent-supervisor.md
   - The stages:
       - Web — langstage: stages/web.md
       - Terminal — langstage-cli: stages/cli.md
