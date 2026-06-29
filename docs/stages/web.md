@@ -43,10 +43,10 @@ app.run()
       <figcaption>Recurring agent runs on a cron schedule.</figcaption>
     </figure>
 
-=== "Tasks"
+=== "Plan"
 
     <figure markdown="span">
-      ![Tasks tab](../assets/screenshots/web-tasks-light.png){ width="720" }
+      ![Plan tab](../assets/screenshots/web-tasks-light.png){ width="720" }
       <figcaption>Live to-do list synced from the agent's <code>write_todos</code> calls.</figcaption>
     </figure>
 
