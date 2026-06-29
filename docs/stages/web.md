@@ -60,11 +60,14 @@ app.run()
 
 - **Streaming chat** with inline tool-call visualization (args, results,
   duration, status).
+- **Starter prompts** — one-click suggestion chips on the empty state to get
+  going fast.
 - **Rich inline content** — HTML, Plotly, images, DataFrames, PDFs, JSON.
 - **Canvas panel** — a persistent report surface; opt in by attaching
   `CanvasMiddleware` to your agent.
 - **File browser**, **task tracking**, **human-in-the-loop** approval dialogs.
-- **Scheduled runs** on cron expressions.
+- **Scheduled runs** on cron expressions — with one-click presets for common
+  cadences (hourly, daily, weekdays) so you don't have to write raw cron.
 - **Theming** (light/dark/auto), optional HTTP Basic Auth, custom branding.
 
 See [Configuration](../getting-started/configuration.md) for the full set of

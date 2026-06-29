@@ -46,6 +46,9 @@ langstage-jupyter --demo
 python -m langstage_vscode --demo
 ```
 
+On the web stage, the empty screen offers a few **starter-prompt chips** — click
+one to begin without typing.
+
 ## 4. See exactly what's configured
 
 When you're not sure which value won, every stage can print the fully resolved
