@@ -19,7 +19,7 @@ LangGraph.
 - **`HostConfig`** — the layered config resolver
   (`defaults < langstage.toml < LANGSTAGE_* env < overrides`) with per-field
   source tracking. Each stage subclasses it to add its own keys.
-- **The keyless stub agent** — `langgraph_stream_parser.demo.stub:graph`, the
+- **The keyless stub agent** — `langstage_core.demo.stub:graph`, the
   deterministic echo agent behind every stage's `--demo` mode.
 
 ## Parse a stream yourself
