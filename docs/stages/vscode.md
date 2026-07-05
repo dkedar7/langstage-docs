@@ -13,7 +13,7 @@ chat panel as Copilot — via the `@langstage` chat participant.
 It has two parts in one repo: a TypeScript **extension** that registers the
 `@langstage` participant, and a Python **stdio sidecar** (`langstage-vscode`)
 that loads your agent and streams its events using the shared
-[`langgraph-stream-parser`](../core.md) wire vocabulary.
+[`langstage-core`](../core.md) wire vocabulary.
 
 ## Quickstart
 
