@@ -64,7 +64,7 @@ langstage-cli --show-config   # single-command stages use the flag
 You can also dump just the shared core:
 
 ```bash
-python -m langgraph_stream_parser.host
+python -m langstage_core.host
 ```
 
 ## Legacy names still work

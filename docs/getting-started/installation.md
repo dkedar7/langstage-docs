@@ -1,7 +1,7 @@
 # Installation
 
 Each LangStage stage is its own PyPI package — install only the surfaces you
-want. They all share the [`langgraph-stream-parser`](../core.md) core, which is
+want. They all share the [`langstage-core`](../core.md) core, which is
 pulled in automatically.
 
 === "Web"

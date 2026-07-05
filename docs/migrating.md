@@ -6,12 +6,11 @@ Both are designed to be a non-event for existing users — old installs, imports
 and commands keep working through a transition window.
 
 !!! warning "One real breaking change"
-    **`langgraph-stream-parser` now requires Python ≥ 3.11** (was ≥ 3.10), as of
-    0.4.0 — AG-UI's streaming stack doesn't work on 3.10. If you're on Python
-    3.10, stay on `langgraph-stream-parser` 0.3.x or upgrade Python. The surface
-    packages already required 3.11+, so they're unaffected. **This is the only
-    change that can break an existing install** — everything below is shimmed or
-    falls back.
+    **The shared core requires Python ≥ 3.11** (was ≥ 3.10) — AG-UI's streaming
+    stack doesn't work on 3.10. If you're on Python 3.10, stay on the pre-1.0
+    `langgraph-stream-parser` 0.3.x or upgrade Python. The surface packages already
+    required 3.11+, so they're unaffected. **This is the only change that can break
+    an existing install** — everything below is shimmed or falls back.
 
 ## Name map
 
@@ -22,7 +21,7 @@ and commands keep working through a transition window.
 | `deepagent-lab` | **`langstage-jupyter`** |
 | `deepagent-vscode` | **`langstage-vscode`** |
 | `deepagent-hermes` | **`langstage-hermes`** |
-| `langgraph-stream-parser` | *(unchanged — the shared core)* |
+| `langgraph-stream-parser` | **`langstage-core`** *(the shared core; the old name still installs as a shim)* |
 
 All are on PyPI — `pip install <new package>` gets the current release. (This table
 intentionally lists no version numbers; a hand-maintained "latest" column only goes
@@ -66,7 +65,7 @@ memories, or session history are orphaned by upgrading.
 The shared core now bridges to the **[AG-UI protocol](https://github.com/ag-ui-protocol/ag-ui)** — the event-based wire format for streaming rich agent interactions (text, tool calls, reasoning, state, human-in-the-loop) to frontends. Any LangGraph `CompiledGraph` can be served:
 
 ```bash
-pip install "langgraph-stream-parser[agui]"
+pip install "langstage-core[agui]"
 langstage-agui --agent my_agent.py:graph     # or --demo
 ```
 
