@@ -53,7 +53,7 @@ langstage-cli --demo "hello"  # one-shot terminal reply
 ```
 
 Both launch against a built-in deterministic echo agent
-(`langgraph_stream_parser.demo.stub:graph`), so a fresh install is provably
+(`langstage_core.demo.stub:graph`), so a fresh install is provably
 working before you wire up a real agent.
 
 Next: [Quickstart](quickstart.md) →

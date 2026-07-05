@@ -45,7 +45,7 @@ That same `my_agent.py:graph` spec runs unchanged on every other stage below.
 | :material-web: Web app | [`langstage`](stages/web.md) | `langstage run --agent my_agent.py:graph` |
 | :material-console: Terminal | [`langstage-cli`](stages/cli.md) | `langstage-cli -a my_agent.py:graph` |
 | :material-notebook: JupyterLab | [`langstage-jupyter`](stages/jupyter.md) | `pip install langstage-jupyter`, then the chat sidebar |
-| :material-microsoft-visual-studio-code: VS Code | [`langstage-vscode`](stages/vscode.md) | the `@langstage` chat participant |
+| :material-microsoft-visual-studio-code: VS Code | [`langstage-vscode`](stages/vscode.md) | the `@langstage` chat participant (run from source) |
 | :material-robot: Reference agent | [`langstage-hermes`](stages/hermes.md) | `LANGSTAGE_AGENT_SPEC=langstage_hermes.agent:graph` |
 | :material-cog: Shared core | [`langgraph-stream-parser`](core.md) | typed events + config resolver behind every stage |
 
