@@ -63,6 +63,7 @@ nav:
       - Configuration: getting-started/configuration.md
   - Guides:
       - Multi-agent supervisor: guides/multi-agent-supervisor.md
+  - LangStage vs LangSmith: comparison.md
   - The stages:
       - Web — langstage: stages/web.md
       - Terminal — langstage-cli: stages/cli.md
