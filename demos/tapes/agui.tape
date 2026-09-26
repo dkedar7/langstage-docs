@@ -12,7 +12,7 @@ Set Shell "bash"
 Set FontFamily "JetBrains Mono"
 Set FontSize 18
 Set Width 1100
-Set Height 640
+Set Height 500
 Set Padding 24
 Set Theme "Catppuccin Mocha"
 Set TypingSpeed 40ms
@@ -32,7 +32,8 @@ Type "langstage-agui --demo=tools -m 'use a tool'" Sleep 400ms Enter
 Sleep 3.5s
 
 Type "langstage-agui --demo=tools -m 'use a tool' --json | jq '{outcome, tool_calls}'" Sleep 400ms Enter
-Sleep 4.5s
+Wait@30s
+Sleep 4s
 
 Type "clear" Enter
 Type `langstage-agui --demo=tools -m 'ask me first'; echo "exit code: $?"` Sleep 400ms Enter
