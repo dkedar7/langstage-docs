@@ -74,16 +74,13 @@ langstage-jupyter -a agent_a.py:graph    # -> localhost:8888
 langstage-jupyter -a agent_b.py:graph    # -> localhost:8889
 ```
 
-The launcher scans `8888`–`8987` (`LANGSTAGE_JUPYTER_PORT_ATTEMPTS` widens it). A
-pinned port (`--port` or `--ServerApp.port`) that is busy fails the launch instead
-of moving, because the agent's notebook tools point at the port you pinned.
+Without `--port`, the launcher scans `8888`–`8987` (`LANGSTAGE_JUPYTER_PORT_ATTEMPTS`
+widens it) and takes the first port that is free on every local address (the
+wildcard address, `127.0.0.1` and `::1`), so a second plain launch moves to the next
+free port on Windows too. The printed URL and the agent's notebook tools use that
+port. A pinned port (`--port` or `--ServerApp.port`) that is busy fails the launch
+instead of moving, because the agent's notebook tools point at the port you pinned.
 `--port 0` is refused for the same reason.
-
-!!! warning "Windows: pin the second session's port"
-    On Windows the auto-detection can pick a port that another session is already
-    serving on (seen with `langstage-jupyter` 0.6.35): the second launch then fails
-    with `port 8888 is not available`. Until that's fixed, give each extra session
-    its own port, for example `langstage-jupyter -a agent_b.py:graph --port 8889`.
 
 Two sessions launched from the same
 directory serve the same notebooks, so launch from different directories for
