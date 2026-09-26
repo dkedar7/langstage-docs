@@ -26,7 +26,8 @@ so the recordings don't print a runner's temp paths.
 `ubuntu-latest` and opens a PR from `demos/refresh` with the new assets. It never
 commits to `main`. It also runs:
 
-- weekly, re-recording only when a LangStage release has moved past `versions.json`;
+- after each nightly drift-detector run (`drift.yml`), re-recording only when a
+  LangStage release has moved past `docs/assets/demos/versions.json`;
 - on a `repository_dispatch` of type `langstage-release`, which a package's release
   workflow can send;
 - on PRs that touch `demos/`, where it records and uploads the result as the `demos`

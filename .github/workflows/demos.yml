@@ -9,8 +9,8 @@ name: Demos
 # Triggers:
 #   - workflow_dispatch: re-record now and open a refresh PR.
 #   - repository_dispatch (type langstage-release): a package release asks for a refresh.
-#   - schedule (weekly): re-record only if a LangStage release moved since the
-#     versions in docs/assets/demos/versions.json.
+#   - workflow_run after the nightly drift detector (drift.yml): re-record only if a
+#     LangStage release moved since the versions in docs/assets/demos/versions.json.
 #   - pull_request touching the demo sources: record and upload as an artifact only,
 #     so a change to a tape or recorder is checked before it merges.
 # A refresh never commits to main. It opens (or updates) a PR from `demos/refresh`.
@@ -19,8 +19,9 @@ on:
   workflow_dispatch:
   repository_dispatch:
     types: [langstage-release]
-  schedule:
-    - cron: "23 7 * * 1"
+  workflow_run:
+    workflows: ["Nightly snippets + PyPI drift"]
+    types: [completed]
   pull_request:
     paths:
       - "demos/**"
@@ -48,7 +49,7 @@ jobs:
 
   record:
     needs: check
-    if: github.event_name != 'schedule' || needs.check.outputs.changed == 'true'
+    if: github.event_name != 'workflow_run' || needs.check.outputs.changed == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:

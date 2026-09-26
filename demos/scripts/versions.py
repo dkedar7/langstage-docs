@@ -4,8 +4,8 @@
     python demos/scripts/versions.py check   # exit 0 and print changed=true|false comparing
                                              # the latest PyPI releases to versions.json
 
-The demos workflow runs `check` on its weekly schedule and only re-records when a
-release moved, so the refresh PR carries a real change instead of re-encoded noise.
+The demos workflow runs `check` after the nightly drift detector and only re-records
+when a release moved, so the refresh PR carries a real change instead of re-encoded noise.
 """
 from __future__ import annotations
 
