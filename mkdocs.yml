@@ -37,6 +37,13 @@ theme:
         icon: material/weather-sunny
         name: Switch to light mode
 
+# Fail `mkdocs build --strict` on broken links and on links to missing #anchors.
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+  anchors: warn
+
 markdown_extensions:
   - admonition
   - attr_list
@@ -62,13 +69,19 @@ nav:
       - Quickstart: getting-started/quickstart.md
       - Configuration: getting-started/configuration.md
   - Guides:
+      - Human-in-the-loop: guides/human-in-the-loop.md
       - Multi-agent supervisor: guides/multi-agent-supervisor.md
-  - LangStage vs LangSmith: comparison.md
   - The stages:
       - Web — langstage: stages/web.md
       - Terminal — langstage-cli: stages/cli.md
       - JupyterLab — langstage-jupyter: stages/jupyter.md
       - VS Code — langstage-vscode: stages/vscode.md
       - Reference agent — langstage-hermes: stages/hermes.md
-  - Shared core: core.md
+  - Reference:
+      - Shared core: core.md
+      - AG-UI frames: reference/frames.md
+      - Serve over AG-UI: reference/agui-server.md
+      - Exit codes: reference/exit-codes.md
+      - Windows & console output: reference/windows.md
+  - LangStage vs LangSmith: comparison.md
   - What changed / migrating: migrating.md

@@ -19,15 +19,21 @@ agent.
 
 This is ordinary LangGraph code — nothing LangStage-specific. Here we use
 [`langgraph-supervisor`](https://github.com/langchain-ai/langgraph-supervisor-py),
-the prebuilt supervisor, with two worker agents:
+the prebuilt supervisor, with two worker agents built by LangChain 1.x's
+`create_agent` (LangGraph's older `create_react_agent` is deprecated since LangGraph
+1.0):
 
 ```bash
-pip install langstage langgraph-supervisor langchain
+pip install langstage langgraph-supervisor langchain langchain-anthropic
 ```
 
+!!! warning "Running it needs an API key"
+    The graph builds and loads without a key (so `langstage check` works), but
+    every turn calls Anthropic. Set `ANTHROPIC_API_KEY` before you chat.
+
 ```python title="my_supervisor.py"
+from langchain.agents import create_agent
 from langchain.chat_models import init_chat_model
-from langgraph.prebuilt import create_react_agent
 from langgraph_supervisor import create_supervisor
 
 model = init_chat_model("anthropic:claude-sonnet-4-6")
@@ -40,13 +46,13 @@ def web_search(query: str) -> str:
     """Look something up (stub)."""
     return f"results for {query!r}"
 
-math_agent = create_react_agent(
+math_agent = create_agent(
     model, tools=[add], name="math_expert",
-    prompt="You are a math expert. Use the tools to compute answers.",
+    system_prompt="You are a math expert. Use the tools to compute answers.",
 )
-research_agent = create_react_agent(
+research_agent = create_agent(
     model, tools=[web_search], name="researcher",
-    prompt="You are a researcher. Look things up with the tools.",
+    system_prompt="You are a researcher. Look things up with the tools.",
 )
 
 # create_supervisor returns a StateGraph; .compile() yields the CompiledStateGraph
@@ -97,23 +103,32 @@ is `my_supervisor.py:supervisor`. Point any stage at it the usual way:
     CoworkApp(agent=supervisor, workspace="./workspace", title="My Crew").run()
     ```
 
+Check that it loads before you chat (keyless; add `--live` to run a real turn):
+
+```bash
+langstage check --agent my_supervisor.py:supervisor
+```
+
 That `my_supervisor.py:supervisor` spec is understood identically by every stage —
 just like a single-agent `my_agent.py:graph` spec. No flags change, no multi-agent
 mode is toggled.
 
 ## 3. What you see
 
-Because LangStage streams over `astream_events`, which is agnostic to your graph's
-internal structure, a supervisor run looks like a single agent's — with the
-hand-offs made visible:
+Every stage streams your graph through the core's AG-UI bridge, which doesn't care
+about the graph's internal structure. So a supervisor run looks like a single
+agent's, with the hand-offs made visible:
 
-- **Streaming chat** shows the supervisor's routing and each worker's tokens.
+- **Streaming chat** shows the supervisor's routing and each worker's replies, each
+  labeled with the node that produced it (turn on `-v` in the terminal to see the
+  labels).
 - **Tool-call visualization** renders each sub-agent's tool calls inline (args,
   results, duration, status) — including the supervisor's hand-off "tools".
 - **The task board, human-in-the-loop review, and the durable checkpointer apply
   unchanged.** A multi-step supervisor run delegated to the background is tracked
   on the board; if any node calls `interrupt()`, you get the same approval gate;
-  and the auto-attached SQLite checkpointer persists the whole graph's state so a
+  and on the web stage the auto-attached SQLite checkpointer
+  (`<workspace>/.langstage/checkpoints.db`) persists the whole graph's state, so a
   run survives a restart.
 
 ## Notes & limits
@@ -133,4 +148,5 @@ hand-offs made visible:
 
 - [Web stage](../stages/web.md) · [Terminal stage](../stages/cli.md) — the surfaces this runs on
 - [Configuration](../getting-started/configuration.md) — spec string, `langstage.toml`, `LANGSTAGE_*`
+- [Human-in-the-loop](human-in-the-loop.md) — approvals inside any node of the graph
 - [`langgraph-supervisor`](https://github.com/langchain-ai/langgraph-supervisor-py) — the prebuilt used above

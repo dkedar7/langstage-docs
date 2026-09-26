@@ -1,2 +1,5 @@
 # Docs toolchain — the same stack FastAPI's documentation runs on.
-mkdocs-material>=9.5
+# Pinned to the versions the site is built and checked with (`mkdocs build --strict`).
+# `~=` allows patch releases only; MkDocs 2.0 is not backward-compatible with Material 9.
+mkdocs~=1.6.1
+mkdocs-material~=9.7.7
