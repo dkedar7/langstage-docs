@@ -32,8 +32,8 @@ LangSmith's tracing/eval platform is a *different* job (see [below](#what-langst
 | **How you build the agent** | Code-first — any LangGraph `CompiledGraph` (bring your own) | No-code — templates + "describe your goal", managed tools |
 | **Where keys & data live** | On your infrastructure | On LangChain's cloud |
 | **Human-in-the-loop** | Yes — interrupt/approve gate, review board | Yes — built-in approvals |
-| **Surfaces** | Web, terminal, JupyterLab, VS Code — one spec, every stage | Hosted web workspace |
-| **Auth / deploy story** | Basic Auth, `--host`/`--port`, `/api/health` probe, put your own proxy in front | Managed |
+| **Surfaces** | Web, terminal, JupyterLab, VS Code, and an AG-UI endpoint for your own frontend — one spec, every stage | Hosted web workspace |
+| **Auth / deploy story** | Basic Auth, `--host`/`--port`, `/api/health` liveness and `?ready=1` readiness probes, CORS allowlist; put your own proxy in front | Managed |
 | **Best for** | Owning the whole stack around a graph you control | Getting an agent live fast with zero infra, no code |
 
 Both keep a human in control; the split is **self-hosted + code-first + MIT**
