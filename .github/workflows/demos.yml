@@ -78,6 +78,7 @@ jobs:
             if [ "$size" -gt 3145728 ]; then echo "::warning file=$f::GIF is over 3 MiB"; fi
           done
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: demos
           path: docs/assets/demos/
