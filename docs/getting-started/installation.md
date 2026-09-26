@@ -35,11 +35,14 @@ automatically.
 
     ```bash
     pip install langstage-vscode          # the Python sidecar
-    code --install-extension langstage-vscode-<version>.vsix
+    code --install-extension langstage-vscode-0.6.0.vsix
     ```
 
-    The extension isn't on the Marketplace yet. CI builds the `.vsix`; see
-    [VS Code](../stages/vscode.md#install) for where to download it.
+    The extension isn't on the Marketplace yet: download the `.vsix` from the
+    [latest extension release](https://github.com/dkedar7/langstage-vscode/releases/latest)
+    (or use **Extensions: Install from VSIX…**). Its LangStage panel works in VS Code
+    without Copilot, Cursor, VSCodium, Windsurf and code-server; see
+    [VS Code](../stages/vscode.md#install).
 
 === "Reference agent"
 

@@ -31,9 +31,15 @@ become stages your agent can perform on.
       ![Animated demo: the JupyterLab sidebar runs a tool call and pauses for approval next to a notebook](assets/demos/jupyter.gif){ width="760" loading="lazy" }
     </figure>
 
-One agent spec, three of the stages. Every demo runs the keyless demo agent
+=== "VS Code"
+
+    <figure markdown="span">
+      ![Animated demo: the LangStage panel in VS Code streams a tool call and reasoning, then resumes after Approve](assets/demos/vscode.gif){ width="440" loading="lazy" }
+    </figure>
+
+One agent spec, four of the stages. Every demo runs the keyless demo agent
 (`langstage_core.demo.tools:graph`) against the latest releases, and CI re-records
-them when a release lands. VS Code is recorded by hand and is still pending.
+them when a release lands.
 
 !!! tip "Multi-agent? It already works."
     A supervisor, swarm, or crew compiles to the same `CompiledStateGraph`
@@ -69,7 +75,7 @@ That same `my_agent.py:graph` spec runs unchanged on every other stage below.
 | :material-web: Web app | [`langstage`](stages/web.md) | `langstage run --agent my_agent.py:graph` |
 | :material-console: Terminal | [`langstage-cli`](stages/cli.md) | `langstage-cli -a my_agent.py:graph` |
 | :material-notebook: JupyterLab | [`langstage-jupyter`](stages/jupyter.md) | `langstage-jupyter -a my_agent.py:graph`, then the chat sidebar |
-| :material-microsoft-visual-studio-code: VS Code | [`langstage-vscode`](stages/vscode.md) | `@langstage` in the chat panel (sidecar from PyPI + the CI-built `.vsix`) |
+| :material-microsoft-visual-studio-code: VS Code | [`langstage-vscode`](stages/vscode.md) | the LangStage panel (VS Code, Cursor, VSCodium, Windsurf, code-server), or `@langstage` in Copilot chat (sidecar from PyPI + the `.vsix` from the GitHub release) |
 | :material-robot: Reference agent | [`langstage-hermes`](stages/hermes.md) | `langstage-hermes demo`, or `-a langstage_hermes.agent:graph` on any stage |
 | :material-cog: Shared core | [`langstage-core`](core.md) | spec loading, layered config, the AG-UI bridge and the task engine behind every stage; `langstage-agui` serves any agent over AG-UI |
 

@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Detect when the six LangStage packages have moved past what the docs cover.
 
-versions.json records the package versions the docs were last verified against.
+versions.json records the package versions the docs were last verified against,
+plus (under "releases") GitHub release tags for what doesn't ship on PyPI: the VS
+Code extension's `extension-v*` .vsix releases.
 
     python scripts/drift.py check [--out drift.json] [--constraints c.txt]
         Query PyPI. Print what moved; write drift.json and a pip constraints
@@ -37,7 +39,11 @@ TITLE_PREFIX = "Docs sync needed"
 
 
 def http_get(url: str) -> bytes | None:
-    req = urllib.request.Request(url, headers={"User-Agent": "langstage-docs-drift"})
+    headers = {"User-Agent": "langstage-docs-drift"}
+    token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    if token and url.startswith("https://api.github.com/"):
+        headers["Authorization"] = f"Bearer {token}"  # no anonymous rate limit on shared runners
+    req = urllib.request.Request(url, headers=headers)
     try:
         with urllib.request.urlopen(req, timeout=30) as r:
             return r.read()
@@ -59,6 +65,21 @@ def pypi(pkg: str) -> dict:
     if raw is None:
         raise SystemExit(f"error: could not reach PyPI for {pkg}")
     return json.loads(raw)
+
+
+def gh_releases(repo: str, prefix: str) -> list[dict]:
+    """Published (non-draft, non-prerelease) releases of `repo` whose tag starts with `prefix`."""
+    raw = http_get(f"https://api.github.com/repos/{repo}/releases?per_page=100")
+    if raw is None:
+        raise SystemExit(f"error: could not reach GitHub releases for {repo}")
+    out = []
+    for r in json.loads(raw):
+        tag = r.get("tag_name", "")
+        if tag.startswith(prefix) and not r.get("draft") and not r.get("prerelease"):
+            v = tag[len(prefix):]
+            if is_final(v):
+                out.append({"version": v, "url": r.get("html_url", "")})
+    return sorted(out, key=lambda r: vkey(r["version"]))
 
 
 def load_versions() -> dict:
@@ -104,6 +125,19 @@ def cmd_check(args) -> int:
             print(f"{pkg}: {old} -> {latest}  ({len(between)} release(s))")
         else:
             print(f"{pkg}: {old} (current)")
+    for name, rel in load_versions().get("releases", {}).items():
+        old = rel["version"]
+        found = gh_releases(rel["repo"], rel["tag_prefix"])
+        latest = found[-1]["version"] if found else old
+        if vkey(latest) > vkey(old):
+            between = [r for r in found if vkey(r["version"]) > vkey(old)]
+            drift.append({"package": name, "old": old, "new": latest,
+                          "url": f"https://github.com/{rel['repo']}/releases",
+                          "releases": [r["version"] for r in between],
+                          "changelog": [f"[{r['version']}]({r['url']})" for r in reversed(between)]})
+            print(f"{name}: {old} -> {latest}  ({len(between)} release(s), GitHub)")
+        else:
+            print(f"{name}: {old} (current, GitHub)")
     result = {"drift": drift, "latest": latest_all}
     if args.out:
         Path(args.out).write_text(json.dumps(result, indent=2), encoding="utf-8")
@@ -125,13 +159,14 @@ def issue_title(drift: list[dict]) -> str:
 def issue_body(drift: list[dict], snippets: dict | None, run_url: str | None, repo: str) -> str:
     lines = [
         "The docs were last verified against the versions in "
-        f"[`versions.json`](https://github.com/{repo}/blob/main/versions.json). PyPI has moved on:",
+        f"[`versions.json`](https://github.com/{repo}/blob/main/versions.json). New releases are out:",
         "",
         "| Package | Docs verified | Latest | Changelog |",
         "|---|---|---|---|",
     ]
     for d in drift:
-        lines.append(f"| [`{d['package']}`](https://pypi.org/project/{d['package']}/) | {d['old']} | "
+        url = d.get("url") or f"https://pypi.org/project/{d['package']}/"
+        lines.append(f"| [`{d['package']}`]({url}) | {d['old']} | "
                      f"**{d['new']}** | {', '.join(d['changelog'])} |")
     lines += ["", "### Snippets against the new releases", ""]
     if snippets is None:
@@ -223,15 +258,22 @@ def cmd_issue(args) -> int:
 def cmd_bump(args) -> int:
     data = load_versions()
     pkgs = data["packages"]
+    rels = data.get("releases", {})
     explicit = dict(a.split("=", 1) for a in args.pins)
     for name in explicit:
-        if name not in pkgs:
-            raise SystemExit(f"error: unknown package {name!r}; known: {', '.join(pkgs)}")
+        if name not in pkgs and name not in rels:
+            raise SystemExit(f"error: unknown package {name!r}; known: {', '.join([*pkgs, *rels])}")
     for pkg in pkgs:
         new = explicit.get(pkg) or (None if explicit else pypi(pkg)["info"]["version"])
         if new and new != pkgs[pkg]:
             print(f"{pkg}: {pkgs[pkg]} -> {new}")
             pkgs[pkg] = new
+    for name, rel in rels.items():
+        found = None if explicit else gh_releases(rel["repo"], rel["tag_prefix"])
+        new = explicit.get(name) or (found[-1]["version"] if found else None)
+        if new and new != rel["version"]:
+            print(f"{name}: {rel['version']} -> {new}")
+            rel["version"] = new
     save_versions(data)
     print(f"wrote {VERSIONS.relative_to(ROOT)}")
     return 0
