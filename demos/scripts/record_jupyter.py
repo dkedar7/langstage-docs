@@ -16,7 +16,7 @@ from playwright.sync_api import sync_playwright
 
 from _common import REPO, VIEWPORT, encode, free_port, start, stop, wait_http, which
 
-AGENT = str(REPO / "demos" / "agents" / "showcase.py") + ":graph"
+AGENT = "langstage_core.demo.tools:graph"
 TYPE_DELAY_MS = 45
 
 NOTEBOOK = {
