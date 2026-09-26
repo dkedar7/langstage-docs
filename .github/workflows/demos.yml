@@ -4,10 +4,13 @@ name: Demos
 # keyless, on ubuntu-latest:
 #   - terminal demos with VHS (demos/tapes/*.tape)
 #   - the web app and JupyterLab with Playwright video (demos/scripts/record_*.py)
-# See demos/README.md. The VS Code demo is recorded by hand (demos/vscode/README.md).
+#   - the VS Code panel with langstage-vscode's own recorder (`npm run record`), from
+#     its latest `extension-v*` release tag, against the sidecar from PyPI
+# See demos/README.md.
 #
 # Triggers:
-#   - workflow_dispatch: re-record now and open a refresh PR.
+#   - workflow_dispatch: re-record now; on main, open a refresh PR (on another branch,
+#     only upload the artifact). `targets` records a subset, e.g. "vscode".
 #   - repository_dispatch (type langstage-release): a package release asks for a refresh.
 #   - workflow_run after the nightly drift detector (drift.yml): re-record only if a
 #     LangStage release moved since the versions in docs/assets/demos/versions.json.
@@ -17,6 +20,11 @@ name: Demos
 
 on:
   workflow_dispatch:
+    inputs:
+      targets:
+        description: "Demos to record (space-separated; empty = all): cli agui hermes web jupyter vscode"
+        required: false
+        default: ""
   repository_dispatch:
     types: [langstage-release]
   workflow_run:
@@ -66,11 +74,17 @@ jobs:
         run: python -m playwright install --with-deps chromium
       - name: Install VHS (with ttyd and ffmpeg)
         uses: charmbracelet/vhs-action@v2
+      # The vscode demo builds and records the extension's webview with Node.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
       - name: Record the demos
         env:
           ANTHROPIC_API_KEY: ""
           OPENAI_API_KEY: ""
-        run: bash demos/build.sh
+          TARGETS: ${{ inputs.targets }}
+        # TARGETS is unquoted on purpose: "web vscode" is two targets, empty is all.
+        run: bash demos/build.sh $TARGETS
       - name: Check sizes
         run: |
           for f in docs/assets/demos/*.gif; do
@@ -87,7 +101,7 @@ jobs:
 
   refresh-pr:
     needs: record
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: write

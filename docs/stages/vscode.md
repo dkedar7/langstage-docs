@@ -1,23 +1,31 @@
 # VS Code — `langstage-vscode`
 
-The VS Code stage: chat with your LangGraph agent inside VS Code, in the same chat
-panel as Copilot, through the `@langstage` chat participant.
+The VS Code stage: chat with your LangGraph agent inside your editor. The extension
+gives you two ways in:
+
+- **The LangStage panel** (preview, extension 0.6.0+): the extension's own chat view in
+  the activity bar. It needs no Copilot and no chat API, so it works in VS Code without
+  a Copilot sign-in, and in **Cursor, VSCodium, Windsurf and code-server**.
+- **The `@langstage` chat participant**, for Copilot users: the same agent in VS
+  Code's Copilot chat view.
 
 [:material-github: dkedar7/langstage-vscode](https://github.com/dkedar7/langstage-vscode){ .md-button }
+[:material-download: Extension release](https://github.com/dkedar7/langstage-vscode/releases/latest){ .md-button }
 [:material-package: PyPI](https://pypi.org/project/langstage-vscode/){ .md-button }
 
 <figure markdown="span">
-  ![langstage-vscode](../assets/screenshots/vscode-header.svg){ width="720" }
+  ![Animated demo: the LangStage panel streams a tool call and reasoning, then pauses on an approval card and resumes after Approve](../assets/demos/vscode.gif){ width="440" loading="lazy" }
+  <figcaption>The LangStage panel running the keyless demo agent: a tool call, reasoning, and an approval answered with <strong>Approve</strong>. Recorded in CI from the extension's own Playwright harness (the real panel UI, styled like VS Code).</figcaption>
 </figure>
 
-It has two parts: a TypeScript **extension** that registers `@langstage` and
-renders the agent's output in the chat view, and a Python **stdio sidecar**
-(`langstage-vscode`) that loads your agent and streams its turns through the
-shared [`langstage-core`](../core.md) AG-UI bridge.
+It has two parts: a TypeScript **extension** (the panel and `@langstage`) and a
+Python **stdio sidecar** (`langstage-vscode`) that loads your agent and streams its
+turns through the shared [`langstage-core`](../core.md) AG-UI bridge.
 
 ## Install
 
-1. **The sidecar**, into the Python environment that can import your agent:
+1. **The sidecar**, into the Python environment that can import your agent. The
+   extension needs it in every editor:
 
     <!-- snippet: run -->
 
@@ -25,16 +33,17 @@ shared [`langstage-core`](../core.md) AG-UI bridge.
     pip install langstage-vscode
     ```
 
-2. **The extension.** It isn't on the Marketplace yet. Every CI run builds an
-   installable `.vsix`: open the latest
-   [CI run on `main`](https://github.com/dkedar7/langstage-vscode/actions/workflows/ci.yml?query=branch%3Amain),
-   download the **`langstage-vscode-vsix`** artifact, unzip it, and install it (VS
-   Code 1.95 or newer):
+2. **The extension.** It isn't on the VS Code Marketplace or Open VSX yet; each
+   release is a `.vsix` on GitHub. Download `langstage-vscode-<version>.vsix` from the
+   [latest extension release](https://github.com/dkedar7/langstage-vscode/releases/latest),
+   then either run **Extensions: Install from VSIX…** from the Command Palette and pick
+   the file, or install it from a terminal (VS Code 1.95 or newer; use `cursor`,
+   `codium` or `windsurf` in place of `code` for those editors):
 
     <!-- snippet: check -->
 
     ```bash
-    code --install-extension langstage-vscode-<version>.vsix
+    code --install-extension langstage-vscode-0.6.0.vsix
     ```
 
     Or build it yourself from a clone of the repo:
@@ -48,24 +57,57 @@ shared [`langstage-core`](../core.md) AG-UI bridge.
     npm run package        # writes langstage-vscode-<version>.vsix
     ```
 
-3. **Point it at your agent** (next section), open the chat panel, and start a
-   message with `@langstage`:
+3. **Point it at your agent** (see [Configuration](#configuration)). If
+   `langstage-vscode` isn't in the editor's default `python`, set
+   `langstage.pythonPath` to the interpreter that has it.
 
-    <!-- snippet: skip -->
+## The LangStage panel
 
-    ```text
-    @langstage summarize the failing tests in this repo and propose a fix
-    ```
+Open the **LangStage** view in the activity bar (or run **LangStage: Open the
+LangStage panel** from the Command Palette) and type a message. No agent configured
+yet? The status line offers **Try the demo**, the keyless `--demo=tools` agent.
+
+- **Streaming replies** in markdown, **tool-call cards** (name, arguments, result,
+  status and duration), **reasoning** in a collapsed block, and a live **Tasks**
+  checklist for a `write_todos` plan.
+- **Approvals.** A human-in-the-loop interrupt renders as an inline card with each
+  requested action and its arguments, and a button for each verb the interrupt
+  allows: **Approve**, **Reject** (with an optional reason), **Respond** (with
+  text), and **Edit** (a JSON editor prefilled with the action's arguments). While a
+  conversation waits on a decision, the message box won't send.
+- **Conversations.** The panel's header lists your conversations: new, switch,
+  rename, delete. Each has its own session id, so agent memory is never shared
+  between them. One turn runs at a time; a message sent while another conversation
+  streams is queued. **Stop** cancels only its own conversation's turn and keeps
+  its memory.
+- **Saved per workspace.** Conversations and transcripts are stored per workspace on
+  this machine and restored after a window reload. The agent's in-memory history
+  doesn't survive a sidecar restart, so a restored transcript is marked *"The agent
+  may not remember the conversation above"*; see
+  [Conversations and memory](#conversations-and-memory).
+- **Errors** show inline, with the traceback collapsible; a startup failure is shown
+  verbatim on the status line. **Restart the agent** is in the view's title bar.
+
+The panel is a preview: the design is in the extension's
+[ADR 0001](https://github.com/dkedar7/langstage-vscode/blob/main/docs/adr/0001-standalone-panel.md)
+and the changes in its
+[CHANGELOG](https://github.com/dkedar7/langstage-vscode/blob/main/CHANGELOG.md).
+
+## The `@langstage` participant (Copilot)
+
+With Copilot's chat view available (VS Code 1.95 or newer, signed in), start a
+message with `@langstage` to talk to the same agent there:
+
+<!-- snippet: skip -->
+
+```text
+@langstage summarize the failing tests in this repo and propose a fix
+```
 
 The response streams the agent's text, tool calls and reasoning. A `write_todos`
-call (the deepagents planning tool) renders as a **Tasks** checklist.
-
-## Demo
-
-<figure markdown="span">
-  ![Placeholder illustration, not a recording: the VS Code demo has not been recorded yet](../assets/demos/vscode.svg){ width="760" loading="lazy" }
-  <figcaption><strong>Placeholder.</strong> VS Code can't be driven in CI, so this demo is recorded by hand and hasn't been yet. The checklist is <code>demos/vscode/README.md</code> in the <a href="https://github.com/dkedar7/langstage-docs">langstage-docs repository</a>.</figcaption>
-</figure>
+call (the deepagents planning tool) renders as a **Tasks** checklist. Interrupts
+are answered with buttons or slash commands; see
+[Answering an interrupt in `@langstage`](#answering-an-interrupt-in-langstage).
 
 ## Configuration
 
@@ -84,8 +126,9 @@ VS Code setting at all. A `[configurable]` table is forwarded to your graph's
 langstage-vscode-sidecar --show-config        # add --json for JSON
 ```
 
-## Answering an interrupt
+## Answering an interrupt in `@langstage`
 
+(In the panel, use the approval card described [above](#the-langstage-panel).)
 When the agent pauses on a human-in-the-loop interrupt, the response shows each
 action it wants to take (name, description, arguments) and a button for each
 decision the interrupt allows:
@@ -115,14 +158,19 @@ See [Human-in-the-loop](../guides/human-in-the-loop.md) for the verbs and aliase
 
 ## Conversations and memory
 
-Each chat conversation gets its own session id (and so its own LangGraph thread),
-minted on its first turn. The extension keeps **one sidecar process per
-conversation** alive, so your agent remembers earlier turns even without a
-checkpointer of its own: the sidecar attaches an in-memory one. Two conversations
-never share a thread.
+Every conversation, in the panel or in `@langstage`, gets its own session id (and so
+its own LangGraph thread). Two conversations never share a thread. The sidecar
+attaches an in-memory checkpointer, so your agent remembers earlier turns even
+without one of its own.
+
+- **The panel** runs one sidecar process of its own for all its conversations, one
+  turn at a time.
+- **`@langstage`** keeps one sidecar process per chat conversation.
 
 That memory lives in the process. It's lost when the sidecar restarts (a config
-change, a new chat, a reload). For memory that survives restarts, compile your
+change, **Restart the agent**, a window reload). The panel still restores its
+transcripts after a reload, and marks them so you know the agent may have
+forgotten. For memory that survives restarts, compile your
 graph with a persistent checkpointer (`SqliteSaver`, `PostgresSaver`, …).
 
 ## Drive the sidecar from a terminal

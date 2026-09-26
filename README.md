@@ -37,7 +37,7 @@ The docs describe six packages that release often (`langstage-core`,
 | Workflow | When | What it does |
 |---|---|---|
 | `checks.yml` | every PR, every push to `main` | `snippets.py lint`; `mkdocs build --strict`; [lychee](https://lychee.cli.rs/) over the built site (internal links, anchors, **external** links, with retries; config in `lychee.toml`); every doc snippet run against the **latest PyPI releases** in a fresh venv |
-| `drift.yml` | nightly 09:17 UTC, or on demand (*Actions → Run workflow*) | compares [`versions.json`](versions.json) with PyPI, runs the snippets against the latest releases, and opens or updates **one** `Docs sync needed: <pkg> <old>→<new>` issue (label `docs-sync`) with changelog links and any snippet failures. It closes that issue once `versions.json` matches PyPI again. The run goes red if a snippet breaks. |
+| `drift.yml` | nightly 09:17 UTC, or on demand (*Actions → Run workflow*) | compares [`versions.json`](versions.json) with PyPI (and with the VS Code extension's `extension-v*` GitHub releases, since the `.vsix` isn't on PyPI), runs the snippets against the latest releases, and opens or updates **one** `Docs sync needed: <pkg> <old>→<new>` issue (label `docs-sync`) with changelog links and any snippet failures. It closes that issue once `versions.json` matches PyPI again. The run goes red if a snippet breaks. |
 | `docs.yml` | push to `main` | strict build, then deploy to GitHub Pages |
 
 All three use only the repo's own `GITHUB_TOKEN`.
