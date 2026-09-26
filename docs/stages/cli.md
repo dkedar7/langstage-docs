@@ -33,7 +33,19 @@ langstage-cli -f ./prompt.md                                   # read the messag
 
 ## Demo
 
-<!-- TODO(demo): embed the animated terminal demo here (streaming reply, a tool call, the approval menu, `-c` resuming a session). -->
+=== "Interactive: langstage-cli"
+
+    <figure markdown="span">
+      ![Animated demo: langstage-cli streams a tool call and a reasoning reply, then shows the approval menu and resumes](../assets/demos/cli.gif){ width="760" loading="lazy" }
+      <figcaption><code>langstage-cli -a langstage_core.demo.tools:graph</code>: a tool call, reasoning, and the approval menu. No API key.</figcaption>
+    </figure>
+
+=== "One-shot: langstage-agui"
+
+    <figure markdown="span">
+      ![Animated demo: langstage-agui --verify, a one-shot -m turn, its --json result, and a paused turn exiting 2](../assets/demos/agui.gif){ width="760" loading="lazy" }
+      <figcaption>The core's <code>langstage-agui --demo=tools</code>: <code>--verify</code>, <code>-m</code>, <code>--json</code>, and exit code 2 on a human-in-the-loop pause.</figcaption>
+    </figure>
 
 ## Options
 

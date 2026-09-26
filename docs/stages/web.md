@@ -43,7 +43,10 @@ land where the file browser shows them.
 
 ## Demo
 
-<!-- TODO(demo): embed the animated web-stage demo here (chat streaming, a tool call, the task board). -->
+<figure markdown="span">
+  ![Animated demo: a streamed reply with a demo_lookup tool call, a reasoning turn, the Files tab, then a task delegated from the Board tab running to Done](../assets/demos/web.gif){ width="760" loading="lazy" }
+  <figcaption>The keyless tool demo agent (<code>langstage run -a langstage_core.demo.tools:graph</code>): a tool call, a reasoning turn, the file browser, and a background task on the Board.</figcaption>
+</figure>
 
 ## What it looks like
 

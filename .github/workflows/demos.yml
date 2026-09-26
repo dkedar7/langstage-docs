@@ -1,0 +1,112 @@
+name: Demos
+
+# Records the animated demos in docs/assets/demos/ from the LATEST PyPI releases,
+# keyless, on ubuntu-latest:
+#   - terminal demos with VHS (demos/tapes/*.tape)
+#   - the web app and JupyterLab with Playwright video (demos/scripts/record_*.py)
+# See demos/README.md. The VS Code demo is recorded by hand (demos/vscode/README.md).
+#
+# Triggers:
+#   - workflow_dispatch: re-record now and open a refresh PR.
+#   - repository_dispatch (type langstage-release): a package release asks for a refresh.
+#   - schedule (weekly): re-record only if a LangStage release moved since the
+#     versions in docs/assets/demos/versions.json.
+#   - pull_request touching the demo sources: record and upload as an artifact only,
+#     so a change to a tape or recorder is checked before it merges.
+# A refresh never commits to main. It opens (or updates) a PR from `demos/refresh`.
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [langstage-release]
+  schedule:
+    - cron: "23 7 * * 1"
+  pull_request:
+    paths:
+      - "demos/**"
+      - ".github/workflows/demos.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: demos-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.versions.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - id: versions
+        run: python demos/scripts/versions.py check
+
+  record:
+    needs: check
+    if: github.event_name != 'schedule' || needs.check.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install the latest LangStage releases
+        run: |
+          python -m pip install --upgrade pip
+          pip install --upgrade -r demos/requirements.txt
+          pip list | grep -i -E '^(langstage|playwright)'
+      - name: Install Playwright Chromium
+        run: python -m playwright install --with-deps chromium
+      - name: Install VHS (with ttyd and ffmpeg)
+        uses: charmbracelet/vhs-action@v2
+      - name: Record the demos
+        env:
+          ANTHROPIC_API_KEY: ""
+          OPENAI_API_KEY: ""
+        run: bash demos/build.sh
+      - name: Check sizes
+        run: |
+          for f in docs/assets/demos/*.gif; do
+            size=$(stat -c %s "$f")
+            echo "$f: $((size / 1024)) KiB"
+            if [ "$size" -gt 3145728 ]; then echo "::warning file=$f::GIF is over 3 MiB"; fi
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: demos
+          path: docs/assets/demos/
+          retention-days: 14
+
+  refresh-pr:
+    needs: record
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: demos
+          path: docs/assets/demos/
+      # Opening the PR needs "Allow GitHub Actions to create and approve pull requests"
+      # (Settings > Actions > General), or a DEMOS_PR_TOKEN secret with repo scope.
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.DEMOS_PR_TOKEN || github.token }}
+          branch: demos/refresh
+          delete-branch: true
+          add-paths: docs/assets/demos/**
+          commit-message: "demos: re-record against the latest LangStage releases"
+          title: "demos: re-record against the latest LangStage releases"
+          body: |
+            Re-recorded by the **Demos** workflow ([run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}), trigger: `${{ github.event_name }}`).
+
+            `docs/assets/demos/versions.json` lists the exact releases these were recorded against. Review the GIFs in the Files tab before merging.

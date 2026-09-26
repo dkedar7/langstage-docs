@@ -13,7 +13,27 @@ become stages your agent can perform on.
   <figcaption>Your agent on the web stage — streaming, tool calls, a file browser, and a canvas.</figcaption>
 </figure>
 
-<!-- TODO(demo): embed the animated family overview here (one agent spec running on the web, terminal, JupyterLab and VS Code). -->
+=== "Web"
+
+    <figure markdown="span">
+      ![Animated demo: the web app streams a reply with a tool call, then runs a delegated task on the board](assets/demos/web.gif){ width="760" loading="lazy" }
+    </figure>
+
+=== "Terminal"
+
+    <figure markdown="span">
+      ![Animated demo: langstage-cli streams a tool call and reasoning, then asks for approval](assets/demos/cli.gif){ width="760" loading="lazy" }
+    </figure>
+
+=== "JupyterLab"
+
+    <figure markdown="span">
+      ![Animated demo: the JupyterLab sidebar runs a tool call and pauses for approval next to a notebook](assets/demos/jupyter.gif){ width="760" loading="lazy" }
+    </figure>
+
+One agent spec, three of the stages. Every demo runs the keyless demo agent
+(`langstage_core.demo.tools:graph`) against the latest releases, and CI re-records
+them when a release lands. VS Code is recorded by hand and is still pending.
 
 !!! tip "Multi-agent? It already works."
     A supervisor, swarm, or crew compiles to the same `CompiledStateGraph`

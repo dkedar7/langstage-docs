@@ -62,7 +62,10 @@ call (the deepagents planning tool) renders as a **Tasks** checklist.
 
 ## Demo
 
-<!-- TODO(demo): embed the animated VS Code demo here (an @langstage turn with a tool call, then an interrupt answered with the Approve button). -->
+<figure markdown="span">
+  ![Placeholder illustration, not a recording: the VS Code demo has not been recorded yet](../assets/demos/vscode.svg){ width="760" loading="lazy" }
+  <figcaption><strong>Placeholder.</strong> VS Code can't be driven in CI, so this demo is recorded by hand and hasn't been yet. The checklist is <a href="https://github.com/dkedar7/langstage-docs/blob/main/demos/vscode/README.md">demos/vscode/README.md</a>.</figcaption>
+</figure>
 
 ## Configuration
 
