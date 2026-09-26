@@ -6,15 +6,36 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write  # mkdocs gh-deploy pushes the built site to the gh-pages branch
+  contents: read
+
+concurrency:
+  group: deploy-docs
+  cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
+    name: Strict build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
+          cache: pip
       - run: pip install -r requirements.txt
-      - run: mkdocs gh-deploy --force --no-history
+      - run: python scripts/snippets.py lint
+      - run: mkdocs build --strict
+
+  deploy:
+    needs: build   # never publish a site that fails `mkdocs build --strict`
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # mkdocs gh-deploy pushes the built site to the gh-pages branch
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: mkdocs gh-deploy --strict --force --no-history

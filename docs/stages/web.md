@@ -9,6 +9,7 @@ canvas for reports. React frontend, FastAPI backend.
 
 ## Quickstart
 
+<!-- snippet: run server needs=my_agent.py -->
 ```bash
 pip install langstage
 langstage run --demo                              # keyless echo agent
@@ -21,6 +22,7 @@ agent, which needs `pip install "langstage[deepagents]"` and `ANTHROPIC_API_KEY`
 
 From Python:
 
+<!-- snippet: check -->
 ```python
 from langstage import CoworkApp
 
@@ -105,6 +107,7 @@ restart. A graph that compiles in its own checkpointer keeps it.
 
 ## Command-line tools
 
+<!-- snippet: check -->
 ```bash
 langstage check --agent my_agent.py:graph            # static preflight: loads? what lights up?
 langstage check --agent my_agent.py:graph --live     # + one real turn; exit 1 if it errors
@@ -205,6 +208,7 @@ Browsers on the same machine (`localhost`, `127.0.0.1`, `[::1]` on any port) can
 call the server by default, which covers a frontend dev server. To allow other
 origins, list them:
 
+<!-- snippet: run server needs=my_agent.py -->
 ```bash
 LANGSTAGE_CORS_ORIGINS="https://app.example.com,https://admin.example.com" langstage run --agent my_agent.py:graph
 ```
@@ -250,11 +254,13 @@ section and env var, so you never have to guess the nesting.
 **Custom CSS.** The theme is CSS custom properties, so you can restyle it with a
 small file:
 
+<!-- snippet: skip file=theme.css -->
 ```css title="theme.css"
 :root { --color-primary: #0077b6; --color-surface: #f8fbff; }
 .dark { --color-surface: #0a1628; }
 ```
 
+<!-- snippet: run server -->
 ```bash
 langstage run --demo --custom-css ./theme.css
 ```

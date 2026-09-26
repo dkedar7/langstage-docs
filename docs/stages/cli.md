@@ -10,6 +10,7 @@ agent; it isn't a bundled coding agent.
 
 ## Quickstart
 
+<!-- snippet: run server needs=prompt.md -->
 ```bash
 pip install langstage-cli
 
@@ -80,6 +81,7 @@ In the interactive loop:
 Every run saves its conversation, so a later run can continue it, the way Claude
 Code or Aider do. You don't need a checkpointer in your graph.
 
+<!-- snippet: check -->
 ```bash
 langstage-cli --demo "remember: my name is Kedar"   # a new session, saved
 langstage-cli --demo -c "what's my name?"           # continue the most recent session
@@ -106,6 +108,7 @@ color. Errors and diagnostics go to stderr, as does anything your agent `print`s
 while it is imported. The exit code tells you whether the turn worked
 (see [Exit codes](../reference/exit-codes.md)).
 
+<!-- snippet: run needs=prompt.txt -->
 ```bash
 answer=$(langstage-cli --demo "say hi") || echo "run failed" >&2
 echo "$answer"                        # (demo agent) You said: say hi
@@ -125,6 +128,7 @@ cat prompt.txt | langstage-cli --demo # all of stdin is ONE message
 
 Gate CI on an agent with `--verify`:
 
+<!-- snippet: run needs=my_agent.py -->
 ```bash
 langstage-cli --verify -a my_agent.py:graph || { echo "agent broken" >&2; exit 1; }
 ```
@@ -150,6 +154,7 @@ langstage-cli --verify -a my_agent.py:graph || { echo "agent broken" >&2; exit 1
 `langstage.toml`, then `LANGSTAGE_*` env vars, then flags. See
 [Configuration](../getting-started/configuration.md).
 
+<!-- snippet: check -->
 ```toml title="langstage.toml"
 [agent]
 spec = "my_agent.py:graph"   # relative to this file
@@ -171,6 +176,7 @@ thread_id = "my-thread"      # a pinned thread persists across runs
 
 The CLI streams through the core's chunk wire. To do the same in your own code:
 
+<!-- snippet: run -->
 ```python
 import asyncio
 from langstage_core import load_agent_spec

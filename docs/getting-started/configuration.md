@@ -3,6 +3,7 @@
 Every stage resolves its settings through one shared chain, so what you learn once
 applies everywhere. From lowest to highest precedence:
 
+<!-- snippet: skip -->
 ```text
 defaults  <  ~/.langstage/config.toml  <  langstage.toml  <  LANGSTAGE_* env vars  <  CLI flags / Python args
              (global, per user)           (project)
@@ -25,6 +26,7 @@ Both files are read and deep-merged. The project file wins key by key.
   `LANGSTAGE_CONFIG_HOME` to move the directory it lives in (the file is always
   named `config.toml`).
 
+<!-- snippet: check -->
 ```toml title="langstage.toml"
 debug = false             # top-level keys go ABOVE the first [table]
 
@@ -120,6 +122,7 @@ For any stage, `--show-config` lists every key it reads.
 Never guess which layer won. Every stage prints each value, its source, and the env
 var and TOML key that set it:
 
+<!-- snippet: run each needs=my_agent.py -->
 ```bash
 langstage config                    # web (also: langstage --show-config)
 langstage-cli --show-config
@@ -161,10 +164,12 @@ What the diagnostic tells you:
 The default is "degrade and keep running", which is right for a server but wrong
 for a deploy check. Two ways to make a problem fatal:
 
+<!-- snippet: run -->
 ```bash
 langstage config --strict           # exit 1 if anything was ignored or degraded
 ```
 
+<!-- snippet: run -->
 ```python
 from langstage_core import HostConfig
 
@@ -180,6 +185,7 @@ assert not issues, issues
 
 Pick one; both write `./langstage.toml`:
 
+<!-- snippet: check -->
 ```bash
 langstage init          # a fully commented langstage.toml: every web option, its section and env var
 langstage-cli init      # or: a runnable my_agent.py + a langstage.toml pointing at it

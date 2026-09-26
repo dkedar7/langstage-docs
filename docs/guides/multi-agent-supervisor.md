@@ -23,6 +23,7 @@ the prebuilt supervisor, with two worker agents built by LangChain 1.x's
 `create_agent` (LangGraph's older `create_react_agent` is deprecated since LangGraph
 1.0):
 
+<!-- snippet: run -->
 ```bash
 pip install langstage langgraph-supervisor langchain langchain-anthropic
 ```
@@ -31,6 +32,7 @@ pip install langstage langgraph-supervisor langchain langchain-anthropic
     The graph builds and loads without a key (so `langstage check` works), but
     every turn calls Anthropic. Set `ANTHROPIC_API_KEY` before you chat.
 
+<!-- snippet: run file=my_supervisor.py -->
 ```python title="my_supervisor.py"
 from langchain.agents import create_agent
 from langchain.chat_models import init_chat_model
@@ -78,11 +80,15 @@ is `my_supervisor.py:supervisor`. Point any stage at it the usual way:
 
 === "Web"
 
+    <!-- snippet: run server -->
+
     ```bash
     langstage run --agent my_supervisor.py:supervisor
     ```
 
 === "Terminal"
+
+    <!-- snippet: run server -->
 
     ```bash
     langstage-cli -a my_supervisor.py:supervisor
@@ -90,11 +96,15 @@ is `my_supervisor.py:supervisor`. Point any stage at it the usual way:
 
 === "Env var (any stage)"
 
+    <!-- snippet: run -->
+
     ```bash
     export LANGSTAGE_AGENT_SPEC=my_supervisor.py:supervisor
     ```
 
 === "From Python"
+
+    <!-- snippet: run server -->
 
     ```python
     from langstage import CoworkApp
@@ -105,6 +115,7 @@ is `my_supervisor.py:supervisor`. Point any stage at it the usual way:
 
 Check that it loads before you chat (keyless; add `--live` to run a real turn):
 
+<!-- snippet: run -->
 ```bash
 langstage check --agent my_supervisor.py:supervisor
 ```

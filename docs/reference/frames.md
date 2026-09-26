@@ -66,6 +66,7 @@ Its trigger phrases produce each frame type: `"use a tool"` (tool call, result,
 extraction), `"think"` (reasoning), and `"ask me"` (an interrupt). Anything else is
 echoed.
 
+<!-- snippet: run -->
 ```python
 import asyncio
 from langstage_core.agui import build_agent, iter_chunk_frames, iter_event_frames

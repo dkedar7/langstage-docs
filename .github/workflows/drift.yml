@@ -1,0 +1,62 @@
+name: Nightly snippets + PyPI drift
+
+# Every night (and on demand): install the latest releases of the six packages,
+# run the doc snippets against them, and if any package is newer than
+# versions.json, open (or update) ONE "Docs sync needed" issue in this repo.
+on:
+  schedule:
+    - cron: "17 9 * * *"   # 09:17 UTC daily
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: drift
+  cancel-in-progress: false
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Compare versions.json with PyPI
+        id: check
+        run: python scripts/drift.py check --out drift.json --constraints /tmp/latest.txt
+
+      - name: Fresh venv with the latest releases
+        run: |
+          python -m venv /tmp/snippets-venv
+          /tmp/snippets-venv/bin/pip install --upgrade pip
+          /tmp/snippets-venv/bin/pip install --no-cache-dir -r tests/snippets/requirements.txt -c /tmp/latest.txt
+          /tmp/snippets-venv/bin/pip list | grep -i '^langstage' | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Run the snippets
+        id: snippets
+        continue-on-error: true
+        run: >-
+          python scripts/snippets.py run --python /tmp/snippets-venv/bin/python
+          --report snippets-report.md --json snippets-results.json
+
+      - name: Open or update the docs-sync issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >-
+          python scripts/drift.py issue --drift drift.json --snippets snippets-results.json
+          --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Summary
+        if: always()
+        run: test -f snippets-report.md && cat snippets-report.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Fail the run if a snippet broke
+        if: steps.snippets.outcome == 'failure'
+        run: |
+          echo "::error::Doc snippets fail against the latest PyPI releases (see the summary)."
+          exit 1

@@ -6,6 +6,8 @@ automatically.
 
 === "Web"
 
+    <!-- snippet: run -->
+
     ```bash
     pip install langstage
     pip install "langstage[deepagents]"   # optional: the built-in default agent
@@ -13,17 +15,23 @@ automatically.
 
 === "Terminal"
 
+    <!-- snippet: run -->
+
     ```bash
     pip install langstage-cli
     ```
 
 === "JupyterLab"
 
+    <!-- snippet: run -->
+
     ```bash
     pip install langstage-jupyter
     ```
 
 === "VS Code"
+
+    <!-- snippet: check -->
 
     ```bash
     pip install langstage-vscode          # the Python sidecar
@@ -35,11 +43,15 @@ automatically.
 
 === "Reference agent"
 
+    <!-- snippet: run -->
+
     ```bash
     pip install langstage-hermes
     ```
 
 === "AG-UI server only"
+
+    <!-- snippet: run -->
 
     ```bash
     pip install "langstage-core[agui]"    # the langstage-agui command
@@ -62,6 +74,7 @@ automatically.
 
 ## Check it works, no key needed
 
+<!-- snippet: run server -->
 ```bash
 langstage run --demo            # web UI at http://localhost:8050
 langstage-cli --demo "hello"    # one-shot terminal reply

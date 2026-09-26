@@ -1,0 +1,25 @@
+# Link checker config for the built site (see .github/workflows/checks.yml).
+# Run locally:  mkdocs build --strict && lychee --config lychee.toml site
+
+# Check #anchors too (internal links and external pages).
+include_fragments = "anchor-only"
+
+max_retries = 3
+retry_wait_time = 5
+timeout = 30
+max_concurrency = 16
+# 429 = rate limited; the link exists.
+accept = ["200..=299", "429"]
+
+exclude = [
+  # The deployed copy of this very site: pages a PR adds aren't live yet.
+  '^https://dkedar7\.github\.io/langstage-docs',
+  # Example / local addresses used in prose and code samples.
+  '^https?://(localhost|127\.0\.0\.1|\[::1\])',
+  '^https?://([a-z0-9-]+\.)*example\.(com|org)',
+  # API base URLs shown as config values, not pages.
+  '^https://openrouter\.ai/api',
+  # Font CDNs Material preconnects to.
+  '^https://fonts\.(googleapis|gstatic)\.com',
+]
+exclude_path = ["site/404.html", "site/assets", "site/search"]

@@ -38,6 +38,7 @@ The decision is recorded in
 
 A CI job that runs an approval-gated agent needs to tell "paused" from "broken":
 
+<!-- snippet: run no-errexit -->
 ```bash
 langstage-agui --demo=tools -m "ask me"
 case $? in
@@ -82,6 +83,7 @@ In Python, `langstage_core.cli` has the same numbers as constants
 (`EXIT_OK`, `EXIT_FAIL`, `EXIT_PAUSED`, `EXIT_USAGE`), plus
 `exit_code_for_outcome()` to map a turn's `outcome` to a code:
 
+<!-- snippet: run -->
 ```python
 from langstage_core.cli import EXIT_PAUSED, exit_code_for_outcome
 

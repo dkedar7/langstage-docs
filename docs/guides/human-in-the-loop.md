@@ -36,6 +36,7 @@ LangGraph `HumanInterrupt` spellings are accepted as aliases, in any case.
 Core doesn't refuse a disallowed verb on resume, so a surface (or your code)
 should check first. The helpers are top-level in `langstage_core`:
 
+<!-- snippet: run -->
 ```python
 from langstage_core import DECISION_ALIASES, DECISION_VERBS, is_allowed_decision, normalize_decision
 
@@ -56,6 +57,7 @@ the `{"decisions": [...]}` envelope, or a `Command` from `create_resume_input(..
 This example uses the keyless tool demo, whose `"ask me"` interrupt allows
 `respond` and `approve`:
 
+<!-- snippet: run -->
 ```python
 import asyncio
 from langstage_core import create_resume_input

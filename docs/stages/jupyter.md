@@ -12,6 +12,7 @@ lab.
 Instead of `jupyter lab`, use the launcher. It picks a free port, generates an auth
 token, sets the environment the sidebar needs, and starts JupyterLab:
 
+<!-- snippet: run server needs=my_agent.py -->
 ```bash
 pip install langstage-jupyter
 
@@ -52,6 +53,7 @@ Every other option is passed through to `jupyter lab` (`--no-browser`, `--port 8
 - A malformed spec (for example `-a my_agent.py` with no `:graph`) is an error. It
   never silently falls back to the default agent.
 
+<!-- snippet: check -->
 ```bash
 langstage-jupyter --demo --ask "hello"                          # keyless one-shot
 langstage-jupyter -a my_agent.py:graph --ask "2+2?" | grep -q 4 # with a real model: stdout is only the reply
@@ -63,6 +65,7 @@ langstage-jupyter -a my_agent.py:graph --serve-check            # the HTTP endpo
 Each launch is its own process with its own port and token, and its notebook tools
 talk only to its own Jupyter server:
 
+<!-- snippet: check -->
 ```bash
 langstage-jupyter -a agent_a.py:graph    # -> localhost:8888
 langstage-jupyter -a agent_b.py:graph    # -> localhost:8889
@@ -121,6 +124,7 @@ can still read and write files, but not create, edit or run cells.
     This recipe uses `deepagents` and Anthropic:
     `pip install deepagents langchain-anthropic` and set `ANTHROPIC_API_KEY`.
 
+<!-- snippet: check -->
 ```python title="my_agent.py"
 import os
 
@@ -141,6 +145,7 @@ agent = create_deep_agent(
 )
 ```
 
+<!-- snippet: check -->
 ```bash
 langstage-jupyter -a my_agent.py:agent
 ```

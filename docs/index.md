@@ -26,6 +26,7 @@ become stages your agent can perform on.
 No agent or API key yet? See a stage working with the built-in keyless demo
 agent:
 
+<!-- snippet: run server -->
 ```bash
 pip install langstage
 langstage run --demo
@@ -34,6 +35,7 @@ langstage run --demo
 Then point it at *your* agent — a Python file (or module) that exports a
 LangGraph `CompiledGraph`:
 
+<!-- snippet: run server needs=my_agent.py -->
 ```bash
 langstage run --agent my_agent.py:graph
 ```
