@@ -358,7 +358,7 @@ def check_entrypoint_flags(seg: list[str], bindir: Path, env: dict) -> list[str]
 
 class Runner:
     def __init__(self, python: Path, keep: bool = False):
-        self.python = python.resolve() if python.exists() else python
+        self.python = python.absolute()   # not resolve(): a venv python is a symlink
         self.bindir = self.python.parent
         self.keep = keep
         self.bash = shutil.which("bash") or "bash"
