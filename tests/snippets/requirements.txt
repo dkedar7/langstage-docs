@@ -1,0 +1,13 @@
+# What the snippet tests install: every package (and extra) the docs tell a
+# reader to install, at the latest PyPI release. The drift job adds a
+# constraints file pinning the exact new versions it's testing.
+langstage-core[agui,stub,real]
+langstage[deepagents]
+langstage-cli
+langstage-hermes[openai]
+langstage-jupyter
+langstage-vscode
+# docs/guides/multi-agent-supervisor.md
+langgraph-supervisor
+langchain
+langchain-anthropic

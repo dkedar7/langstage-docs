@@ -10,6 +10,8 @@ module. Nothing LangStage-specific is required.
     A plain LangGraph graph. It needs only `langgraph`, which every surface already
     installs, so it runs as-is:
 
+    <!-- snippet: run file=my_agent.py -->
+
     ```python title="my_agent.py"
     from langchain_core.messages import AIMessage
     from langgraph.graph import END, START, MessagesState, StateGraph
@@ -35,6 +37,8 @@ module. Nothing LangStage-specific is required.
         The surfaces don't install `deepagents` for you (except the web app's
         `langstage[deepagents]` extra).
 
+    <!-- snippet: check -->
+
     ```python title="my_agent.py"
     from deepagents import create_deep_agent
 
@@ -50,6 +54,7 @@ module. Nothing LangStage-specific is required.
 The **agent spec** is `path/to/file.py:attr` or `module:attr`. Every stage
 understands the same form:
 
+<!-- snippet: run server -->
 ```bash
 langstage run --agent my_agent.py:graph          # web
 langstage-cli --agent my_agent.py:graph          # terminal  (-a for short)
@@ -61,10 +66,12 @@ Prefer not to pass it each time? Set it once in the environment or in
 `langstage.toml` (see [Configuration](configuration.md)), and every stage picks it
 up:
 
+<!-- snippet: run -->
 ```bash
 export LANGSTAGE_AGENT_SPEC="my_agent.py:graph"
 ```
 
+<!-- snippet: check file=langstage.toml -->
 ```toml title="langstage.toml"
 [agent]
 spec = "my_agent.py:graph"   # relative to this file, so it works from any subdirectory
@@ -74,6 +81,7 @@ spec = "my_agent.py:graph"   # relative to this file, so it works from any subdi
 
 Three questions, in order:
 
+<!-- snippet: run each -->
 ```bash
 langstage-cli --show-config                        # does the config resolve my agent?
 langstage-cli --verify                             # does it load and run one turn?
@@ -87,6 +95,7 @@ The same trio exists on each surface (`--show-config`, then `langstage check --l
 The resolved-config table shows each value, where it came from, and the env var and
 TOML key that set it:
 
+<!-- snippet: skip -->
 ```text
 Resolved config  (value  [source]):
 
@@ -104,6 +113,7 @@ Resolved config  (value  [source]):
 
 Every surface has a keyless demo, good for a first look, a screenshot or a test:
 
+<!-- snippet: run server -->
 ```bash
 langstage run --demo
 langstage-cli --demo "ping"

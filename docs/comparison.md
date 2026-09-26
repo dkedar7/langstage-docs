@@ -56,6 +56,7 @@ Because LangStage runs your agent as **plain LangGraph**, first-party LangChain
 tooling keeps working underneath it. Set the standard tracing env vars and every
 turn your agent takes in LangStage shows up in LangSmith:
 
+<!-- snippet: check -->
 ```bash
 export LANGSMITH_TRACING=true
 export LANGSMITH_API_KEY=ls-...
@@ -86,6 +87,7 @@ LangSmith for tracing/eval** — you don't have to choose.
 
 Ready to try the self-hosted path? It's a keyless 30 seconds:
 
+<!-- snippet: run server -->
 ```bash
 pip install langstage
 langstage run --demo

@@ -15,6 +15,7 @@ all without a surface.
 
 ## Install
 
+<!-- snippet: run each -->
 ```bash
 pip install "langstage-core[agui]"          # what every surface uses
 pip install "langstage-core[agui,stub]"     # + the keyless echo agent, for trying things
@@ -56,6 +57,7 @@ A bare `pip install langstage-core` covers the host and config layer only
 
 ## Stream a turn
 
+<!-- snippet: run -->
 ```python
 import asyncio
 from langstage_core import load_agent_spec
@@ -87,6 +89,7 @@ terminal and JupyterLab use.
 For a test, an eval harness, a batch job or a script, you usually want the answer,
 not a stream. `run_turn` (sync) returns a typed `TurnResult`:
 
+<!-- snippet: run -->
 ```python
 from langstage_core.agui import run_turn
 from langstage_core.demo.tools import create_tool_demo_agent, demo_extractors
@@ -119,6 +122,7 @@ This one uses LangChain 1.x's `create_agent` and any OpenAI-compatible endpoint.
     Set `OPENAI_API_KEY` (and `OPENAI_BASE_URL` for OpenRouter or another
     compatible endpoint). Without a key the model call fails.
 
+<!-- snippet: check -->
 ```python
 import asyncio, os
 from langchain.agents import create_agent
@@ -150,6 +154,7 @@ should use `langchain.agents.create_agent`.
 The task engine is a single-process worker pool: enqueue a prompt, keep working,
 and read the result when it's done.
 
+<!-- snippet: run -->
 ```python
 import asyncio
 from langstage_core import SessionAdapter
@@ -187,12 +192,14 @@ Give your agent `TASK_TOOLS` and it can delegate to copies of itself.
 
 `HostConfig` is the resolver behind every `--show-config`.
 
+<!-- snippet: run -->
 ```bash
 python -m langstage_core.host        # every shared key, its value and where it came from
 ```
 
 From Python:
 
+<!-- snippet: run -->
 ```python
 from langstage_core import HostConfig
 

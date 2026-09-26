@@ -82,6 +82,8 @@ don't need to change your agent. What you get:
   [frame reference](reference/frames.md).
 - `langstage-agui`, which serves any `CompiledGraph` as an AG-UI HTTP endpoint:
 
+    <!-- snippet: run server needs=my_agent.py -->
+
     ```bash
     pip install "langstage-core[agui]"
     langstage-agui --agent my_agent.py:graph     # or --demo

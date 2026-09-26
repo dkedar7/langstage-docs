@@ -22,6 +22,7 @@ A deepagents-built agent with a **closed reflection → skill-creation loop**:
 
 ## Try it without a key
 
+<!-- snippet: run -->
 ```bash
 pip install langstage-hermes
 langstage-hermes demo
@@ -44,6 +45,7 @@ into `<HERMES_HOME>/state.db`, so `search` can find it.
     `chat` and the live part of `verify` call the model. The default is
     `anthropic:claude-sonnet-4-6` with `ANTHROPIC_API_KEY`.
 
+<!-- snippet: check -->
 ```bash
 langstage-hermes doctor                 # Python, packages, keys, HERMES_HOME; keyless
 langstage-hermes verify                 # offline checks, then one live round-trip
@@ -66,6 +68,7 @@ In `chat`: `/skills`, `/model <id>`, `/memory`, `/compress`, `/quit`.
 
 It's a `CompiledGraph`, so any surface can run it:
 
+<!-- snippet: run server -->
 ```bash
 langstage-cli -a langstage_hermes.agent:graph           # terminal
 langstage run --agent langstage_hermes.agent:graph      # web
@@ -77,6 +80,7 @@ langstage-agui --agent langstage_hermes.agent:graph     # AG-UI endpoint
 
 These read local state only: keyless, no model call. Each takes `--json`.
 
+<!-- snippet: check -->
 ```bash
 langstage-hermes search "profile slow python"                 # BM25 matches with highlighted snippets
 langstage-hermes search --session <id> --around <msg> --window 5   # a window around one message
@@ -95,6 +99,7 @@ langstage-hermes tools --implemented-only                     # the toolsets and
 
 ## Skills
 
+<!-- snippet: check -->
 ```bash
 langstage-hermes skills list                  # bundled + user skills (--json)
 langstage-hermes skills show <name>
@@ -131,6 +136,7 @@ The curator marks a skill `stale` after 30 days without use and archives it afte
 90 (`curator.stale_after_days` / `curator.archive_after_days`). "Use" means the agent actually loaded or edited the skill, not the file's
 modification time. Pinned skills and bundled skills are never touched.
 
+<!-- snippet: check -->
 ```bash
 langstage-hermes curator status
 langstage-hermes curator run            # a lifecycle pass now
@@ -140,6 +146,7 @@ langstage-hermes curator pause          # stop scheduled runs (resume to restart
 
 ## Scheduled runs (cron)
 
+<!-- snippet: check -->
 ```bash
 langstage-hermes cron create --prompt "summarize today's notes" --schedule "0 18 * * MON-FRI"
 langstage-hermes cron list
@@ -160,6 +167,7 @@ langstage-hermes cron daemon            # run forever
 Any `init_chat_model` string works, via `--model` or `model.default` in
 `langstage-hermes.toml`. For OpenAI or OpenRouter:
 
+<!-- snippet: check -->
 ```bash
 pip install "langstage-hermes[openai]"
 export OPENAI_API_KEY=sk-…            # or OPENROUTER_API_KEY=sk-or-v1-…

@@ -18,6 +18,7 @@ covers `--show-config`, `python -m langstage_core.host`, `langstage-agui -m`,
 
 To get the real characters instead of escapes, switch the console to UTF-8:
 
+<!-- snippet: skip -->
 ```bash
 set PYTHONIOENCODING=utf-8        # cmd.exe
 $env:PYTHONIOENCODING = "utf-8"   # PowerShell
@@ -31,6 +32,7 @@ works too.
 
 If you build a surface or a script on top of core, use the same helpers:
 
+<!-- snippet: run -->
 ```python
 import sys
 from langstage_core.console import safe_print, safe_write

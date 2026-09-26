@@ -1,0 +1,71 @@
+name: Checks
+
+# Strict build + link check + executed snippets on every PR and push to main.
+# The nightly snippet run lives in drift.yml (it also watches PyPI for releases).
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Strict build + link check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Every code block has a snippet marker
+        run: python scripts/snippets.py lint
+      - name: mkdocs build --strict
+        # Built under a /langstage-docs/ prefix so root-relative links resolve
+        # exactly as they do on GitHub Pages.
+        run: mkdocs build --strict --site-dir _linkcheck/langstage-docs
+      - name: Check links (internal, anchors, external)
+        uses: lycheeverse/lychee-action@v2
+        with:
+          lycheeVersion: v0.24.2
+          args: >-
+            --config lychee.toml --no-progress
+            --index-files index.html
+            --root-dir ${{ github.workspace }}/_linkcheck
+            _linkcheck
+          fail: true
+          jobSummary: true
+        env:
+          # Authenticated GitHub requests: no rate-limit false alarms on github.com links.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  snippets:
+    name: Snippets (latest PyPI)
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fresh venv with the latest releases
+        run: |
+          python -m venv /tmp/snippets-venv
+          /tmp/snippets-venv/bin/pip install --upgrade pip
+          /tmp/snippets-venv/bin/pip install --no-cache-dir -r tests/snippets/requirements.txt
+          /tmp/snippets-venv/bin/pip list | grep -i '^langstage' | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Run the snippets
+        run: >-
+          python scripts/snippets.py run --python /tmp/snippets-venv/bin/python
+          --report snippets-report.md --json snippets-results.json
+      - name: Summary
+        if: always()
+        run: test -f snippets-report.md && cat snippets-report.md >> "$GITHUB_STEP_SUMMARY" || true

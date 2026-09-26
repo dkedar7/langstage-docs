@@ -6,12 +6,14 @@ so AG-UI clients (CopilotKit, React/Vue/Angular components, your own frontend) c
 talk to it. It also runs one turn from the terminal, which makes it a handy
 preflight for any agent.
 
+<!-- snippet: run -->
 ```bash
 pip install "langstage-core[agui]"
 ```
 
 ## Three questions, three flags
 
+<!-- snippet: run each needs=my_agent.py -->
 ```bash
 langstage-agui --agent my_agent.py:graph --show-config   # does the config resolve an agent?
 langstage-agui --agent my_agent.py:graph --verify        # does it load and run a turn?
@@ -21,6 +23,7 @@ langstage-agui --agent my_agent.py:graph -m "hi there"   # what does it say?
 No agent yet? Each works keyless with `--demo` (the echo agent) or `--demo=tools`
 (the rich demo: tool calls, reasoning and an interrupt):
 
+<!-- snippet: run each exit=0,2 -->
 ```bash
 langstage-agui --demo --verify                           # ok: one turn completed cleanly
 langstage-agui --demo=tools -m "use a tool"              # prints the demo tool's answer
@@ -58,6 +61,7 @@ interrupt, `64` usage error. See [Exit codes](exit-codes.md).
 
 ## Serving
 
+<!-- snippet: run server needs=my_agent.py -->
 ```bash
 langstage-agui --agent my_agent.py:graph                 # http://localhost:8050/
 ```
@@ -74,6 +78,7 @@ langstage-agui --agent my_agent.py:graph                 # http://localhost:8050
 
 From Python:
 
+<!-- snippet: run -->
 ```python
 from langstage_core import load_agent_spec
 from langstage_core.agui import build_app
@@ -91,11 +96,13 @@ By default the server sends no CORS headers, so only same-origin pages and
 non-browser clients can call it. A frontend dev server on another port (say
 `http://localhost:5173` calling `http://localhost:8050`) needs an opt-in:
 
+<!-- snippet: run server -->
 ```bash
 langstage-agui --demo=tools --cors                          # any localhost / 127.0.0.1 / [::1] origin
 langstage-agui --demo=tools --cors http://localhost:5173    # exactly these origins (comma-separated)
 ```
 
+<!-- snippet: check -->
 ```python
 app = build_app(graph, cors_origins=["https://app.example.com"])   # or "loopback"
 ```

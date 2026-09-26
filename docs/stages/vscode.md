@@ -19,6 +19,8 @@ shared [`langstage-core`](../core.md) AG-UI bridge.
 
 1. **The sidecar**, into the Python environment that can import your agent:
 
+    <!-- snippet: run -->
+
     ```bash
     pip install langstage-vscode
     ```
@@ -29,11 +31,15 @@ shared [`langstage-core`](../core.md) AG-UI bridge.
    download the **`langstage-vscode-vsix`** artifact, unzip it, and install it (VS
    Code 1.95 or newer):
 
+    <!-- snippet: check -->
+
     ```bash
     code --install-extension langstage-vscode-<version>.vsix
     ```
 
     Or build it yourself from a clone of the repo:
+
+    <!-- snippet: skip -->
 
     ```bash
     git clone https://github.com/dkedar7/langstage-vscode
@@ -44,6 +50,8 @@ shared [`langstage-core`](../core.md) AG-UI bridge.
 
 3. **Point it at your agent** (next section), open the chat panel, and start a
    message with `@langstage`:
+
+    <!-- snippet: skip -->
 
     ```text
     @langstage summarize the failing tests in this repo and propose a fix
@@ -68,6 +76,7 @@ project with `[agent] spec = "my_agent.py:graph"` in its `langstage.toml` needs 
 VS Code setting at all. A `[configurable]` table is forwarded to your graph's
 `config["configurable"]` on every turn. Check what resolved with:
 
+<!-- snippet: run -->
 ```bash
 langstage-vscode-sidecar --show-config        # add --json for JSON
 ```
@@ -118,6 +127,7 @@ graph with a persistent checkpointer (`SqliteSaver`, `PostgresSaver`, …).
 The sidecar command is `langstage-vscode-sidecar` (also `python -m langstage_vscode`).
 It's how you check an agent before wiring up the chat:
 
+<!-- snippet: check -->
 ```bash
 langstage-vscode-sidecar --selfcheck                         # runtime healthy? (uses the demo stub if no agent)
 langstage-vscode-sidecar --selfcheck --agent ./my.py:graph   # your agent drives one turn?
@@ -151,6 +161,7 @@ need this if you're writing another client.
 
 **Commands** (client → sidecar), one object per line:
 
+<!-- snippet: check -->
 ```json
 {"type": "message",  "session_id": "s1", "content": "hello"}
 {"type": "decision", "session_id": "s1", "decisions": [{"type": "approve"}]}
