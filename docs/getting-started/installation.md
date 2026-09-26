@@ -35,13 +35,15 @@ automatically.
 
     ```bash
     pip install langstage-vscode          # the Python sidecar
-    code --install-extension langstage-vscode-0.6.0.vsix
+    code --install-extension dkedar7.langstage-vscode
     ```
 
-    The extension isn't on the Marketplace yet: download the `.vsix` from the
+    Or search **LangStage** in the Extensions view. VS Code installs it from the
+    [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=dkedar7.langstage-vscode); Cursor, VSCodium and Windsurf install it from
+    [Open VSX](https://open-vsx.org/extension/dkedar7/langstage-vscode). The `.vsix` on the
     [latest extension release](https://github.com/dkedar7/langstage-vscode/releases/latest)
-    (or use **Extensions: Install from VSIX…**). Its LangStage panel works in VS Code
-    without Copilot, Cursor, VSCodium, Windsurf and code-server; see
+    is the fallback (**Extensions: Install from VSIX…**). Its LangStage panel works in
+    VS Code without Copilot, Cursor, VSCodium, Windsurf and code-server; see
     [VS Code](../stages/vscode.md#install).
 
 === "Reference agent"

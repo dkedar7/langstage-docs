@@ -10,7 +10,8 @@ gives you two ways in:
   Code's Copilot chat view.
 
 [:material-github: dkedar7/langstage-vscode](https://github.com/dkedar7/langstage-vscode){ .md-button }
-[:material-download: Extension release](https://github.com/dkedar7/langstage-vscode/releases/latest){ .md-button }
+[:material-microsoft-visual-studio-code: VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=dkedar7.langstage-vscode){ .md-button }
+[:material-puzzle: Open VSX](https://open-vsx.org/extension/dkedar7/langstage-vscode){ .md-button }
 [:material-package: PyPI](https://pypi.org/project/langstage-vscode/){ .md-button }
 
 <figure markdown="span">
@@ -33,12 +34,29 @@ turns through the shared [`langstage-core`](../core.md) AG-UI bridge.
     pip install langstage-vscode
     ```
 
-2. **The extension.** It isn't on the VS Code Marketplace or Open VSX yet; each
-   release is a `.vsix` on GitHub. Download `langstage-vscode-<version>.vsix` from the
-   [latest extension release](https://github.com/dkedar7/langstage-vscode/releases/latest),
-   then either run **Extensions: Install from VSIX…** from the Command Palette and pick
-   the file, or install it from a terminal (VS Code 1.95 or newer; use `cursor`,
-   `codium` or `windsurf` in place of `code` for those editors):
+2. **The extension.** Open the Extensions view (**Ctrl+Shift+X**, or **Cmd+Shift+X**
+   on macOS), search **LangStage**, and click **Install** (VS Code 1.95 or newer). The
+   extension ID is `dkedar7.langstage-vscode`:
+
+    - **VS Code** installs it from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=dkedar7.langstage-vscode).
+    - **Cursor, VSCodium, Windsurf** and other Open VSX-based editors install it from
+      [Open VSX](https://open-vsx.org/extension/dkedar7/langstage-vscode).
+
+    Or install it from a terminal (use `cursor`, `codium` or `windsurf` in place of
+    `code` for those editors):
+
+    <!-- snippet: check -->
+
+    ```bash
+    code --install-extension dkedar7.langstage-vscode
+    ```
+
+    **Fallback: the VSIX.** Each release's `.vsix` is also on GitHub, for an offline
+    machine or an editor that reaches neither registry. Download
+    `langstage-vscode-<version>.vsix` from the
+    [latest extension release](https://github.com/dkedar7/langstage-vscode/releases/latest),
+    then run **Extensions: Install from VSIX…** from the Command Palette and pick the
+    file, or install it from a terminal:
 
     <!-- snippet: check -->
 
