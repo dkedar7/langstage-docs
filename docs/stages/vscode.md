@@ -64,7 +64,7 @@ call (the deepagents planning tool) renders as a **Tasks** checklist.
 
 <figure markdown="span">
   ![Placeholder illustration, not a recording: the VS Code demo has not been recorded yet](../assets/demos/vscode.svg){ width="760" loading="lazy" }
-  <figcaption><strong>Placeholder.</strong> VS Code can't be driven in CI, so this demo is recorded by hand and hasn't been yet. The checklist is <a href="https://github.com/dkedar7/langstage-docs/blob/main/demos/vscode/README.md">demos/vscode/README.md</a>.</figcaption>
+  <figcaption><strong>Placeholder.</strong> VS Code can't be driven in CI, so this demo is recorded by hand and hasn't been yet. The checklist is <code>demos/vscode/README.md</code> in the <a href="https://github.com/dkedar7/langstage-docs">langstage-docs repository</a>.</figcaption>
 </figure>
 
 ## Configuration
