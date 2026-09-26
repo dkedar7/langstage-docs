@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="t d">
+  <title id="t">VS Code demo placeholder</title>
+  <desc id="d">Placeholder: the VS Code demo has not been recorded yet. It must be recorded by hand; see demos/vscode/README.md in the langstage-docs repository.</desc>
+  <rect width="960" height="420" rx="12" fill="#1e1e1e"/>
+  <rect x="0" y="0" width="960" height="36" rx="12" fill="#323233"/>
+  <rect x="0" y="24" width="960" height="12" fill="#323233"/>
+  <circle cx="22" cy="18" r="6" fill="#ff5f57"/><circle cx="42" cy="18" r="6" fill="#febc2e"/><circle cx="62" cy="18" r="6" fill="#28c840"/>
+  <text x="480" y="23" fill="#cccccc" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle">Visual Studio Code: @langstage chat</text>
+  <rect x="560" y="36" width="400" height="384" fill="#252526"/>
+  <rect x="584" y="70" width="352" height="44" rx="6" fill="#2d2d30"/>
+  <text x="600" y="97" fill="#9cdcfe" font-family="Consolas, Menlo, monospace" font-size="14">@langstage ask me before you act</text>
+  <rect x="584" y="134" width="352" height="96" rx="6" fill="#2d2d30" stroke="#3794ff" stroke-dasharray="6 4"/>
+  <text x="600" y="160" fill="#cccccc" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">Approval required: ask_user</text>
+  <rect x="600" y="180" width="76" height="28" rx="4" fill="#0e639c"/><text x="638" y="199" fill="#fff" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle">Approve</text>
+  <rect x="684" y="180" width="64" height="28" rx="4" fill="#3a3d41"/><text x="716" y="199" fill="#fff" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle">Reject</text>
+  <rect x="756" y="180" width="84" height="28" rx="4" fill="#3a3d41"/><text x="798" y="199" fill="#fff" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle">Respond…</text>
+  <rect x="848" y="180" width="64" height="28" rx="4" fill="#3a3d41"/><text x="880" y="199" fill="#fff" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle">Edit…</text>
+  <text x="280" y="190" fill="#ffffff" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" text-anchor="middle">Demo not recorded yet</text>
+  <text x="280" y="224" fill="#bbbbbb" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" text-anchor="middle">Placeholder illustration, not a screenshot.</text>
+  <text x="280" y="250" fill="#bbbbbb" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" text-anchor="middle">VS Code can't be driven in CI; it is recorded by hand.</text>
+  <text x="280" y="276" fill="#bbbbbb" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" text-anchor="middle">Checklist: demos/vscode/README.md</text>
+</svg>

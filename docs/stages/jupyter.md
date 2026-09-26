@@ -29,7 +29,10 @@ langstage-jupyter                             # the default agent (needs ANTHROP
 
 ## Demo
 
-<!-- TODO(demo): embed the animated JupyterLab demo here (the agent creating and running a notebook cell, the open tab reloading). -->
+<figure markdown="span">
+  ![Animated demo: a notebook cell runs, then the LangStage sidebar streams a demo_lookup tool call and pauses for approval, and Approve resumes the turn](../assets/demos/jupyter.gif){ width="760" loading="lazy" }
+  <figcaption>The keyless tool demo agent in the sidebar, next to an open notebook: a tool call, then an approval card that resumes the turn.</figcaption>
+</figure>
 
 ## Launcher options
 

@@ -1,0 +1,8 @@
+# Recorded against the LATEST releases on purpose: the demos show what `pip install`
+# gives a new user today. docs/assets/demos/versions.json records the exact versions.
+langstage-core[agui]
+langstage
+langstage-cli
+langstage-jupyter
+langstage-hermes
+playwright

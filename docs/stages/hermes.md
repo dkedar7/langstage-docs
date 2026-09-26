@@ -37,7 +37,10 @@ into `<HERMES_HOME>/state.db`, so `search` can find it.
 
 ## Demo
 
-<!-- TODO(demo): embed the animated hermes demo here (`langstage-hermes demo` closing the loop, then `search` finding the session). -->
+<figure markdown="span">
+  ![Animated demo: langstage-hermes demo closes the reflection-to-skill loop keyless, then search finds the session and skills list shows the library](../assets/demos/hermes.gif){ width="760" loading="lazy" }
+  <figcaption><code>langstage-hermes demo</code>, then <code>search</code> and <code>skills list</code>, with <code>HERMES_HOME</code> in a temp directory. No API key.</figcaption>
+</figure>
 
 ## Run it standalone
 
