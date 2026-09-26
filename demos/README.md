@@ -14,10 +14,10 @@ releases**, so what they show is what `pip install` gives a new user today.
 | JupyterLab: notebook, tool call, Approve | `scripts/record_jupyter.py` | Playwright video + ffmpeg | `jupyter.gif` / `jupyter.webm` |
 | VS Code | `vscode/README.md` (manual) | a screen recorder | `vscode.svg` placeholder for now |
 
-The terminal demos use `langstage_core.demo.tools:graph` directly. The browser
-demos use `agents/showcase.py`, which is the same agent with host context lines
-(`[Current time: …]`, `Currently focused: …`) dropped before it echoes the prompt,
-so the recordings don't print a runner's temp paths.
+Every demo uses `langstage_core.demo.tools:graph` directly. Since langstage-core
+1.0.39 (#192) the demo agents echo only what was typed, so host context lines
+(`[Current time: …]`, `Currently focused: …`) don't leak a runner's temp paths into
+the recordings.
 
 ## Regenerate
 
