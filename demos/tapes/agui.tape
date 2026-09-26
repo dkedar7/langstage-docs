@@ -35,5 +35,5 @@ Type "langstage-agui --demo=tools -m 'use a tool' --json | jq '{outcome, tool_ca
 Sleep 4.5s
 
 Type "clear" Enter
-Type "langstage-agui --demo=tools -m 'ask me first'; echo \"exit code: $?\"" Sleep 400ms Enter
+Type `langstage-agui --demo=tools -m 'ask me first'; echo "exit code: $?"` Sleep 400ms Enter
 Sleep 4s
