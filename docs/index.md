@@ -9,8 +9,13 @@ environment variables. The web, your terminal, JupyterLab, and VS Code all
 become stages your agent can perform on.
 
 <figure markdown="span">
-  ![The LangStage web app](assets/screenshots/hero.png){ width="760" }
-  <figcaption>Your agent on the web stage — streaming, tool calls, a file browser, and a canvas.</figcaption>
+  <video width="760" style="max-width:100%; height:auto" autoplay muted loop playsinline controls preload="metadata"
+         poster="https://dkedar.com/media/langstage/langstage-cube-poster.jpg"
+         aria-label="Animated overview: you define one LangGraph agent, and six LangStage faces assemble into a cube around it: a web app, a terminal, a notebook, an editor, an agent that learns, and your own app">
+    <source src="https://dkedar.com/media/langstage/langstage-cube.mp4" type="video/mp4">
+    <img src="https://dkedar.com/media/langstage/langstage-cube.gif" alt="Animated overview of the six LangStage stages built around one agent">
+  </video>
+  <figcaption>Define your agent once, then put it on every stage.</figcaption>
 </figure>
 
 === "Web"
