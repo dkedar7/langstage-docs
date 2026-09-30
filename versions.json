@@ -12,7 +12,7 @@
     "langstage-vscode-extension": {
       "repo": "dkedar7/langstage-vscode",
       "tag_prefix": "extension-v",
-      "version": "0.6.1"
+      "version": "0.6.2"
     }
   }
 }
