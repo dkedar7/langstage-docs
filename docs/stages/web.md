@@ -120,8 +120,9 @@ langstage config                                     # resolved config (also --j
 langstage init                                       # a fully commented langstage.toml
 ```
 
-- Without `--agent`, `check` and `chat` use the configured agent
-  (`LANGSTAGE_AGENT_SPEC` or `[agent] spec`), the same one `run` serves.
+- Without `--agent`, `check` and `chat` use the same agent `run` serves: the
+  configured one (`LANGSTAGE_AGENT_SPEC` or `[agent] spec`), or with nothing
+  configured, the built-in default agent (which needs the `deepagents` extra).
 - `check` prints `[ ok ]` / `[warn]` lines for loading, the checkpointer, Canvas,
   `write_todos` and the host tools. The static checks need no key.
 - `chat` adds the same per-message context the browser does (current time and the

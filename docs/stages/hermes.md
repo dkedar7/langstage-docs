@@ -191,7 +191,9 @@ provider. Other extras: `[daytona]`, `[modal]` and `[ssh]` terminal backends.
   flags. Relative paths in a TOML file resolve against that file's directory.
 - **Inspect.** `langstage-hermes --show-config` prints each value and its source;
   `--show-config --json` prints the same as JSON, with an `issues` list. A malformed
-  file is reported as MALFORMED.
+  file is reported as MALFORMED. Unknown keys in the hermes TOML files are listed in
+  `toml.unknown_keys` and as `issues` with a `did_you_mean` hint, so
+  `--show-config --json | jq -e '.toml.unknown_keys == []'` works as a CI config lint.
 - **Legacy names.** `deepagent-hermes.toml`, `DEEPAGENT_HERMES_*` and the
   `deepagent-hermes` command still work and print a one-line deprecation `note:`
   (silence with `LANGSTAGE_SUPPRESS_LEGACY_NOTICE=1`).
