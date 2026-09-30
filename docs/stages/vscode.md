@@ -99,9 +99,10 @@ yet? The status line offers **Try the demo**, the keyless `--demo=tools` agent.
   streams is queued. **Stop** cancels only its own conversation's turn and keeps
   its memory.
 - **Saved per workspace.** Conversations and transcripts are stored per workspace on
-  this machine and restored after a window reload. The agent's in-memory history
-  doesn't survive a sidecar restart, so a restored transcript is marked *"The agent
-  may not remember the conversation above"*; see
+  this machine and restored after a window reload. An in-memory history doesn't
+  survive a sidecar restart, so unless the agent's checkpointer is durable, a
+  restored transcript is marked *"The agent may not remember the conversation
+  above"*; see
   [Conversations and memory](#conversations-and-memory).
 - **Errors** show inline, with the traceback collapsible; a startup failure is shown
   verbatim on the status line. **Restart the agent** is in the view's title bar.
@@ -188,7 +189,8 @@ without one of its own.
 That memory lives in the process. It's lost when the sidecar restarts (a config
 change, **Restart the agent**, a window reload). The panel still restores its
 transcripts after a reload, and marks them so you know the agent may have
-forgotten. For memory that survives restarts, compile your
+forgotten. The sidecar reports the agent's checkpointer in its `ready` frame, and an
+agent with a durable one isn't marked. For memory that survives restarts, compile your
 graph with a persistent checkpointer (`SqliteSaver`, `PostgresSaver`, …).
 
 ## Drive the sidecar from a terminal
@@ -243,7 +245,7 @@ need this if you're writing another client.
 
 | Frame | When |
 |---|---|
-| `{"type": "ready"}` | Once, at startup. A startup failure is a single `error` frame with no `ready`, then exit `1`. |
+| `{"type": "ready", "checkpointer": {"kind": …, "durable": …}}` | Once, at startup. `checkpointer` names the saver the served agent uses (`kind` is its class name) and whether it survives a restart; it's absent if the agent couldn't be built. A startup failure is a single `error` frame with no `ready`, then exit `1`. |
 | `{"type": "ack", "ref": "message"}` | A command was accepted (`"ref": "decision"` for a decision). |
 | `{"type": "cancelled", "session_id": …}` | A `cancel` stopped the turn. Neither `complete` nor `error`. |
 | `{"type": "turn_end", "session_id": …}` | Every `message` and `decision` ends with this, even a rejected one. |
