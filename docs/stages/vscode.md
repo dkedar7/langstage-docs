@@ -34,6 +34,10 @@ turns through the shared [`langstage-core`](../core.md) AG-UI bridge.
     pip install langstage-vscode
     ```
 
+    The extension expects sidecar 0.5.35 or newer. With an older one it still runs,
+    but it warns once and offers the upgrade command
+    (`<python> -m pip install -U langstage-vscode`).
+
 2. **The extension.** Open the Extensions view (**Ctrl+Shift+X**, or **Cmd+Shift+X**
    on macOS), search **LangStage**, and click **Install** (VS Code 1.95 or newer). The
    extension ID is `dkedar7.langstage-vscode`:
@@ -61,7 +65,7 @@ turns through the shared [`langstage-core`](../core.md) AG-UI bridge.
     <!-- snippet: check -->
 
     ```bash
-    code --install-extension langstage-vscode-0.6.0.vsix
+    code --install-extension langstage-vscode-0.6.2.vsix
     ```
 
     Or build it yourself from a clone of the repo:
@@ -222,8 +226,8 @@ langstage-vscode-sidecar --demo=tools --repl                 # multi-turn; answe
 - **`--demo=tools`** is the keyless rich demo. Its trigger phrases are
   `use a tool`, `think` and `ask me`; anything else is echoed.
 - **`--traceback`** (or `LANGSTAGE_DEBUG=1`) shows where your agent crashed.
-- **`--version`** names the runtime, e.g. `langstage-vscode-sidecar 0.5.33
-  (langstage-core 1.0.38, ag-ui-langgraph 0.0.45)`.
+- **`--version`** names the runtime, e.g. `langstage-vscode-sidecar 0.5.35
+  (langstage-core 1.0.40, ag-ui-langgraph 0.0.45)`.
 
 ## Sidecar protocol
 
@@ -245,7 +249,7 @@ need this if you're writing another client.
 
 | Frame | When |
 |---|---|
-| `{"type": "ready", "checkpointer": {"kind": …, "durable": …}}` | Once, at startup. `checkpointer` names the saver the served agent uses (`kind` is its class name) and whether it survives a restart; it's absent if the agent couldn't be built. A startup failure is a single `error` frame with no `ready`, then exit `1`. |
+| `{"type": "ready", "version": …, "protocol": 1, "capabilities": […], "checkpointer": {"kind": …, "durable": …}}` | Once, at startup. The handshake: `version` is the sidecar's version, `protocol` changes only for a breaking protocol change, and `capabilities` lists what it serves (`message`, `decision`, `cancel`, `shutdown`, `checkpointer`). `checkpointer` names the saver the served agent uses (`kind` is its class name) and whether it survives a restart; it's absent if the agent couldn't be built. A startup failure is a single `error` frame with no `ready`, then exit `1`. |
 | `{"type": "ack", "ref": "message"}` | A command was accepted (`"ref": "decision"` for a decision). |
 | `{"type": "cancelled", "session_id": …}` | A `cancel` stopped the turn. Neither `complete` nor `error`. |
 | `{"type": "turn_end", "session_id": …}` | Every `message` and `decision` ends with this, even a rejected one. |
