@@ -118,7 +118,8 @@ A single-shot run (a `MESSAGE` argument, `-f`, or piped stdin) prints only the
 agent's reply when stdout is piped: no header, spinner, tool chatter, timing or
 color. Errors and diagnostics go to stderr, as does anything your agent `print`s
 while it is imported. The exit code tells you whether the turn worked
-(see [Exit codes](../reference/exit-codes.md)).
+(see [Exit codes](../reference/exit-codes.md)). To turn color off in a terminal too,
+set [`NO_COLOR`](https://no-color.org) to any non-empty value; the layout stays.
 
 <!-- snippet: run needs=prompt.txt -->
 ```bash
