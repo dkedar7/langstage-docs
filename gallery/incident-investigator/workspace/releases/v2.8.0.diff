@@ -1,0 +1,19 @@
+commit 9f3c2e1  Add CSV order export; tidy db config
+
+diff --git a/api/routes/orders.py b/api/routes/orders.py
+@@ -88,6 +88,18 @@ def list_orders(...):
++@router.get("/v2/orders/export")
++def export_orders(format: str = "csv", db: Session = Depends(get_db)):
++    rows = db.execute(select(Order, Customer.email).join(Customer).order_by(Order.created_at)).all()
++    return csv_response(rows)  # builds the whole file before responding
++
+
+diff --git a/config/api.yaml b/config/api.yaml
+@@ -8,8 +8,8 @@ service:
+ db:
+   url: postgresql://orders-db:5432/orders
+-  pool_size: 20
+-  max_overflow: 10
++  pool_size: 5
++  max_overflow: 0
+   pool_timeout_s: 30

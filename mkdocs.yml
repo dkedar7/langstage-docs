@@ -68,6 +68,11 @@ nav:
       - Installation: getting-started/installation.md
       - Quickstart: getting-started/quickstart.md
       - Configuration: getting-started/configuration.md
+  - Gallery:
+      - Overview: gallery/index.md
+      - Support triage: gallery/support-triage.md
+      - Sales analyst: gallery/sales-analyst.md
+      - Incident investigator: gallery/incident-investigator.md
   - Guides:
       - Human-in-the-loop: guides/human-in-the-loop.md
       - Multi-agent supervisor: guides/multi-agent-supervisor.md

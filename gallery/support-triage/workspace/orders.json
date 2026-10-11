@@ -1,0 +1,38 @@
+{
+  "NW-1041": {
+    "customer": "Priya Raman",
+    "email": "priya.raman@example.com",
+    "items": [{"sku": "TENT-2P", "name": "Trailhead 2P tent", "price": 189.00}],
+    "shipping": {"method": "standard", "fee": 0.00},
+    "total": 189.00,
+    "status": "delivered",
+    "delivered_on": "2026-10-06"
+  },
+  "NW-1047": {
+    "customer": "Marcus Lee",
+    "email": "marcus.lee@example.com",
+    "items": [{"sku": "BTL-750", "name": "Summit insulated bottle, 750 ml", "price": 34.00}],
+    "shipping": {"method": "express", "fee": 8.95, "promised_by": "2026-10-03"},
+    "total": 42.95,
+    "status": "delivered",
+    "delivered_on": "2026-10-09"
+  },
+  "NW-1052": {
+    "customer": "Sofia Alvarez",
+    "email": "sofia.alvarez@example.com",
+    "items": [{"sku": "JKT-DWN-M", "name": "Ridgeline down jacket, size M", "price": 240.00}],
+    "shipping": {"method": "standard", "fee": 0.00},
+    "total": 240.00,
+    "status": "delivered",
+    "delivered_on": "2026-10-08"
+  },
+  "NW-1060": {
+    "customer": "Tom Becker",
+    "email": "tom.becker@example.com",
+    "items": [{"sku": "SHO-TRL-44", "name": "Switchback trail runners, EU 44", "price": 129.00}],
+    "shipping": {"method": "standard", "fee": 0.00, "carrier": "UPS", "tracking": "1Z84W2390361827745", "expected": "2026-10-14"},
+    "total": 129.00,
+    "status": "in transit",
+    "shipped_on": "2026-10-08"
+  }
+}
