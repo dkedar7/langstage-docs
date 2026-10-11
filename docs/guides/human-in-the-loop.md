@@ -98,7 +98,7 @@ Over HTTP, an AG-UI client resumes with `RunAgentInput.resume` (ag-ui-langgraph
 
 | Surface | What you see | How you answer |
 |---|---|---|
-| **Web** (`langstage`) | An "Action Requires Approval" dialog listing each action, its description and arguments. | **Approve**, **Reject**, **Edit** (per action, arguments as JSON) and **Respond** (a text answer). Each control appears only if the interrupt allows that verb. On the task board, a paused task sits in **review**; open it to approve or reject. |
+| **Web** (`langstage`) | An "Action Requires Approval" dialog listing each action, its description and arguments. | **Approve**, **Reject**, **Edit** (per action, arguments as JSON) and **Respond** (a text answer). Each control appears only if the interrupt allows that verb. On the task board, a paused task sits in **review**; open it to see the request and answer it with the same controls. |
 | **Terminal** (`langstage-cli`) | Each action with **every** argument as `name=value`. Control characters are escaped, so an argument can't forge prompt text. | An arrow-key menu: approve all, reject all, or type a custom decision as JSON. A plain `interrupt("What is your name?")` asks for a free-text value and resumes with exactly that value. Invalid JSON asks again; **Exit** or Ctrl-C leaves the turn paused (exit `2`). |
 | **JupyterLab** (`langstage-jupyter`) | The action inline in the chat sidebar. | **Approve**, **Reject** and **Edit** buttons, shown per `allowed_decisions`. |
 | **VS Code panel** (`langstage-vscode`) | An approval card with each action and its arguments. | **Approve**, **Reject** (optional reason), **Respond** (text), **Edit** (a JSON editor prefilled with the arguments). See [The LangStage panel](../stages/vscode.md#the-langstage-panel). |
