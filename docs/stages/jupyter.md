@@ -154,6 +154,8 @@ langstage-jupyter -a my_agent.py:agent
 
 - **Context-aware.** Each message carries the focused notebook or file, the current
   directory, and your selection.
+- **Reasoning** from reasoning models shows in a collapsed **Thinking** block above
+  the answer.
 - **Human-in-the-loop.** A paused agent shows **Approve**, **Reject** and **Edit**
   buttons for the verbs the interrupt allows. See
   [Human-in-the-loop](../guides/human-in-the-loop.md).
@@ -162,6 +164,8 @@ langstage-jupyter -a my_agent.py:agent
 - **Status light.** Green: the agent can run a turn. Orange: it loaded but can't run
   yet (for example `ANTHROPIC_API_KEY` is missing for the default agent); hover for
   what to fix. Red: the agent module didn't load.
+- **Works under a base URL.** Behind JupyterHub (`/user/<name>/`) or with
+  `--ServerApp.base_url`, the sidebar's requests follow the server's base URL.
 
 ## Configuration
 
