@@ -78,6 +78,7 @@ land where the file browser shows them.
 ## Highlights
 
 - **Streaming chat** with inline tool calls (arguments, results, duration, status).
+- **Reasoning** from reasoning models, in a collapsed **Thinking** block above the answer.
 - **Starter prompts**: one-click suggestion chips on the empty screen.
 - **Rich inline content**: HTML, Plotly, images, DataFrames, PDFs, JSON.
 - **Canvas panel**, a persistent report surface. Opt in by attaching

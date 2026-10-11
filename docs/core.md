@@ -102,7 +102,8 @@ print(result.text)
 
 `TurnResult` has `text`, `tool_calls`, `extractions`, `reasoning`, `outcome`,
 `interrupt`, `error`, `traceback` (set on an error when `LANGSTAGE_DEBUG` is on) and
-`frames` (a count, not the list).
+`frames` (a count, not the list). `text` joins the turn's separate messages with a
+paragraph break, and so does a task's `result`.
 
 - Each `run_turn` call is isolated: a fresh `thread_id`, and your graph isn't
   changed. So `for prompt in dataset: run_turn(graph, prompt)` never leaks one turn
