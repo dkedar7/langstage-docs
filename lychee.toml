@@ -20,6 +20,9 @@ remap = [
 ]
 
 exclude = [
+  # Files in this repo on main: a PR that adds a file links to it before it's on main.
+  # scripts/self_links.py checks these against the checkout instead.
+  '^https://(github\.com/dkedar7/langstage-docs/(blob|tree)|raw\.githubusercontent\.com/dkedar7/langstage-docs)/main/',
   # The deployed copy of this very site: pages a PR adds aren't live yet.
   '^https://dkedar7\.github\.io/langstage-docs',
   # Example / local addresses used in prose and code samples.

@@ -28,6 +28,8 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Every code block has a snippet marker
         run: python scripts/snippets.py lint
+      - name: Links into this repo point at real files
+        run: python scripts/self_links.py
       - name: mkdocs build --strict
         # Built under a /langstage-docs/ prefix so root-relative links resolve
         # exactly as they do on GitHub Pages.
