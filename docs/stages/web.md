@@ -140,8 +140,9 @@ chatting. There is no extra infrastructure: tasks live in a local SQLite file
 in-process worker pool built on the core [task engine](../core.md#delegate-work-to-a-background-task).
 
 - A task moves `queued → ongoing → review → done`. Cancel or retry from any card.
-- Click a card to live-tail the agent's full stream, approve or reject a task
-  paused for review, or send a follow-up.
+- Click a card to live-tail the agent's full stream, answer a task paused for
+  review (approve, reject, edit or respond, whichever the interrupt allows), or
+  send a follow-up.
 - The default agent can delegate to itself with five tools (`start_async_task`,
   `check_async_task`, `list_async_tasks`, `update_async_task`,
   `cancel_async_task`). Give a custom agent the same with `LANGSTAGE_TOOLS` (or
