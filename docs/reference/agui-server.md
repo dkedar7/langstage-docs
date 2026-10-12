@@ -55,6 +55,9 @@ What each one checks:
   `reasoning`, `outcome`, `interrupt`, `error`, `traceback`).
 - `--verify`, `-m` and `--json` keep the agent's import-time `print`s off stdout,
   so the output stays machine-readable.
+- `--show-config`, `--verify` and `-m` are separate runs. Two of them in one
+  command, or `--json` without `-m` or `--show-config`, is a usage error (exit `64`),
+  never a silently skipped flag.
 
 Exit codes follow the family contract: `0` success, `1` failure, `2` paused on an
 interrupt, `64` usage error. See [Exit codes](exit-codes.md).
