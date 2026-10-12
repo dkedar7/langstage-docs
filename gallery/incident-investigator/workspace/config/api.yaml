@@ -1,0 +1,15 @@
+# api service configuration (production)
+service:
+  name: api
+  workers: 4
+  request_timeout_s: 30
+
+db:
+  url: postgresql://orders-db:5432/orders
+  pool_size: 5
+  max_overflow: 0
+  pool_timeout_s: 30
+
+export:
+  max_rows: 250000
+  format: csv

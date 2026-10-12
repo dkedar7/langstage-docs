@@ -72,3 +72,28 @@ VHS needs a Linux-style terminal, so on Windows let CI render the tapes.
   gives a longer pause rather than a broken demo.
 - The demo agent's trigger phrases are `use a tool`, `think`, and `ask me`
   (`langstage_core.demo.tools`). Anything else is echoed back.
+
+## Gallery recordings
+
+The [Gallery](../docs/gallery/index.md) clips in `docs/assets/gallery/` are different
+from the demos above: they run the real agents in [`gallery/`](../gallery/) on a real
+model (Claude Sonnet 5), so they're recorded once, by hand, with a model key, and
+committed. CI never re-records them. `docs/assets/gallery/versions.json` records the
+model, the package versions and how each clip was sped up.
+
+```bash
+# Web app clips (Playwright, any OS). Waits on the model play at 3x.
+OPENROUTER_API_KEY=... python demos/gallery/record_support_triage.py
+OPENROUTER_API_KEY=... python demos/gallery/record_sales_analyst.py
+
+# Terminal clip: record a real session in a pseudo-terminal (Linux, macOS or WSL;
+# needs pexpect), then render the cast with xterm.js (Playwright, any OS).
+OPENROUTER_API_KEY=... python demos/gallery/record_terminal.py incident-investigator demos/gallery/incident-investigator.cast
+python demos/gallery/render_cast.py demos/gallery/incident-investigator.cast incident-investigator
+```
+
+With 1Password, inject the key instead of exporting it:
+`OPENROUTER_API_KEY=op://<vault>/<item>/credential op run -- python ...`. Set
+`GALLERY_SHOTS=<dir>` to save a screenshot at each step for review, and `GALLERY_GIF=1`
+for a GIF (3-8 MB, so not committed). The cast is committed, so the terminal clip can
+be re-rendered without the model.

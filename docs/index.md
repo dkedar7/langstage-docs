@@ -44,7 +44,9 @@ become stages your agent can perform on.
 
 One agent spec, four of the stages. Every demo runs the keyless demo agent
 (`langstage_core.demo.tools:graph`) against the latest releases, and CI re-records
-them when a release lands.
+them when a release lands. To see real agents doing real work on a real model, a
+support desk, a data analyst and an on-call investigator, visit the
+[Gallery](gallery/index.md).
 
 !!! tip "Multi-agent? It already works."
     A supervisor, swarm, or crew compiles to the same `CompiledStateGraph`
