@@ -3,16 +3,16 @@
   "packages": {
     "langstage-core": "1.0.47",
     "langstage": "0.13.51",
-    "langstage-cli": "0.6.40",
-    "langstage-hermes": "0.4.39",
-    "langstage-jupyter": "0.6.38",
-    "langstage-vscode": "0.5.36"
+    "langstage-cli": "0.6.41",
+    "langstage-hermes": "0.4.40",
+    "langstage-jupyter": "0.6.39",
+    "langstage-vscode": "0.5.37"
   },
   "releases": {
     "langstage-vscode-extension": {
       "repo": "dkedar7/langstage-vscode",
       "tag_prefix": "extension-v",
-      "version": "0.6.3"
+      "version": "0.6.4"
     }
   }
 }
