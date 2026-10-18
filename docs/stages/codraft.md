@@ -171,6 +171,24 @@ New documents capture the author's brief: writing style, objective, platform, au
 and output format. Uploads can serve as searchable reference material or as a template to
 scaffold from.
 
+### Branding and embedding (0.4)
+
+The app chrome (not the documents) takes the `[ui]` keys it shares with langstage-web:
+- `title`, `subtitle`, `agent_name`, `welcome_message`, `icon_url`
+- `font_family`, `font_url`, `starter_prompts`, `custom_css`, `embedded`
+- `[ui.colors]` and `[ui.colors_dark]`, which override any design token
+- `[ui.features]`, which turns off `chat`, `mcp`, `doc_list` or `theme_toggle`
+
+To host Codraft inside another FastAPI app, call
+`mount(host, "/write", create_app(cfg, graph, ui={...}))`.
+
+Behind a proxy, set two things:
+- `proxy_secret`: the proxy sends it as `X-Codraft-Proxy-Secret`. It can also send its public path as `X-Forwarded-Prefix`.
+- `user_header` (for example `X-User-Email`): the header that names the user on edits and presence.
+
+`auth_username` and `auth_password` turn on HTTP basic auth instead. Adding `?embed=1` to the URL
+hides Codraft's own brand and theme toggle.
+
 ## CLI
 
 <!-- snippet: skip -->
