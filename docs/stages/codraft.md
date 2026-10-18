@@ -64,6 +64,30 @@ langstage-codraft install-browser
   approval-gated tools.
 - **Light and dark**, with the same design system as the web stage.
 
+## Magazine-quality reports
+
+Upload pages of a report whose look you like, name a topic, and the bundled report-designer agent
+(`examples/report_designer.py`: Claude Sonnet 5.5 for writing and layout, a Gemini image model for
+art, both via OpenRouter) builds an original report in that style: custom page size, justified
+three-column type, drop caps and pull quotes, full-bleed hero art, framed figures with a source
+line, running footers with page numbers, and a reference list that flows across columns.
+
+<figure markdown="span">
+  ![Two pages of a feature article built by the report designer agent](../assets/screenshots/codraft-report.png)
+  <figcaption>Built by the agent from reference pages and a one-paragraph brief.</figcaption>
+</figure>
+
+<!-- snippet: skip -->
+```bash
+export OPENROUTER_API_KEY=...
+langstage-codraft run --agent examples/report_designer.py:make --approval auto
+```
+
+The same styles are in the Block and Document panels for people, and in `set_block_layout` /
+`set_document_style` for any agent: `lead`, `pullquote`, `kicker`, `byline`, `footer`, `bio`;
+headings `display`, `section`, `rule`; `figure-box`; `hanging` references; `dark` callouts; drop
+caps; custom page sizes; page-anchored pins; and `reserve_area` for deliberate white space.
+
 ## Bring your own agent
 
 Codraft adds what it needs to your agent, in the same way the web stage adds `display_inline`.
