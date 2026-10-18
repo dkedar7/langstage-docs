@@ -82,6 +82,7 @@ nav:
       - JupyterLab — langstage-jupyter: stages/jupyter.md
       - VS Code — langstage-vscode: stages/vscode.md
       - Reference agent — langstage-hermes: stages/hermes.md
+      - Documents — langstage-codraft: stages/codraft.md
   - Reference:
       - Shared core: core.md
       - AG-UI frames: reference/frames.md

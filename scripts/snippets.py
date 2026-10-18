@@ -75,7 +75,7 @@ LANG_ALIASES = {"sh": "bash", "shell": "bash", "console": "bash", "py": "python"
 # Console scripts shipped by the six packages. `check` verifies flags against these.
 ENTRYPOINTS = {
     "langstage", "langstage-cli", "langstage-jupyter", "langstage-vscode-sidecar",
-    "langstage-hermes", "langstage-agui",
+    "langstage-hermes", "langstage-agui", "langstage-codraft",
 }
 SCRUBBED_ENV = (
     "ANTHROPIC_API_KEY", "OPENAI_API_KEY", "OPENROUTER_API_KEY", "GOOGLE_API_KEY",

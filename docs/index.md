@@ -84,6 +84,7 @@ That same `my_agent.py:graph` spec runs unchanged on every other stage below.
 | :material-notebook: JupyterLab | [`langstage-jupyter`](stages/jupyter.md) | `langstage-jupyter -a my_agent.py:graph`, then the chat sidebar |
 | :material-microsoft-visual-studio-code: VS Code | [`langstage-vscode`](stages/vscode.md) | the LangStage panel (VS Code, Cursor, VSCodium, Windsurf, code-server), or `@langstage` in Copilot chat (sidecar from PyPI + the `.vsix` from the GitHub release) |
 | :material-robot: Reference agent | [`langstage-hermes`](stages/hermes.md) | `langstage-hermes demo`, or `-a langstage_hermes.agent:graph` on any stage |
+| :material-file-document-edit: Documents | [`langstage-codraft`](stages/codraft.md) | `langstage-codraft run --agent my_agent.py:graph`: co-author paged documents, approve the agent's suggestions, export PDF/PNG/HTML |
 | :material-cog: Shared core | [`langstage-core`](core.md) | spec loading, layered config, the AG-UI bridge and the task engine behind every stage; `langstage-agui` serves any agent over AG-UI |
 
 ## Why LangStage
