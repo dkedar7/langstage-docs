@@ -189,6 +189,19 @@ Behind a proxy, set two things:
 `auth_username` and `auth_password` turn on HTTP basic auth instead. Adding `?embed=1` to the URL
 hides Codraft's own brand and theme toggle.
 
+A host can also set a house style for documents:
+- `create_app(..., doc_themes={...})` adds document themes in code.
+- `default_theme` and `default_page_size` apply to new documents, including documents from the
+  built-in templates that use the generic look.
+
+In an `<iframe>`, Codraft sends the host page two messages via `postMessage`:
+- `codraft:location` names the open document, so the host can deep-link it.
+- `codraft:auth-required` means the host's session expired.
+
+Codraft also navigates with `replaceState`, so the host's Back button leaves the page.
+
+Codraft runs inside Lighthouse this way, as the Lab's **Write** bench.
+
 ## CLI
 
 <!-- snippet: skip -->
