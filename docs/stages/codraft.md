@@ -114,6 +114,8 @@ langstage-codraft check --agent my_agent.py:graph --live # one real turn through
 ```
 
 A graph without the tools still chats, but it can't touch the document, and `check` says so.
+Name the graph (`create_agent(..., name="Juniper")`) and the editor calls the agent by that name
+everywhere it would say "agent": Ask Juniper, Suggestions from Juniper, Tag Juniper.
 Without `--agent`, Codraft builds a default agent from `--model` or the first API key it finds
 (`OPENROUTER_API_KEY` → `anthropic/claude-haiku-5.5`).
 
@@ -134,10 +136,40 @@ Every tool takes a `doc_id`; `list_documents` and `create_document` get an agent
 
 | Read | Write (approval-gated) | Style (applies directly) | Other |
 |---|---|---|---|
-| `get_document`, `read_blocks`, `search_document`, `read_upload`, `list_comments`, `get_block_history` | `propose_edit`, `propose_insert`, `propose_delete`, `propose_move` | `set_block_layout`, `set_document_style` | `reply_to_comment`, `compile_references`, `view_pages`, `view_sketch` |
+| `get_document`, `read_blocks`, `search_document`, `read_upload`, `list_comments`, `get_block_history` | `propose_edit`, `propose_insert`, `propose_delete`, `propose_move`, `insert_blocks`, `draw_figure` | `set_block_layout`, `set_document_style`, `set_typography`, `set_cover`, `set_header_footer`, `match_upload_style`, `reserve_area` | `reply_to_comment`, `compile_references`, `view_pages`, `view_sketch`, `view_upload` |
 
 These go through the same HTTP API and store as the editor, so humans and the agent have the
 same powers.
+
+## Design the whole document (0.5)
+
+The **Design** tab (and the matching agent tools) covers the look of the whole document. It all
+applies to one document and exports exactly as shown.
+
+- **Cover page.**
+    - Turn the separate cover off and the title and subtitle open page 1 as a full-width title
+      block, with the summary right below.
+    - Covers and back pages take a background colour or image and top, middle or bottom
+      placement; dark backgrounds get light text.
+    - Pin art or a logo to an exact spot.
+    - "+ Add to cover" sits above the page. Anything inserted right after a cover block, by a
+      person or the agent, joins the cover.
+- **Fonts and colours.**
+    - Body, heading, title and label fonts; size, line spacing, heading scale, weight and case;
+      alignment.
+    - Text, heading, accent, rule, tint and paper colours, on top of the theme.
+    - 17 families are bundled. Any other Google Fonts family loads on demand (`web_fonts`).
+    - **Save as theme** keeps the look for every other document.
+- **Header and footer.** Left, centre and right text in the margins, with `{page}`, `{pages}`,
+  `{title}` and `{year}`. Word export writes them as real header and footer fields.
+- **Match a document's look.**
+    - Upload a PDF, a Word file or a page image. Codraft applies its page size, margins and
+      columns, its fonts, its colours, its cover and its running header and footer.
+    - Fonts are mapped to open look-alikes: Calibri → Carlito, Arial → Arimo, Times → Tinos.
+    - The agent sees the uploaded pages and refines the rest (`match_upload_style`).
+
+Hosts set what new documents start with through `create_app(..., doc_defaults={...})` or
+`[codraft.doc_defaults]`; a theme can also style the cover (`cover_background`, `cover_text`).
 
 ## Configuration
 
@@ -200,7 +232,10 @@ In an `<iframe>`, Codraft sends the host page two messages via `postMessage`:
 
 Codraft also navigates with `replaceState`, so the host's Back button leaves the page.
 
-Codraft runs inside Lighthouse this way, as the Lab's **Write** bench.
+Codraft runs inside Lighthouse this way, as the Lab's **Write** bench. It uses SWAN's report house
+style through `doc_defaults`: no separate cover, SWAN margins, and a footer with the page number,
+title and copyright. Its graph is named "Lighthouse", so the editor calls the agent Lighthouse
+throughout.
 
 ## CLI
 
