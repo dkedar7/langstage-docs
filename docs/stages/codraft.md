@@ -209,7 +209,9 @@ The app chrome (not the documents) takes the `[ui]` keys it shares with langstag
 - `title`, `subtitle`, `agent_name`, `welcome_message`, `icon_url`
 - `font_family`, `font_url`, `starter_prompts`, `custom_css`, `embedded`
 - `[ui.colors]` and `[ui.colors_dark]`, which override any design token
-- `[ui.features]`, which turns off `chat`, `mcp`, `doc_list` or `theme_toggle`
+- `[ui.features]`, which turns off `chat`, `mcp`, `doc_list` or `theme_toggle`. Since 0.5.3,
+  `mcp = false` also stops serving `/mcp`. `chat = false` only hides the chat panel: the agent's
+  buttons still use the chat endpoint.
 
 To host Codraft inside another FastAPI app, call
 `mount(host, "/write", create_app(cfg, graph, ui={...}))`.
@@ -218,7 +220,8 @@ Behind a proxy, set two things:
 - `proxy_secret`: the proxy sends it as `X-Codraft-Proxy-Secret`. It can also send its public path as `X-Forwarded-Prefix`.
 - `user_header` (for example `X-User-Email`): the header that names the user on edits and presence.
 
-`auth_username` and `auth_password` turn on HTTP basic auth instead. Since 0.5.2 it applies to
+`auth_username` and `auth_password` turn on HTTP basic auth, on its own or together with the proxy
+secret (both are checked since 0.5.3). Since 0.5.2 it applies to
 requests from the same machine too, so it still protects Codraft behind a same-host reverse proxy.
 The export renderer sends the password itself. Codraft also refuses state-changing requests that a
 browser sends from another website, as langstage-web does. Adding `?embed=1` to the URL hides
