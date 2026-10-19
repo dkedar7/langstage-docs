@@ -225,6 +225,24 @@ origin, with credentials off. Preflight `OPTIONS` requests are answered before a
 so this works with `--auth-password` set. `langstage config` shows the resolved
 value.
 
+### Host names
+
+Since 0.13.56, a server bound to a loopback address (the default `localhost`) answers
+only to `localhost`, `127.0.0.1`, `[::1]`, `*.localhost` names and its bind host. A
+request with any other `Host` header gets `403`. This stops DNS rebinding, where a
+website points its own name at 127.0.0.1 to reach your local server. Behind a reverse
+proxy that forwards the public host name (Caddy and Traefik do by default), allow that
+name:
+
+```toml
+[server]
+allowed_hosts = ["agent.example.com", "*.example.org"]
+```
+
+or `LANGSTAGE_ALLOWED_HOSTS="agent.example.com"`. `*.example.org` matches its
+subdomains, and `*` turns the check off. nginx's plain `proxy_pass` sends
+`127.0.0.1:<port>` and needs nothing. Servers bound to other addresses aren't checked.
+
 ## Configuration
 
 Precedence, highest first: **Python args > CLI flags > `LANGSTAGE_*` env >
@@ -252,6 +270,7 @@ project `langstage.toml` > global `~/.langstage/config.toml` > defaults**. See
 | Files tab | `--show-files/--no-show-files` | `LANGSTAGE_SHOW_FILES` | on |
 | Task concurrency | — | `LANGSTAGE_TASK_CONCURRENCY` | `3` |
 | CORS origins | — | `LANGSTAGE_CORS_ORIGINS` | loopback only |
+| Allowed hosts | — | `LANGSTAGE_ALLOWED_HOSTS` | loopback names only |
 | `execute_python` memory (MB, default agent) | — | `LANGSTAGE_CELL_MEMORY_LIMIT_MB` | `512` |
 
 `langstage init` writes every option into a commented `langstage.toml` with its

@@ -229,6 +229,11 @@ Codraft's own brand and theme toggle.
 
 A relative `custom_css` path in `langstage.toml` resolves against that file's folder.
 
+Since 0.5.4, `langstage-codraft run` on a loopback address refuses requests addressed to other
+host names, as langstage-web does (see [Host names](web.md#host-names)). It reads the same
+`[server] allowed_hosts` / `LANGSTAGE_ALLOWED_HOSTS`. An app that mounts Codraft with
+`create_app()` isn't checked unless it passes `host_guard=True`.
+
 A host can also set a house style for documents:
 - `create_app(..., doc_themes={...})` adds document themes in code.
 - `default_theme` and `default_page_size` apply to new documents, including documents from the
