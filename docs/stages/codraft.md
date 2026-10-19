@@ -218,8 +218,13 @@ Behind a proxy, set two things:
 - `proxy_secret`: the proxy sends it as `X-Codraft-Proxy-Secret`. It can also send its public path as `X-Forwarded-Prefix`.
 - `user_header` (for example `X-User-Email`): the header that names the user on edits and presence.
 
-`auth_username` and `auth_password` turn on HTTP basic auth instead. Adding `?embed=1` to the URL
-hides Codraft's own brand and theme toggle.
+`auth_username` and `auth_password` turn on HTTP basic auth instead. Since 0.5.2 it applies to
+requests from the same machine too, so it still protects Codraft behind a same-host reverse proxy.
+The export renderer sends the password itself. Codraft also refuses state-changing requests that a
+browser sends from another website, as langstage-web does. Adding `?embed=1` to the URL hides
+Codraft's own brand and theme toggle.
+
+A relative `custom_css` path in `langstage.toml` resolves against that file's folder.
 
 A host can also set a house style for documents:
 - `create_app(..., doc_themes={...})` adds document themes in code.
