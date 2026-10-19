@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Detect when the six LangStage packages have moved past what the docs cover.
+"""Detect when the seven LangStage packages have moved past what the docs cover.
 
 versions.json records the package versions the docs were last verified against,
 plus (under "releases") GitHub release tags for what doesn't ship on PyPI: the VS

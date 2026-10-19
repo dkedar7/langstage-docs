@@ -9,7 +9,7 @@ Built with [MkDocs](https://www.mkdocs.org/) +
 [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) (the same
 stack FastAPI's docs use). Covers the whole family: `langstage` (web),
 `langstage-cli`, `langstage-jupyter`, `langstage-vscode`, `langstage-hermes`,
-and the shared `langstage-core` core.
+`langstage-codraft` (documents), and the shared `langstage-core` core.
 
 ## Local development
 
@@ -30,9 +30,9 @@ the `gh-pages` branch.
 
 ## How the docs stay current
 
-The docs describe six packages that release often (`langstage-core`,
+The docs describe seven packages that release often (`langstage-core`,
 `langstage`, `langstage-cli`, `langstage-hermes`, `langstage-jupyter`,
-`langstage-vscode`). Three automated guards keep the site from drifting.
+`langstage-vscode`, `langstage-codraft`). Three automated guards keep the site from drifting.
 
 | Workflow | When | What it does |
 |---|---|---|
@@ -92,7 +92,7 @@ python scripts/snippets.py run --python .venv-snippets/bin/python --page stages/
    break.
 3. Record the versions you verified against:
    ```bash
-   python scripts/drift.py bump                        # latest PyPI for all six
+   python scripts/drift.py bump                        # latest PyPI for all seven
    python scripts/drift.py bump langstage-cli=0.6.37   # or specific versions
    ```
 4. Commit `versions.json` together with the doc changes. After merge, the next
@@ -100,5 +100,5 @@ python scripts/snippets.py run --python .venv-snippets/bin/python --page stages/
    if you want it closed sooner.
 
 A red nightly run with no issue means a snippet broke without a release of the
-six packages, usually a dependency (LangGraph, LangChain) moving underneath. The
+seven packages, usually a dependency (LangGraph, LangChain) moving underneath. The
 run summary shows the failing block.
