@@ -234,6 +234,7 @@ website points its own name at 127.0.0.1 to reach your local server. Behind a re
 proxy that forwards the public host name (Caddy and Traefik do by default), allow that
 name:
 
+<!-- snippet: check -->
 ```toml
 [server]
 allowed_hosts = ["agent.example.com", "*.example.org"]
