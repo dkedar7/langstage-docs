@@ -8,6 +8,16 @@ what you see.
 [:material-github: dkedar7/langstage-codraft](https://github.com/dkedar7/langstage-codraft){ .md-button }
 [:material-package: PyPI](https://pypi.org/project/langstage-codraft/){ .md-button }
 
+<figure markdown="span">
+  <video width="760" style="max-width:100%; height:auto" controls playsinline preload="none"
+         poster="https://dkedar.com/media/codraft/codraft-launch-poster.jpg"
+         aria-label="Codraft launch video: leave comments for the agent, review its suggestions as diffs, restyle the document from chat, step through a block's versions, export">
+    <source src="https://dkedar.com/media/codraft/codraft-launch.mp4" type="video/mp4">
+    <a href="https://dkedar.com/media/codraft/codraft-launch.mp4">Watch the Codraft launch video (MP4)</a>
+  </video>
+  <figcaption>The 80-second tour: a real run with Claude Sonnet 5, with model waits sped up.</figcaption>
+</figure>
+
 ## Quickstart
 
 <!-- snippet: run server -->
