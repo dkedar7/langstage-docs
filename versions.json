@@ -4,10 +4,10 @@
     "langstage-core": "1.0.53",
     "langstage": "0.13.60",
     "langstage-cli": "0.6.48",
-    "langstage-hermes": "0.4.47",
-    "langstage-jupyter": "0.6.44",
+    "langstage-hermes": "0.4.49",
+    "langstage-jupyter": "0.6.45",
     "langstage-vscode": "0.5.40",
-    "langstage-codraft": "0.5.9"
+    "langstage-codraft": "0.5.10"
   },
   "releases": {
     "langstage-vscode-extension": {
