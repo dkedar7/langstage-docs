@@ -1,0 +1,32 @@
+{
+  "incident-investigator": {
+    "model": "Claude Sonnet 5",
+    "packages": {
+      "langstage-cli": "0.6.40",
+      "langstage-core": "1.0.47"
+    },
+    "recorded": "2026-10-11",
+    "speedup": "none",
+    "waits": "idle gaps capped at 2.5s, spinner at 1.2s"
+  },
+  "sales-analyst": {
+    "model": "Claude Sonnet 5",
+    "packages": {
+      "langstage": "0.13.51",
+      "langstage-cli": "0.6.39",
+      "langstage-core": "1.0.47"
+    },
+    "recorded": "2026-10-11",
+    "speedup": "3x while waiting on the model"
+  },
+  "support-triage": {
+    "model": "Claude Sonnet 5",
+    "packages": {
+      "langstage": "0.13.49",
+      "langstage-cli": "0.6.39",
+      "langstage-core": "1.0.47"
+    },
+    "recorded": "2026-10-11",
+    "speedup": "3x while waiting on the model"
+  }
+}
