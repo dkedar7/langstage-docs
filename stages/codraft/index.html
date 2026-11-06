@@ -1,0 +1,2019 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Every stage for your LangGraph agent — run any agent, including a multi-agent supervisor, on the web, the terminal, JupyterLab, and VS Code.">
+      
+      
+      
+        <link rel="canonical" href="https://dkedar7.github.io/langstage-docs/stages/codraft/">
+      
+      
+        <link rel="prev" href="../hermes/">
+      
+      
+        <link rel="next" href="../../core/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Documents — langstage-codraft - LangStage</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#documents-langstage-codraft" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="LangStage" class="md-header__button md-logo" aria-label="LangStage" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.11 19.45a6.95 6.95 0 0 1-4.4-5.1L2.05 6.54c-.24-1.08.45-2.14 1.53-2.37l9.77-2.07.03-.01c1.07-.21 2.12.48 2.34 1.54l.35 1.67 4.35.93h.03c1.05.24 1.73 1.3 1.51 2.36l-1.66 7.82a6.993 6.993 0 0 1-8.3 5.38 6.9 6.9 0 0 1-3.89-2.34M20 8.18 10.23 6.1l-1.66 7.82v.03c-.57 2.68 1.16 5.32 3.85 5.89s5.35-1.15 5.92-3.84zm-4 8.32a2.96 2.96 0 0 1-3.17 1.39 2.97 2.97 0 0 1-2.33-2.55zM8.47 5.17 4 6.13l1.66 7.81.01.03c.15.71.45 1.35.86 1.9-.1-.77-.08-1.57.09-2.37l.43-2c-.45-.08-.84-.33-1.05-.69.06-.61.56-1.15 1.25-1.31h.25l.78-3.81c.04-.19.1-.36.19-.52m6.56 7.06c.32-.53 1-.81 1.69-.66.69.14 1.19.67 1.28 1.29-.33.52-1 .8-1.7.64-.69-.13-1.19-.66-1.27-1.27m-4.88-1.04c.32-.53.99-.81 1.68-.66.67.14 1.2.68 1.28 1.29-.33.52-1 .81-1.69.68-.69-.17-1.19-.7-1.27-1.31m1.82-6.76 1.96.42-.16-.8z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LangStage
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Documents — langstage-codraft
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dkedar7/langstage-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dkedar7/langstage-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+  Getting started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../gallery/" class="md-tabs__link">
+          
+  
+  
+  Gallery
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../guides/human-in-the-loop/" class="md-tabs__link">
+          
+  
+  
+  Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../web/" class="md-tabs__link">
+          
+  
+  
+  The stages
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../core/" class="md-tabs__link">
+          
+  
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../comparison/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  LangStage vs LangSmith
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../migrating/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  What changed / migrating
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="LangStage" class="md-nav__button md-logo" aria-label="LangStage" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.11 19.45a6.95 6.95 0 0 1-4.4-5.1L2.05 6.54c-.24-1.08.45-2.14 1.53-2.37l9.77-2.07.03-.01c1.07-.21 2.12.48 2.34 1.54l.35 1.67 4.35.93h.03c1.05.24 1.73 1.3 1.51 2.36l-1.66 7.82a6.993 6.993 0 0 1-8.3 5.38 6.9 6.9 0 0 1-3.89-2.34M20 8.18 10.23 6.1l-1.66 7.82v.03c-.57 2.68 1.16 5.32 3.85 5.89s5.35-1.15 5.92-3.84zm-4 8.32a2.96 2.96 0 0 1-3.17 1.39 2.97 2.97 0 0 1-2.33-2.55zM8.47 5.17 4 6.13l1.66 7.81.01.03c.15.71.45 1.35.86 1.9-.1-.77-.08-1.57.09-2.37l.43-2c-.45-.08-.84-.33-1.05-.69.06-.61.56-1.15 1.25-1.31h.25l.78-3.81c.04-.19.1-.36.19-.52m6.56 7.06c.32-.53 1-.81 1.69-.66.69.14 1.19.67 1.28 1.29-.33.52-1 .8-1.7.64-.69-.13-1.19-.66-1.27-1.27m-4.88-1.04c.32-.53.99-.81 1.68-.66.67.14 1.2.68 1.28 1.29-.33.52-1 .81-1.69.68-.69-.17-1.19-.7-1.27-1.31m1.82-6.76 1.96.42-.16-.8z"/></svg>
+
+    </a>
+    LangStage
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dkedar7/langstage-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dkedar7/langstage-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gallery
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gallery
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gallery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gallery/support-triage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Support triage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gallery/sales-analyst/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sales analyst
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gallery/incident-investigator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Incident investigator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/human-in-the-loop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Human-in-the-loop
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/multi-agent-supervisor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-agent supervisor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The stages
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    The stages
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web — langstage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Terminal — langstage-cli
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jupyter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JupyterLab — langstage-jupyter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vscode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VS Code — langstage-vscode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hermes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference agent — langstage-hermes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documents — langstage-codraft
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documents — langstage-codraft
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quickstart
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you get
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#magazine-quality-reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Magazine-quality reports
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bring-your-own-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bring your own agent
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bring your own agent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#any-agent-over-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Any agent, over MCP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-toolset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The toolset
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-the-whole-document-05" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design the whole document (0.5)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#branding-and-embedding-04" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branding and embedding (0.4)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shared core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/frames/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AG-UI frames
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/agui-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serve over AG-UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/exit-codes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exit codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/windows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows & console output
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LangStage vs LangSmith
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../migrating/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What changed / migrating
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quickstart
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you get
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#magazine-quality-reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Magazine-quality reports
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bring-your-own-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bring your own agent
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bring your own agent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#any-agent-over-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Any agent, over MCP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-toolset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The toolset
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-the-whole-document-05" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design the whole document (0.5)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#branding-and-embedding-04" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branding and embedding (0.4)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="documents-langstage-codraft">Documents — <code>langstage-codraft</code><a class="headerlink" href="#documents-langstage-codraft" title="Permanent link">&para;</a></h1>
+<p>The document stage: write a document block by block on real pages while your LangGraph agent
+co-authors it. You own the thinking. The agent owns the styling and helps with drafting and
+research. Any change it makes to your text is a suggestion you approve, and you export exactly
+what you see.</p>
+<p><a class="md-button" href="https://github.com/dkedar7/langstage-codraft"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg></span> dkedar7/langstage-codraft</a>
+<a class="md-button" href="https://pypi.org/project/langstage-codraft/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.12 5h13.75l-.94-1h-12zm15.42.23c.29.34.46.77.46 1.27V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6.5c0-.5.17-.93.46-1.27l1.38-1.68C5.12 3.21 5.53 3 6 3h12c.47 0 .88.21 1.15.55zM6 18h6v-3H6z"/></svg></span> PyPI</a></p>
+<figure>
+<br />
+<video aria-label="Codraft launch video: leave comments for the agent, review its suggestions as diffs, restyle the document from chat, step through a block's versions, export" controls="controls" playsinline="playsinline" poster="https://dkedar.com/media/codraft/codraft-launch-poster.jpg" preload="none" style="max-width:100%; height:auto" width="760">
+    <source src="https://dkedar.com/media/codraft/codraft-launch.mp4" type="video/mp4">
+    <a href="https://dkedar.com/media/codraft/codraft-launch.mp4">Watch the Codraft launch video (MP4)</a>
+  </video>
+
+<br />
+<figcaption>The 80-second tour: a real run with Claude Sonnet 5, with model waits sped up.</figcaption>
+</figure>
+<h2 id="quickstart">Quickstart<a class="headerlink" href="#quickstart" title="Permanent link">&para;</a></h2>
+<!-- snippet: run server -->
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>langstage-codraft
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>langstage-codraft<span class="w"> </span>check<span class="w"> </span>--demo<span class="w">                 </span><span class="c1"># preflight: agent, tools, browser, bundled UI</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>langstage-codraft<span class="w"> </span>run<span class="w"> </span>--demo<span class="w"> </span>--no-browser<span class="w">      </span><span class="c1"># keyless scripted co-author on http://localhost:8060</span>
+</code></pre></div>
+<p>Export (PDF/PNG/JPG/HTML) and the agent's <code>view_pages</code> tool render with headless Chromium. Fetch
+it once:</p>
+<!-- snippet: skip -->
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>langstage-codraft<span class="w"> </span>install-browser
+</code></pre></div>
+<figure>
+  <img alt="An agent suggestion shown as a diff on the block it changes" src="../../assets/screenshots/codraft-editor.png" />
+<br />
+<figcaption>"Address all comments": each suggestion waits on its block for you to accept or reject.</figcaption>
+</figure>
+<h2 id="what-you-get">What you get<a class="headerlink" href="#what-you-get" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Blocks on pages.</strong><ul>
+<li>Block types: text, headings, images, tables, Vega-Lite charts, callouts, and a
+  references block that compiles itself.</li>
+<li>Page sizes: Letter, A4, Legal, A5 or 16:9 slide, in either orientation, with margins and
+  1–3 columns.</li>
+<li>Pageless mode is also available.</li>
+</ul>
+</li>
+<li><strong>Flow layout with pinned blocks.</strong><ul>
+<li>Blocks flow column by column. A full-width block balances the columns above it.</li>
+<li>A pinned block reserves its rectangle and everything else flows around it. Pins can
+  repeat on all, odd, even or chosen pages, which is how headers and logos work.</li>
+<li>Cover and back pages are exempt from the column rule.</li>
+</ul>
+</li>
+<li><strong>Suggestions, not silent edits.</strong> Agent writes arrive as diffs. Approval is on by default;
+  auto-apply is a per-document switch.</li>
+<li><strong>Comments tag the agent.</strong> Queue them for later or ask now. "Address all comments" works
+  strictly top to bottom.</li>
+<li><strong>Version trees per block.</strong> Step back and forward. Editing an old version starts a branch.</li>
+<li><strong>Sources per block.</strong> The agent cites as it writes.</li>
+<li><strong>The agent sees the page.</strong> <code>view_pages</code> gives vision models screenshots of the rendered
+  pages.</li>
+<li><strong>What you see is what exports.</strong> The preview, PDF, PNG and HTML all come from the editor's
+  own renderer. CI compares the editor page and the export pixel for pixel. Word (<code>.docx</code>),
+  PowerPoint (<code>.pptx</code>, editable text boxes where the paginator placed them), and GIF/MP4 page
+  slideshows are exported too.</li>
+<li><strong>Sketch it, get an image.</strong> Draw on an image block; the agent views the sketch and turns it into
+  an image with its image tool.</li>
+<li><strong>Video and GIF blocks</strong>, with poster frames for print.</li>
+<li><strong>Live collaboration.</strong> Everyone in a document sees each other's selections, changes arrive
+  instantly, blocks being edited are soft-locked, and simultaneous edits become version branches.</li>
+<li><strong>Any agent over MCP.</strong> Claude Code, Cursor or any MCP client can co-author through the same
+  approval-gated tools.</li>
+<li><strong>Light and dark</strong>, with the same design system as the web stage.</li>
+</ul>
+<h2 id="magazine-quality-reports">Magazine-quality reports<a class="headerlink" href="#magazine-quality-reports" title="Permanent link">&para;</a></h2>
+<p>Upload pages of a report whose look you like, name a topic, and the bundled report-designer agent
+(<code>examples/report_designer.py</code>: Claude Sonnet 5.5 for writing and layout, a Gemini image model for
+art, both via OpenRouter) builds an original report in that style: custom page size, justified
+three-column type, drop caps and pull quotes, full-bleed hero art, framed figures with a source
+line, running footers with page numbers, and a reference list that flows across columns.</p>
+<figure>
+  <img alt="Two pages of a feature article built by the report designer agent" src="../../assets/screenshots/codraft-report.png" />
+<br />
+<figcaption>Built by the agent from reference pages and a one-paragraph brief.</figcaption>
+</figure>
+<!-- snippet: skip -->
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENROUTER_API_KEY</span><span class="o">=</span>...
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>langstage-codraft<span class="w"> </span>run<span class="w"> </span>--agent<span class="w"> </span>examples/report_designer.py:make<span class="w"> </span>--approval<span class="w"> </span>auto
+</code></pre></div>
+<p>The same styles are in the Block and Document panels for people, and in <code>set_block_layout</code> /
+<code>set_document_style</code> for any agent: <code>lead</code>, <code>pullquote</code>, <code>kicker</code>, <code>byline</code>, <code>footer</code>, <code>bio</code>;
+headings <code>display</code>, <code>section</code>, <code>rule</code>; <code>figure-box</code>; <code>hanging</code> references; <code>dark</code> callouts; drop
+caps; custom page sizes; page-anchored pins; and <code>reserve_area</code> for deliberate white space.</p>
+<h2 id="bring-your-own-agent">Bring your own agent<a class="headerlink" href="#bring-your-own-agent" title="Permanent link">&para;</a></h2>
+<p>Codraft adds what it needs to your agent, in the same way the web stage adds <code>display_inline</code>.
+Use the middleware, or export a factory:</p>
+<!-- snippet: check -->
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">langchain.agents</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_agent</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">langstage_codraft</span><span class="w"> </span><span class="kn">import</span> <span class="n">CodraftMiddleware</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># A graph: the middleware registers CODRAFT_TOOLS, the co-author prompt, and page images.</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">graph</span> <span class="o">=</span> <span class="n">create_agent</span><span class="p">(</span><span class="s2">"openai:gpt-5-mini"</span><span class="p">,</span> <span class="n">middleware</span><span class="o">=</span><span class="p">[</span><span class="n">CodraftMiddleware</span><span class="p">()])</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1"># Or a factory: Codraft calls it with its tools and middleware.</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">make</span><span class="p">(</span><span class="n">tools</span><span class="p">,</span> <span class="n">middleware</span><span class="p">):</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="k">return</span> <span class="n">create_agent</span><span class="p">(</span><span class="s2">"openai:gpt-5-mini"</span><span class="p">,</span> <span class="n">tools</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">tools</span><span class="p">),</span> <span class="n">middleware</span><span class="o">=</span><span class="n">middleware</span><span class="p">)</span>
+</code></pre></div>
+<!-- snippet: skip -->
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>langstage-codraft<span class="w"> </span>run<span class="w"> </span>--agent<span class="w"> </span>my_agent.py:graph<span class="w">          </span><span class="c1"># or my_agent.py:make</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>langstage-codraft<span class="w"> </span>check<span class="w"> </span>--agent<span class="w"> </span>my_agent.py:graph<span class="w"> </span>--live<span class="w"> </span><span class="c1"># one real turn through core.verify()</span>
+</code></pre></div>
+<p>A graph without the tools still chats, but it can't touch the document, and <code>check</code> says so.
+Name the graph (<code>create_agent(..., name="Juniper")</code>) and the editor calls the agent by that name
+everywhere it would say "agent": Ask Juniper, Suggestions from Juniper, Tag Juniper.
+Without <code>--agent</code>, Codraft builds a default agent from <code>--model</code> or the first API key it finds
+(<code>OPENROUTER_API_KEY</code> → <code>anthropic/claude-haiku-5.5</code>).</p>
+<p>Each document is its own agent thread (thread id = document id), stored in SQLite so it
+survives restarts. The same agent is also served at <code>POST /agui</code> for any AG-UI client.</p>
+<h3 id="any-agent-over-mcp">Any agent, over MCP<a class="headerlink" href="#any-agent-over-mcp" title="Permanent link">&para;</a></h3>
+<!-- snippet: skip -->
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>--transport<span class="w"> </span>http<span class="w"> </span>codraft<span class="w"> </span>http://localhost:8060/mcp<span class="w">   </span><span class="c1"># with `run` going</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>langstage-codraft<span class="w"> </span>mcp<span class="w"> </span>--data-dir<span class="w"> </span>.codraft<span class="w">                           </span><span class="c1"># stdio</span>
+</code></pre></div>
+<p>Every tool takes a <code>doc_id</code>; <code>list_documents</code> and <code>create_document</code> get an agent started.</p>
+<h3 id="the-toolset">The toolset<a class="headerlink" href="#the-toolset" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Read</th>
+<th>Write (approval-gated)</th>
+<th>Style (applies directly)</th>
+<th>Other</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>get_document</code>, <code>read_blocks</code>, <code>search_document</code>, <code>read_upload</code>, <code>list_comments</code>, <code>get_block_history</code></td>
+<td><code>propose_edit</code>, <code>propose_insert</code>, <code>propose_delete</code>, <code>propose_move</code>, <code>insert_blocks</code>, <code>draw_figure</code></td>
+<td><code>set_block_layout</code>, <code>set_document_style</code>, <code>set_typography</code>, <code>set_cover</code>, <code>set_header_footer</code>, <code>match_upload_style</code>, <code>reserve_area</code></td>
+<td><code>reply_to_comment</code>, <code>compile_references</code>, <code>view_pages</code>, <code>view_sketch</code>, <code>view_upload</code></td>
+</tr>
+</tbody>
+</table>
+<p>These go through the same HTTP API and store as the editor, so humans and the agent have the
+same powers.</p>
+<h2 id="design-the-whole-document-05">Design the whole document (0.5)<a class="headerlink" href="#design-the-whole-document-05" title="Permanent link">&para;</a></h2>
+<p>The <strong>Design</strong> tab (and the matching agent tools) covers the look of the whole document. It all
+applies to one document and exports exactly as shown.</p>
+<ul>
+<li><strong>Cover page.</strong><ul>
+<li>Turn the separate cover off and the title and subtitle open page 1 as a full-width title
+  block, with the summary right below.</li>
+<li>Covers and back pages take a background colour or image and top, middle or bottom
+  placement; dark backgrounds get light text.</li>
+<li>Pin art or a logo to an exact spot.</li>
+<li>"+ Add to cover" sits above the page. Anything inserted right after a cover block, by a
+  person or the agent, joins the cover.</li>
+</ul>
+</li>
+<li><strong>Fonts and colours.</strong><ul>
+<li>Body, heading, title and label fonts; size, line spacing, heading scale, weight and case;
+  alignment.</li>
+<li>Text, heading, accent, rule, tint and paper colours, on top of the theme.</li>
+<li>17 families are bundled. Any other Google Fonts family loads on demand (<code>web_fonts</code>).</li>
+<li><strong>Save as theme</strong> keeps the look for every other document.</li>
+</ul>
+</li>
+<li><strong>Header and footer.</strong> Left, centre and right text in the margins, with <code>{page}</code>, <code>{pages}</code>,
+  <code>{title}</code> and <code>{year}</code>. Word export writes them as real header and footer fields.</li>
+<li><strong>Match a document's look.</strong><ul>
+<li>Upload a PDF, a Word file or a page image. Codraft applies its page size, margins and
+  columns, its fonts, its colours, its cover and its running header and footer.</li>
+<li>Fonts are mapped to open look-alikes: Calibri → Carlito, Arial → Arimo, Times → Tinos.</li>
+<li>The agent sees the uploaded pages and refines the rest (<code>match_upload_style</code>).</li>
+</ul>
+</li>
+</ul>
+<p>Hosts set what new documents start with through <code>create_app(..., doc_defaults={...})</code> or
+<code>[codraft.doc_defaults]</code>; a theme can also style the cover (<code>cover_background</code>, <code>cover_text</code>).</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<p>The usual chain applies: defaults &lt; <code>langstage.toml</code> &lt; <code>LANGSTAGE_*</code> env &lt; flags.
+<code>langstage-codraft run --show-config</code> prints each value and its source.</p>
+<!-- snippet: check -->
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">[agent]</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">spec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"my_agent.py:graph"</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">[codraft]</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"openrouter:anthropic/claude-haiku-5.5"</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">approval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"required"</span><span class="w">          </span><span class="c1"># default for new documents; or "auto"</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">default_theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"acme"</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="n">allowed_themes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"acme"</span><span class="p">,</span><span class="w"> </span><span class="s2">"academic"</span><span class="p">]</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="n">templates_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"templates"</span><span class="w">    </span><span class="c1"># *.json files: settings + a block skeleton</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="n">data_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">".codraft"</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="k">[codraft.themes.acme]</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Acme"</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="n">font_body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Inter, system-ui, sans-serif"</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="n">color_accent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#d9480f"</span>
+</code></pre></div>
+<p>Built-in themes: classic, modern, academic, minimal, bold. Built-in templates: blank, report,
+proposal, memo, academic paper (two columns), marketing one-pager, and newsletter (three columns
+with a repeating masthead).</p>
+<p>New documents capture the author's brief: writing style, objective, platform, audience, language
+and output format. Uploads can serve as searchable reference material or as a template to
+scaffold from.</p>
+<h3 id="branding-and-embedding-04">Branding and embedding (0.4)<a class="headerlink" href="#branding-and-embedding-04" title="Permanent link">&para;</a></h3>
+<p>The app chrome (not the documents) takes the <code>[ui]</code> keys it shares with langstage-web:
+- <code>title</code>, <code>subtitle</code>, <code>agent_name</code>, <code>welcome_message</code>, <code>icon_url</code>
+- <code>font_family</code>, <code>font_url</code>, <code>starter_prompts</code>, <code>custom_css</code>, <code>embedded</code>
+- <code>[ui.colors]</code> and <code>[ui.colors_dark]</code>, which override any design token
+- <code>[ui.features]</code>, which turns off <code>chat</code>, <code>mcp</code>, <code>doc_list</code> or <code>theme_toggle</code>. Since 0.5.3,
+  <code>mcp = false</code> also stops serving <code>/mcp</code>. <code>chat = false</code> only hides the chat panel: the agent's
+  buttons still use the chat endpoint.</p>
+<p>To host Codraft inside another FastAPI app, call
+<code>mount(host, "/write", create_app(cfg, graph, ui={...}))</code>.</p>
+<p>Behind a proxy, set two things:
+- <code>proxy_secret</code>: the proxy sends it as <code>X-Codraft-Proxy-Secret</code>. It can also send its public path as <code>X-Forwarded-Prefix</code>.
+- <code>user_header</code> (for example <code>X-User-Email</code>): the header that names the user on edits and presence.</p>
+<p><code>auth_username</code> and <code>auth_password</code> turn on HTTP basic auth, on its own or together with the proxy
+secret (both are checked since 0.5.3). Since 0.5.2 it applies to
+requests from the same machine too, so it still protects Codraft behind a same-host reverse proxy.
+The export renderer sends the password itself. Codraft also refuses state-changing requests that a
+browser sends from another website, as langstage-web does. Adding <code>?embed=1</code> to the URL hides
+Codraft's own brand and theme toggle.</p>
+<p>A relative <code>custom_css</code> path in <code>langstage.toml</code> resolves against that file's folder.</p>
+<p>Since 0.5.4, <code>langstage-codraft run</code> on a loopback address refuses requests addressed to other
+host names, as langstage-web does (see <a href="../web/#host-names">Host names</a>). It reads the same
+<code>[server] allowed_hosts</code> / <code>LANGSTAGE_ALLOWED_HOSTS</code>. An app that mounts Codraft with
+<code>create_app()</code> isn't checked unless it passes <code>host_guard=True</code>.</p>
+<p>A host can also set a house style for documents:
+- <code>create_app(..., doc_themes={...})</code> adds document themes in code.
+- <code>default_theme</code> and <code>default_page_size</code> apply to new documents, including documents from the
+  built-in templates that use the generic look.</p>
+<p>In an <code>&lt;iframe&gt;</code>, Codraft sends the host page two messages via <code>postMessage</code>:
+- <code>codraft:location</code> names the open document, so the host can deep-link it.
+- <code>codraft:auth-required</code> means the host's session expired.</p>
+<p>Codraft also navigates with <code>replaceState</code>, so the host's Back button leaves the page.</p>
+<p>Codraft runs inside Lighthouse this way, as the Lab's <strong>Write</strong> bench. It uses SWAN's report house
+style through <code>doc_defaults</code>: no separate cover, SWAN margins, and a footer with the page number,
+title and copyright. Its graph is named "Lighthouse", so the editor calls the agent Lighthouse
+throughout.</p>
+<h2 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">&para;</a></h2>
+<!-- snippet: skip -->
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>langstage-codraft<span class="w"> </span>run<span class="w"> </span><span class="o">[</span>--agent<span class="w"> </span>SPEC<span class="w"> </span><span class="p">|</span><span class="w"> </span>--model<span class="w"> </span>SPEC<span class="w"> </span><span class="p">|</span><span class="w"> </span>--demo<span class="o">]</span><span class="w"> </span><span class="o">[</span>--port<span class="w"> </span><span class="m">8060</span><span class="o">]</span><span class="w"> </span><span class="o">[</span>--approval<span class="w"> </span>auto<span class="o">]</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>langstage-codraft<span class="w"> </span>check<span class="w"> </span><span class="o">[</span>--live<span class="o">]</span><span class="w"> </span><span class="o">[</span>--json<span class="o">]</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>langstage-codraft<span class="w"> </span>new<span class="w"> </span><span class="s2">"Title"</span><span class="w"> </span>--template<span class="w"> </span>report
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>langstage-codraft<span class="w"> </span>list
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>langstage-codraft<span class="w"> </span><span class="nb">export</span><span class="w"> </span>DOC_ID<span class="w"> </span>-f<span class="w"> </span>pdf<span class="p">|</span>docx<span class="p">|</span>pptx<span class="p">|</span>png<span class="p">|</span>jpg<span class="p">|</span>html<span class="p">|</span>gif<span class="p">|</span>mp4<span class="w"> </span>-o<span class="w"> </span>out.pdf<span class="w">   </span><span class="c1"># via a running server</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>langstage-codraft<span class="w"> </span>mcp<span class="w"> </span><span class="o">[</span>--data-dir<span class="w"> </span>DIR<span class="o">]</span><span class="w">                            </span><span class="c1"># Codraft over MCP (stdio)</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>langstage-codraft<span class="w"> </span>install-browser
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Built by Kedar Dabhadkar · MIT-licensed
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.instant", "navigation.tracking", "toc.follow", "content.code.copy", "content.code.annotate", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
