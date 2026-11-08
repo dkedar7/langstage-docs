@@ -169,8 +169,8 @@ langstage-hermes cron daemon            # run forever
 
 The agent can't schedule jobs unless you turn on its `cronjob` tool (off by default):
 
-```toml
-# langstage-hermes.toml
+<!-- snippet: check -->
+```toml title="langstage-hermes.toml"
 [cron]
 agent_tool = true   # or LANGSTAGE_HERMES_CRON_AGENT_TOOL=true
 ```
