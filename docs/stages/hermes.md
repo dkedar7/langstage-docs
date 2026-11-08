@@ -165,6 +165,27 @@ langstage-hermes cron daemon            # run forever
 - A failed run logs one line; set `LANGSTAGE_DEBUG=1` for the traceback. The daemon
   recovers from a lock file left by a crash.
 
+### Letting the agent schedule jobs
+
+The agent can't schedule jobs unless you turn on its `cronjob` tool (off by default):
+
+<!-- snippet: check -->
+```toml title="langstage-hermes.toml"
+[cron]
+agent_tool = true   # or LANGSTAGE_HERMES_CRON_AGENT_TOOL=true
+```
+
+With it on, a chat request like "summarize this repo every morning at 9" can create
+the job itself.
+
+- `list`, `show`, `pause` and `delete` run straight away.
+- `create`, `resume` and `run-now` start or restart unattended runs, so they pause
+  first and say what will be scheduled or run. Nothing happens until you approve.
+  The web and terminal stages show Approve / Reject; `langstage-hermes chat` asks
+  `approve? [y/N, or type a reason to reject]`, and `/yolo` approves automatically.
+- A cron run's own agent never gets the tool, and
+  `[agent] disabled_toolsets = ["cronjob"]` turns it off even with the flag on.
+
 ## Picking a model
 
 Any `init_chat_model` string works, via `--model` or `model.default` in
