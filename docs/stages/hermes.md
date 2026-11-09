@@ -79,6 +79,53 @@ langstage-jupyter -a langstage_hermes.agent:graph       # JupyterLab
 langstage-agui --agent langstage_hermes.agent:graph     # AG-UI endpoint
 ```
 
+## Add Hermes to an existing agent
+
+Already have an agent? Keep your model, tools and system prompt, and add Hermes's
+learning loop as middleware:
+
+<!-- snippet: check -->
+```python
+from langchain.agents import create_agent
+from langchain.chat_models import init_chat_model
+from langchain_core.tools import tool
+from langgraph.checkpoint.memory import InMemorySaver
+
+from langstage_hermes import hermes_middleware
+
+
+@tool
+def lookup_order(order_id: str) -> str:
+    """Look up an order by id."""
+    return f"order {order_id}: shipped"
+
+
+model = init_chat_model("anthropic:claude-sonnet-4-6")
+agent = create_agent(
+    model,
+    tools=[lookup_order],
+    system_prompt="You are Acme's support agent.",
+    middleware=[*hermes_middleware(aux_model=model)],
+    checkpointer=InMemorySaver(),
+)
+```
+
+By default you get `reflection` (a review subagent saves what worked as skills and
+memory), `skills`, `memory`, `recorder` (every turn searchable with
+`session_search`) and `curator`.
+
+- **More, or less.** `include=` adds `compression`, `todo`, `cronjob` (approval-gated,
+  as above) or `budget`; `exclude=` drops a default.
+- **Your prompt is kept.** Hermes appends its sections (tool guidance, your memory and
+  user profile, the skills index) after your system prompt; it never replaces it.
+- **No tool list to maintain.** Hermes's tools ride on the middleware, so
+  `create_agent` binds them for you.
+- **`aux_model`** runs the review subagent. Pass your own model to keep one provider
+  and key.
+
+It works with `deepagents.create_deep_agent` too (leave out `todo`, which deep agents
+already have). For the whole Hermes agent, use `langstage_hermes.agent:graph` as above.
+
 ## Look inside, offline
 
 These read local state only: keyless, no model call. Each takes `--json`.
