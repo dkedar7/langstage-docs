@@ -137,10 +137,13 @@ survives restarts. The same agent is also served at `POST /agui` for any AG-UI c
 <!-- snippet: skip -->
 ```bash
 claude mcp add --transport http codraft http://localhost:8060/mcp   # with `run` going
-langstage-codraft mcp --data-dir .codraft                           # stdio
+langstage-codraft mcp --data-dir .codraft                           # stdio, no server needed
 ```
 
 Every tool takes a `doc_id`; `list_documents` and `create_document` get an agent started.
+
+Over stdio, `view_pages` works without a server too: it uses the one on the configured port if it
+is running, and otherwise starts a private in-process renderer the first time the tool is called.
 
 ### The toolset
 
@@ -268,7 +271,50 @@ langstage-codraft run [--agent SPEC | --model SPEC | --demo] [--port 8060] [--ap
 langstage-codraft check [--live] [--json]
 langstage-codraft new "Title" --template report
 langstage-codraft list
-langstage-codraft export DOC_ID -f pdf|docx|pptx|png|jpg|html|gif|mp4 -o out.pdf   # via a running server
+langstage-codraft export DOC_ID... -f pdf|docx|pptx|png|jpg|html|gif|mp4 -o out.pdf [--data-dir DIR]
 langstage-codraft mcp [--data-dir DIR]                            # Codraft over MCP (stdio)
 langstage-codraft install-browser
 ```
+
+### Export without a running server
+
+`export` doesn't need `langstage-codraft run` in the background. Point it at the data directory and
+it renders in-process, so a batch job or CI step is one command:
+
+<!-- snippet: skip -->
+```bash
+langstage-codraft export doc_6e07ed1cea -f pdf -o report.pdf --data-dir .codraft
+
+# several documents and formats share one browser launch; -o is then a directory
+langstage-codraft export doc_6e07ed1cea doc_9a41c2d07b -f pdf -f png -o out/ --data-dir .codraft
+```
+
+It is the same renderer. The command starts the Codraft app inside its own process, prints through
+the page route the editor's Export button uses, and shuts down, so the output matches a running
+server's. That in-process app listens on `127.0.0.1` only, on a port the OS picks, and every request
+to it needs a one-off password made for that run. It is safe to run while a server is using the same
+data directory.
+
+| You pass | It exports |
+|---|---|
+| `--data-dir DIR` or `--standalone` | in-process, from that data directory (`--standalone`: the configured one) |
+| `--port` or `--url` | through that running server |
+| neither | through the server on the configured port if one is running, else in-process |
+
+From Python:
+
+<!-- snippet: skip -->
+```python
+from langstage_codraft import Standalone, export_document
+
+pdf = export_document(".codraft", "doc_6e07ed1cea", "pdf")                  # bytes
+export_document(".codraft", "doc_6e07ed1cea", "docx", "out/report.docx")   # writes the file
+
+with Standalone(".codraft") as codraft:       # one browser for many exports
+    for doc_id in ("doc_6e07ed1cea", "doc_9a41c2d07b"):
+        open(f"{doc_id}.pdf", "wb").write(codraft.export(doc_id, "pdf"))
+```
+
+PNG and JPG come back as the image for a one-page document and as a zip of page images otherwise;
+HTML is always a zip. A failed export raises `ExportError` (`.status` 404 for an unknown document,
+503 when Chromium isn't installed).
