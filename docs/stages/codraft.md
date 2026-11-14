@@ -182,6 +182,7 @@ notes. 0.9 fixes the page mechanics behind those.
 
 A source carries what a reference list prints, and a private note that it doesn't:
 
+<!-- snippet: skip -->
 ```json
 {"key": "rivera2024", "title": "Fleet costs", "authors": "Rivera, A. and Chen, B.", "year": "2024",
  "publisher": "Example Press", "url": "https://example.org/fleet", "note": "supports the cost table"}
