@@ -98,6 +98,51 @@ The same styles are in the Block and Document panels for people, and in `set_blo
 headings `display`, `section`, `rule`; `figure-box`; `hanging` references; `dark` callouts; drop
 caps; custom page sizes; page-anchored pins; and `reserve_area` for deliberate white space.
 
+## Bring in a document you already have
+
+Most writing starts from a draft. Import a Markdown (`.md`) or Word (`.docx`) file and it
+becomes a Codraft document made of ordinary blocks, which you then edit, restyle and hand to
+the agent like any other.
+
+<!-- snippet: skip -->
+```bash
+langstage-codraft import report.md                       # prints the new document id
+langstage-codraft import proposal.docx --template paper  # the template's look, your content
+langstage-codraft import notes.md --title "Field notes" --theme modern --split section
+```
+
+- **In the editor:** **New document → Import Markdown or Word file**. For a Markdown file with
+  pictures, select its image files along with it.
+- **Over HTTP:** `POST /api/docs/import` (multipart: `file`, and optionally `title`, `template`,
+  `theme`, `settings` as JSON, `split`, and `assets` for the image files). It sits behind the
+  same password and cross-site checks as every other write.
+
+| In the file | In Codraft |
+|---|---|
+| Headings (`#`, Word's `Title` and `Heading 1–6`) | Heading blocks. A leading H1, a front-matter `title:` or Word's Title becomes the document title |
+| Paragraphs, lists, block quotes, code | Text blocks, one per paragraph (`--split section` keeps the prose between two headings together) |
+| Tables | Table blocks (cells as plain text) |
+| A picture on its own | An image block. Embedded pictures and local files are stored with the document; a remote picture stays a link |
+| `---` / `***`, `
+ewpage`, Word page breaks | Divider and page-break blocks |
+| GitHub alerts (`> [!NOTE]`) | Callouts |
+| Footnotes | References on the block that cites them, listed in a References block |
+| Reference-style links | Ordinary links |
+
+The template you pick supplies the look and not its placeholder text: with `report` the title
+goes on the cover page, with `paper` it runs across both columns.
+
+Imported blocks are the author's content, not agent suggestions, so nothing waits for approval.
+The import brings in structure and content, not Word's exact look (upload the file with *match
+its look* for that). Whatever it can't represent (a text box, an equation, a picture it couldn't
+find) is imported as plain text or left out, and listed: the editor shows the list before it
+opens the document, the CLI prints it to stderr (`--json` includes it), and the API returns it
+as `import.notes`.
+
+The importer never fetches anything. It reads a Markdown file's pictures only from that file's
+own folder (CLI) or from the files sent with it (editor, API), sanitizes SVG, and caps sizes:
+25 MB per file, 5,000 blocks, and 300 MB for a Word file once unzipped.
+
 ## Bring your own agent
 
 Codraft adds what it needs to your agent, in the same way the web stage adds `display_inline`.
@@ -270,6 +315,7 @@ throughout.
 langstage-codraft run [--agent SPEC | --model SPEC | --demo] [--port 8060] [--approval auto]
 langstage-codraft check [--live] [--json]
 langstage-codraft new "Title" --template report
+langstage-codraft import FILE.md|FILE.docx [--title T] [--template ID] [--theme NAME] [--split paragraph|section] [--json]
 langstage-codraft list
 langstage-codraft export DOC_ID... -f pdf|docx|pptx|png|jpg|html|gif|mp4 -o out.pdf [--data-dir DIR]
 langstage-codraft mcp [--data-dir DIR]                            # Codraft over MCP (stdio)
