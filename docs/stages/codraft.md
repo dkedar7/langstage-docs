@@ -150,12 +150,64 @@ The agent makes them with the tools it already has (`insert_blocks`, `propose_in
 these, never pins, raw HTML or drawn SVG, for columns, tiles, bands and boxes.
 
 - A row or a set of tiles is one block. It moves to the next column or page as a whole and
-  never splits; one taller than a page is flagged as overflow, like an oversized table.
+  never splits; one taller than a page is flagged as overflow.
 - Cells that would be narrower than an inch stack instead, and tiles that don't fit one line
   take two.
 - Word export writes a row and the tiles as borderless tables and shades a band. PowerPoint
   shows them as pictures, where the paginator placed them.
 - Import never produces these blocks: a Markdown or Word file becomes text, tables and figures.
+
+## Pages without holes, tables and references (0.9)
+
+A second real-model evaluation found documents that were sound but not ready to send: pages
+left half empty, tables with literal asterisks, and a reference list that printed working
+notes. 0.9 fixes the page mechanics behind those.
+
+- **A long table continues on the next page.** A table block splits between rows, across
+  columns and pages, and every continued piece repeats the header row. A split keeps at least
+  two rows on each side. A table with a fixed height stays one box.
+- **Table cells are Markdown.** A cell takes `**bold**`, `*italic*`, `` `code` ``, links,
+  `m^2^`, `CO~2~` and citations. `"total": true` sets the last row as a total.
+- **Back-fill.** A chart, picture, row or set of tiles that doesn't fit at the bottom of a page
+  lets the text after it, up to the next heading, fill the gap, and opens the next page
+  itself. It is on for new documents (Document → *Let text fill the gap before a figure*,
+  `"backfill": true`). A document saved before 0.9 keeps its pages until you turn it on.
+- **Stick to the bottom of the page.** `"layout": {"anchor": "bottom"}` (Block panel → *Stick
+  to the bottom of the page*) puts a call to action, a closing band or a sign-off at the foot
+  of the page, with later blocks flowing above it. No pin and no reserved area.
+- **Cut-off content is reported.** Content taller than a pinned or fixed-height block is
+  flagged in the editor, and `view_pages` names the block to the agent.
+
+### References and citations
+
+A source carries what a reference list prints, and a private note that it doesn't:
+
+<!-- snippet: skip -->
+```json
+{"key": "rivera2024", "title": "Fleet costs", "authors": "Rivera, A. and Chen, B.", "year": "2024",
+ "publisher": "Example Press", "url": "https://example.org/fleet", "note": "supports the cost table"}
+```
+
+- `[@rivera2024]` in a text block, a callout, a row cell or a table cell prints as `[2]`,
+  linked to entry 2 of the list; `[@rivera2024; @chen2023]` prints as `[2, 1]`.
+- Numbers follow first appearance, so they stay right when blocks move.
+- The `references` block prints `Authors (Year). Title. Publisher. URL.` in every export.
+- `note` is never printed. Before 0.9 it was printed after the title.
+- A source without a `key` gets one from its first author and year, shown in the Block panel.
+
+### What the agent does differently (0.9)
+
+- **It sees the figure it drew.** `draw_figure` returns a picture of the figure as it sits on
+  the page and a check of its labels: cut off, too small, overlapping or crossed by a line. A
+  figure can be redrawn five times in a turn.
+- **Sources are not cut to make a page fit.** Deleting the reference list, or a block that
+  cites a source, waits for your approval in every approval mode.
+- **Web search is part of the default install.** When it is missing, `langstage-codraft check`
+  says so and the agent is told not to guess URLs.
+- **Length targets are measured.** `get_document`, `read_blocks` and `propose_edit` report word
+  counts, so "tighten by a third" is checked against a number.
+- **Less is sent to the model.** Tool results from earlier turns are cut down in later turns;
+  the thread keeps them whole.
 
 ## Bring in a document you already have
 
@@ -185,7 +237,7 @@ langstage-codraft import notes.md --title "Field notes" --theme modern --split s
 | `---` / `***`, `
 ewpage`, Word page breaks | Divider and page-break blocks |
 | GitHub alerts (`> [!NOTE]`) | Callouts |
-| Footnotes | References on the block that cites them, listed in a References block |
+| Footnotes | References on the block that cites them, cited as `[@key]` and listed in a References block |
 | Reference-style links | Ordinary links |
 
 The template you pick supplies the look and not its placeholder text: with `report` the title
