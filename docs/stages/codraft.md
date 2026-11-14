@@ -58,9 +58,15 @@ langstage-codraft install-browser
 - **Comments tag the agent.** Queue them for later or ask now. "Address all comments" works
   strictly top to bottom.
 - **Version trees per block.** Step back and forward. Editing an old version starts a branch.
+  A deleted block can be restored with its history: **Undo** on the toast, or **Document →
+  Recently deleted**. The agent can do the same when you ask for something back.
 - **Sources per block.** The agent cites as it writes.
 - **The agent sees the page.** `view_pages` gives vision models screenshots of the rendered
   pages.
+- **The agent sees what it has proposed (0.7).** While its suggestions wait for you, the outline,
+  `read_blocks` and `view_pages` show the document as it will be once they are accepted, marked
+  as pending. A batch of new blocks stays in the order it was written, and each turn starts with
+  a note of what you accepted, rejected or edited since the last one.
 - **What you see is what exports.** The preview, PDF, PNG and HTML all come from the editor's
   own renderer. CI compares the editor page and the export pixel for pixel. Word (`.docx`),
   PowerPoint (`.pptx`, editable text boxes where the paginator placed them), and GIF/MP4 page
@@ -194,10 +200,22 @@ is running, and otherwise starts a private in-process renderer the first time th
 
 | Read | Write (approval-gated) | Style (applies directly) | Other |
 |---|---|---|---|
-| `get_document`, `read_blocks`, `search_document`, `read_upload`, `list_comments`, `get_block_history` | `propose_edit`, `propose_insert`, `propose_delete`, `propose_move`, `insert_blocks`, `draw_figure` | `set_block_layout`, `set_document_style`, `set_typography`, `set_cover`, `set_header_footer`, `match_upload_style`, `reserve_area` | `reply_to_comment`, `compile_references`, `view_pages`, `view_sketch`, `view_upload` |
+| `get_document`, `read_blocks`, `search_document`, `read_upload`, `list_comments`, `get_block_history` | `propose_edit`, `propose_insert`, `propose_delete`, `propose_move`, `insert_blocks`, `draw_figure` | `set_block_layout`, `set_document_style`, `set_typography`, `set_cover`, `set_header_footer`, `match_upload_style`, `reserve_area` | `reply_to_comment`, `compile_references`, `view_pages`, `view_sketch`, `view_upload`, `calculate`, `list_deleted_blocks`, `restore_block` |
 
 These go through the same HTTP API and store as the editor, so humans and the agent have the
 same powers.
+
+A few of these exist because of what a strong model got wrong when it wrote real documents
+(0.7):
+
+- `calculate` does the arithmetic for totals, percentages and table cells, so the figures in a
+  document are computed, not guessed.
+- `restore_block` brings a deleted block back where it was, with its history. It applies
+  immediately in either approval mode, because it only puts the author's own block back.
+- `get_document` says what each block style (variant) looks like, so the agent knows what a
+  heading style does before it tells you.
+- Text is GitHub-flavoured Markdown plus superscript `x^2^` and subscript `H~2~O`. Only
+  `~~two tildes~~` strike text out.
 
 ## Design the whole document (0.5)
 
@@ -214,7 +232,8 @@ applies to one document and exports exactly as shown.
       person or the agent, joins the cover.
 - **Fonts and colours.**
     - Body, heading, title and label fonts; size, line spacing, heading scale, weight and case;
-      alignment.
+      alignment and hyphenation. Justified text is hyphenated by default, and the editor and the
+      PDF break the same words.
     - Text, heading, accent, rule, tint and paper colours, on top of the theme.
     - 17 families are bundled. Any other Google Fonts family loads on demand (`web_fonts`).
     - **Save as theme** keeps the look for every other document.
@@ -241,6 +260,8 @@ spec = "my_agent.py:graph"
 
 [codraft]
 model = "openrouter:anthropic/claude-haiku-5.5"
+max_output_tokens = 16000      # the most the built-in agent writes per model call
+reasoning = "auto"             # auto | off | low | medium | high
 approval = "required"          # default for new documents; or "auto"
 default_theme = "acme"
 allowed_themes = ["acme", "academic"]
@@ -252,6 +273,14 @@ label = "Acme"
 font_body = "Inter, system-ui, sans-serif"
 color_accent = "#d9480f"
 ```
+
+`max_output_tokens` and `reasoning` apply to the built-in agent (0.7). The cap keeps a gateway
+from reserving the model's whole output window on every call, which fails outright on a key with
+little credit. `reasoning = "auto"` turns reasoning on at low effort where Codraft knows the
+model's switch (OpenRouter models, OpenAI GPT-5 and o-series, Anthropic). For OpenAI's GPT-5 and
+o-series models the agent uses the Responses API, the one place they reason together with tools;
+this needs `langstage-core` 1.0.64. If the provider refuses the setting, the agent carries on
+without it and logs why.
 
 Built-in themes: classic, modern, academic, minimal, bold. Built-in templates: blank, report,
 proposal, memo, academic paper (two columns), marketing one-pager, and newsletter (three columns
