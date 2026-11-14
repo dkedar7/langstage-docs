@@ -43,8 +43,8 @@ langstage-codraft install-browser
 ## What you get
 
 - **Blocks on pages.**
-    - Block types: text, headings, images, tables, Vega-Lite charts, callouts, and a
-      references block that compiles itself.
+    - Block types: text, headings, images, tables, Vega-Lite charts, callouts, columns of cells
+      side by side, number tiles, and a references block that compiles itself.
     - Page sizes: Letter, A4, Legal, A5 or 16:9 slide, in either orientation, with margins and
       1–3 columns.
     - Pageless mode is also available.
@@ -101,8 +101,61 @@ langstage-codraft run --agent examples/report_designer.py:make --approval auto
 
 The same styles are in the Block and Document panels for people, and in `set_block_layout` /
 `set_document_style` for any agent: `lead`, `pullquote`, `kicker`, `byline`, `footer`, `bio`;
-headings `display`, `section`, `rule`; `figure-box`; `hanging` references; `dark` callouts; drop
-caps; custom page sizes; page-anchored pins; and `reserve_area` for deliberate white space.
+headings `display`, `section`, `rule`, `band`; `figure-box`; `hanging` references; `dark` and
+`band` callouts; `cards` rows; `plain` number tiles; drop caps; custom page sizes; page-anchored
+pins; and `reserve_area` for deliberate white space.
+
+## Side by side: columns, number tiles and bands (0.8)
+
+A one-pager needs things next to each other: three value props, a row of big numbers, a header
+band, a call-to-action box. These are blocks, so they flow with the document, export exactly as
+they look, and need no pinning.
+
+![A one-page sales sheet with an orange header band, three value props side by side, three number tiles and a call-to-action band](../assets/screenshots/codraft-one-pager.png)
+
+The built-in agent (GPT-5.4) laid this page out in three turns, from the one-pager template and
+a short brief.
+
+- **Columns** (`row`): 2 to 4 cells side by side, each one Markdown. Cells are equal unless you
+  give relative widths. The `cards` style puts each cell in a tinted box.
+- **Number tiles** (`stat`): a large value with a small label under it, up to six in a block.
+  The `plain` style drops the tinted boxes.
+- **Band**: a style for headings and callouts. A band heading is a solid header strip; a band
+  callout is a call-to-action box with centred text.
+- **Fill**: the colour behind a band, a row's cards or the tiles. It is a theme colour by name
+  (`accent`, `text`, `muted`, `heading`, `callout`, `figure`, `rule`) or a hex colour. The text
+  on it turns white or dark, whichever reads.
+
+In the editor, use **Add block → Columns** or **Number tiles** and edit the cells or tiles in the
+Block panel; **Style → band** and **Fill** are in the same panel. The marketing one-pager
+template starts with all of them.
+
+<!-- snippet: skip -->
+```json
+{"type": "heading", "content": {"text": "Acme Relay", "level": 1},
+ "layout": {"span": "full", "variant": "band"}}
+{"type": "row", "layout": {"span": "full", "variant": "cards"},
+ "content": {"cells": [{"markdown": "### Reliable\n\nRetries for 72 hours."},
+                       {"markdown": "### Observable\n\nA searchable delivery log."},
+                       {"markdown": "### Fair\n\nPer-customer rate limits."}]}}
+{"type": "stat", "layout": {"span": "full"},
+ "content": {"items": [{"value": "99.99%", "label": "delivered within 60 seconds"},
+                       {"value": "38 ms", "label": "median added latency"}]}}
+{"type": "callout", "content": {"markdown": "**Start a 14-day pilot.**"},
+ "layout": {"span": "full", "variant": "band", "fill": "#ff5a1f"}}
+```
+
+The agent makes them with the tools it already has (`insert_blocks`, `propose_insert`,
+`propose_edit`, and `fill` on `set_block_layout`), over MCP too. Its instructions say to use
+these, never pins, raw HTML or drawn SVG, for columns, tiles, bands and boxes.
+
+- A row or a set of tiles is one block. It moves to the next column or page as a whole and
+  never splits; one taller than a page is flagged as overflow, like an oversized table.
+- Cells that would be narrower than an inch stack instead, and tiles that don't fit one line
+  take two.
+- Word export writes a row and the tiles as borderless tables and shades a band. PowerPoint
+  shows them as pictures, where the paginator placed them.
+- Import never produces these blocks: a Markdown or Word file becomes text, tables and figures.
 
 ## Bring in a document you already have
 
@@ -283,8 +336,8 @@ this needs `langstage-core` 1.0.64. If the provider refuses the setting, the age
 without it and logs why.
 
 Built-in themes: classic, modern, academic, minimal, bold. Built-in templates: blank, report,
-proposal, memo, academic paper (two columns), marketing one-pager, and newsletter (three columns
-with a repeating masthead).
+proposal, memo, academic paper (two columns), marketing one-pager (a row of value props, number
+tiles and a call-to-action band), and newsletter (three columns with a repeating masthead).
 
 New documents capture the author's brief: writing style, objective, platform, audience, language
 and output format. Uploads can serve as searchable reference material or as a template to
