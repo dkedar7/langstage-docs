@@ -80,8 +80,8 @@ turns through the shared [`langstage-core`](../core.md) AG-UI bridge.
     ```
 
 3. **Point it at your agent** (see [Configuration](#configuration)). If
-   `langstage-vscode` isn't in the editor's default `python`, set
-   `langstage.pythonPath` to the interpreter that has it.
+   `langstage-vscode` is in the workspace folder's `.venv`, the extension finds it
+   (0.6.7+). Otherwise set `langstage.pythonPath` to the interpreter that has it.
 
 ## The LangStage panel
 
@@ -137,7 +137,30 @@ are answered with buttons or slash commands; see
 | Setting | What it is | Default |
 |---|---|---|
 | `langstage.agentSpec` | Your agent, as `path/to/agent.py:graph` or `module:graph`. | falls back to `LANGSTAGE_AGENT_SPEC` / `langstage.toml` |
-| `langstage.pythonPath` | The Python interpreter that has `langstage-vscode` installed. | `python` |
+| `langstage.pythonPath` | The Python interpreter that has `langstage-vscode` installed. | the workspace's `.venv`, else `python` |
+
+**Which Python runs the sidecar** (extension 0.6.7+). With `langstage.pythonPath` empty,
+the extension uses the workspace folder's `.venv` (then `venv`) when it has an
+interpreter, and otherwise `python` on `PATH`. The panel's status line shows the choice,
+for example `Python: .venv (auto-detected)`, with the full path in its tooltip.
+
+To point at another interpreter, the setting accepts `${workspaceFolder}`,
+`${workspaceFolder:<name>}` (multi-root workspaces), `${userHome}`, `${env:<NAME>}` and a
+leading `~`. A relative path is resolved against the workspace folder, and a venv's
+folder stands for its interpreter. So one value works on Windows, macOS and Linux, and a
+team can commit it in `.vscode/settings.json` next to `langstage.toml`:
+
+<!-- snippet: skip -->
+```json
+{
+  "langstage.pythonPath": "${workspaceFolder}/backend/.venv"
+}
+```
+
+The full order is `langstage.pythonPath`, the legacy `deepagent.pythonPath`,
+`LANGSTAGE_PYTHON` in the editor's environment, the workspace venv, then `python` on
+`PATH`. Any other `${...}` variable is refused by name. This does not rely on the Python
+extension, so it works the same in Cursor, VSCodium, Windsurf and code-server.
 
 Leave `langstage.agentSpec` empty and the sidecar resolves the family chain, so a
 project with `[agent] spec = "my_agent.py:graph"` in its `langstage.toml` needs no
