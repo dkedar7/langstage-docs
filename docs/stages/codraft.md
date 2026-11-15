@@ -360,6 +360,7 @@ has a history, like the text does. Every change to the document settings, typogr
 header and footer, block layouts and reserved areas is a **step**, with who made it, when, and
 what it changed:
 
+<!-- snippet: skip -->
 ```text
 The agent   3 min ago    1 → 2 columns, theme classic → modern, body font Lato, 14 block layouts
 You         1 h ago      heading case uppercase
