@@ -305,7 +305,7 @@ is running, and otherwise starts a private in-process renderer the first time th
 
 | Read | Write (approval-gated) | Style (applies directly) | Other |
 |---|---|---|---|
-| `get_document`, `read_blocks`, `search_document`, `read_upload`, `list_comments`, `get_block_history` | `propose_edit`, `propose_insert`, `propose_delete`, `propose_move`, `insert_blocks`, `draw_figure` | `set_block_layout`, `set_document_style`, `set_typography`, `set_cover`, `set_header_footer`, `match_upload_style`, `reserve_area` | `reply_to_comment`, `compile_references`, `view_pages`, `view_sketch`, `view_upload`, `calculate`, `list_deleted_blocks`, `restore_block` |
+| `get_document`, `read_blocks`, `search_document`, `read_upload`, `list_comments`, `get_block_history` | `propose_edit`, `propose_insert`, `propose_delete`, `propose_move`, `insert_blocks`, `draw_figure` | `set_block_layout`, `set_document_style`, `set_typography`, `set_cover`, `set_header_footer`, `match_upload_style`, `reserve_area` | `reply_to_comment`, `compile_references`, `view_pages`, `view_sketch`, `view_upload`, `calculate`, `list_deleted_blocks`, `restore_block`, `list_design_history`, `restore_design` |
 
 These go through the same HTTP API and store as the editor, so humans and the agent have the
 same powers.
@@ -352,6 +352,43 @@ applies to one document and exports exactly as shown.
 
 Hosts set what new documents start with through `create_app(..., doc_defaults={...})` or
 `[codraft.doc_defaults]`; a theme can also style the cover (`cover_background`, `cover_text`).
+
+### Design history: undo a restyle (0.10)
+
+The agent changes the look without asking, which only works if it is cheap to undo. So the look
+has a history, like the text does. Every change to the document settings, typography, cover,
+header and footer, block layouts and reserved areas is a **step**, with who made it, when, and
+what it changed:
+
+<!-- snippet: skip -->
+```text
+The agent   3 min ago    1 → 2 columns, theme classic → modern, body font Lato, 14 block layouts
+You         1 h ago      heading case uppercase
+```
+
+- **One turn is one step.** An agent turn that makes 30 or 200 styling calls is a single step. So
+  is one drag of a colour picker. An MCP client has no turns, so its calls are grouped by time.
+- **Undo** reverts that step alone and leaves later changes in place. A setting or a block that
+  was restyled again since keeps its newer look.
+- **Back to before this** puts the document back to how it looked before the step: that step and
+  every later change to the look are undone.
+- **A restore is a step itself**, so it can be undone the same way.
+- **Content is never touched.** A restore changes settings, block layouts and reserved areas. It
+  doesn't edit, create or delete content blocks. The exported page after an undo is the page from
+  before the restyle, pixel for pixel.
+
+Where to find it:
+
+| Where | What |
+|---|---|
+| The notice after a turn in which the agent changed the look | what changed, and **Undo** |
+| **Design → History** | every step, with **Undo** and **Back to before this**; **Undo the agent's last restyle** at the top |
+| The agent, and MCP clients | `list_design_history` and `restore_design`. The agent uses them only when you ask ("undo that", "the old cover was better"), and its next turn is told when you undid its styling |
+| REST | `GET /api/docs/{id}/design-history`, `POST /api/docs/{id}/design-history/{step}/restore` (`{"only": true}` undoes that step alone) |
+| Python | `Store.design_history(doc_id)`, `Store.restore_design(doc_id, step_id, only=False)` |
+
+The newest 200 steps of each document are kept. The approval mode, the brief and the page count
+you asked for are not part of the look, and a restore leaves them alone.
 
 ## Configuration
 
