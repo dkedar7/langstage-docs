@@ -498,3 +498,35 @@ with Standalone(".codraft") as codraft:       # one browser for many exports
 PNG and JPG come back as the image for a one-page document and as a zip of page images otherwise;
 HTML is always a zip. A failed export raises `ExportError` (`.status` 404 for an unknown document,
 503 when Chromium isn't installed).
+
+### Cut-off content (0.9.1)
+
+A block whose content is taller than the fixed height, or the pin's box, it was given is cut off
+on the page, and what doesn't fit is missing from the export. Two things keep that from happening
+unnoticed:
+
+- **The agent can't do it.** `set_block_layout` measures the block in the print view and refuses a
+  height or a box that would cut off its text, table or cells. The refusal names the height the
+  content needs. Shortening a block is a content change, and that is a suggestion you approve. The
+  check is in the tool, so MCP clients and bring-your-own agents get it too.
+- **An export says what it cut off.** You can still give a block any height in the Block panel
+  (the panel says how much is cut off and offers **Fit the content**). Every way to export then
+  reports it:
+
+<!-- snippet: skip -->
+```console
+$ langstage-codraft export doc_6e07ed1cea -o report.pdf --data-dir .codraft
+[ ok ] wrote report.pdf (48213 bytes)
+[warn] doc_6e07ed1cea: 1 block is cut off in report.pdf, so part of the content does not print: blk_2b4f2daac7 (page 2). ...
+$ langstage-codraft export doc_6e07ed1cea -o report.pdf --data-dir .codraft --strict   # exit 1, nothing written
+```
+
+| Where | What you get |
+|---|---|
+| `langstage-codraft export` | a `[warn]` line per file; `--strict` fails the document (exit 1, no file); `--json` prints one object per export with `cut_off` |
+| `GET /api/docs/{id}/export` | the header `X-Codraft-Cut-Off: blk_…@page,…`; `?strict=true` answers 409 with the list |
+| `GET /api/docs/{id}/layout-check` | `{"ok": false, "cut_off": [{"block_id", "page", "type", "natural_px", "box_px", "preview"}]}` |
+| `export_document`, `Standalone.export` | a `CutOffWarning`; `strict=True` raises `ExportError` (`.status` 409); `Standalone.check(doc_id)` returns the list |
+| the editor's Export button | a notice naming the page, with **Show** to open the block |
+
+A Word export has no such warning, because Word reflows the text itself.
