@@ -147,6 +147,35 @@ langstage-hermes tools --implemented-only                     # the toolsets and
   still injected in full; the agent's `memory` tool just refuses new entries until
   it's trimmed.
 
+### See and undo memory changes
+
+The agent edits `USER.md` and `MEMORY.md` on its own, and both go into every later
+session's prompt. Each change is recorded with the text it replaced, when it
+happened, who made it (`agent`, or `review` for the review that runs after a turn)
+and in which session.
+
+<!-- snippet: check -->
+```bash
+langstage-hermes audit log --memory               # memory changes only (--skills: skills only)
+langstage-hermes memory show --history            # the same list
+langstage-hermes audit show <id>                  # the whole layer before and after one change
+langstage-hermes audit rollback memory:user <id>  # undo one change (memory:memory for MEMORY.md)
+```
+
+- **A rollback undoes one change and keeps the rest.** The entry that change removed or
+  replaced comes back, and the entry it wrote goes. Entries added later stay.
+- **It refuses instead of guessing.** If the entry has been changed again since (by a
+  later change, or by hand), or the result would exceed the layer's size budget,
+  nothing is changed and the message names the change to undo first.
+- **A rollback is itself recorded,** so it can be undone the same way. It reaches the
+  agent's prompt from the next session on.
+- **Hand edits are not recorded.** `audit log` notes when a layer on disk no longer
+  matches its last recorded change, and `audit diff memory:user <id>` shows the
+  difference.
+- **Where the text lives.** The before and after text is stored in
+  `<HERMES_HOME>/state.db`, next to your recorded conversations. Removing an entry
+  from memory does not remove it from that log.
+
 ## Skills
 
 <!-- snippet: check -->
@@ -178,7 +207,8 @@ four sources.
 
 **Audit log.** Every skill change the agent or the CLI makes is recorded:
 `langstage-hermes audit log`, `audit show <id> --diff`, `audit diff`, and
-`audit rollback <name> <id>`.
+`audit rollback <name> <id>`. Memory changes are in the same log (see
+[See and undo memory changes](#see-and-undo-memory-changes)).
 
 ## Curator
 
