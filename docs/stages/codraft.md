@@ -60,6 +60,10 @@ langstage-codraft install-browser
 - **Version trees per block.** Step back and forward. Editing an old version starts a branch.
   A deleted block can be restored with its history: **Undo** on the toast, or **Document →
   Recently deleted**. The agent can do the same when you ask for something back.
+- **Checkpoints (0.11).** Name the text as it is now ("Sent to legal"). Later, see what changed
+  since, block by block, and go back: all of it or one block. One is taken before each agent
+  turn and each **Accept all**, so accepting thirty suggestions at once has an **Undo**.
+  See [Checkpoints](#checkpoints-what-changed-since-and-going-back-011).
 - **Sources per block.** The agent cites as it writes.
 - **The agent sees the page.** `view_pages` gives vision models screenshots of the rendered
   pages.
@@ -305,7 +309,7 @@ is running, and otherwise starts a private in-process renderer the first time th
 
 | Read | Write (approval-gated) | Style (applies directly) | Other |
 |---|---|---|---|
-| `get_document`, `read_blocks`, `search_document`, `read_upload`, `list_comments`, `get_block_history` | `propose_edit`, `propose_insert`, `propose_delete`, `propose_move`, `insert_blocks`, `draw_figure` | `set_block_layout`, `set_document_style`, `set_typography`, `set_cover`, `set_header_footer`, `match_upload_style`, `reserve_area` | `reply_to_comment`, `compile_references`, `view_pages`, `view_sketch`, `view_upload`, `calculate`, `list_deleted_blocks`, `restore_block`, `list_design_history`, `restore_design` |
+| `get_document`, `read_blocks`, `search_document`, `read_upload`, `list_comments`, `get_block_history`, `list_checkpoints`, `changes_since` | `propose_edit`, `propose_insert`, `propose_delete`, `propose_move`, `insert_blocks`, `draw_figure` | `set_block_layout`, `set_document_style`, `set_typography`, `set_cover`, `set_header_footer`, `match_upload_style`, `reserve_area` | `reply_to_comment`, `compile_references`, `view_pages`, `view_sketch`, `view_upload`, `calculate`, `list_deleted_blocks`, `restore_block`, `list_design_history`, `restore_design` |
 
 These go through the same HTTP API and store as the editor, so humans and the agent have the
 same powers.
@@ -319,6 +323,9 @@ A few of these exist because of what a strong model got wrong when it wrote real
   immediately in either approval mode, because it only puts the author's own block back.
 - `get_document` says what each block style (variant) looks like, so the agent knows what a
   heading style does before it tells you.
+- `list_checkpoints` and `changes_since` (0.11) are read-only: the agent can tell you what
+  changed since a checkpoint, with a word diff per block, and write the cover note from the
+  record. It has no tool to go back to one; that changes your content, so it is yours to do.
 - Text is GitHub-flavoured Markdown plus superscript `x^2^` and subscript `H~2~O`. Only
   `~~two tildes~~` strike text out.
 
@@ -389,6 +396,69 @@ Where to find it:
 
 The newest 200 steps of each document are kept. The approval mode, the brief and the page count
 you asked for are not part of the look, and a restore leaves them alone.
+
+## Checkpoints: what changed since, and going back (0.11)
+
+Every block keeps its own version tree. A **checkpoint** ties the blocks together at a moment, so
+you can ask of the whole document "what changed since the version legal reviewed?", and take a
+long agent turn back after accepting it wholesale.
+
+<!-- snippet: skip -->
+```text
+Sent to legal                         You          6 days ago    14 changes since…
+Before Accept all (12 suggestions)    You          3 min ago     12 changes since…
+Before the agent's turn               The agent    1 h ago       19 changes since…
+```
+
+- **Named and automatic.** You name a checkpoint in **Document → Checkpoints**; it is kept until
+  you delete it. Codraft takes one itself before each agent turn that proposes content, before
+  each **Accept all** and before a restore, and keeps the newest 100. Naming an automatic one
+  keeps it.
+- **No text is copied.** A checkpoint records which version of each block was showing and where
+  the block stood. It is taken at the moment itself, so it is exact even for a block you had
+  stepped back to an older version.
+- **Changes since** lists the blocks edited, added, deleted and moved, with the word diff a
+  suggestion gets and word counts. **Revert this block** takes one block back; **Restore all**
+  takes the document back.
+- **Going back overwrites nothing.**
+    - An edited block checks out the version it had. The newer text stays in its history, one
+      step forward.
+    - A deleted block returns with its history. A block added since goes to **Recently deleted**.
+    - The order is put back.
+    - The restore takes a checkpoint first, so **Undo** on the notice undoes it.
+    - The exported pages after a restore are the checkpoint's pages, pixel for pixel.
+- **Undo accept all.** The notice after **Accept all** offers it, and the Review tab keeps **See
+  changes** and **Undo** afterwards. The suggestions stay decided; to re-apply one, step that
+  block forward.
+- **Content only.** Settings, block layouts and reserved areas have their own
+  [history](#design-history-undo-a-restyle-010), and a checkpoint restore leaves them alone.
+- **Pending suggestions stay pending.** One written against text that is no longer showing is
+  marked outdated. One on a block the restore removed is closed.
+- **Other people.** A block someone else is editing right now is left alone and listed, so you
+  can revert it afterwards.
+
+Where to find it:
+
+| Where | What |
+|---|---|
+| **Document → Checkpoints** | name one, see how much changed since each, rename or forget one; **N changes since…** opens the review, with **Revert this block** and **Restore all** |
+| The notice after **Accept all**, and the Review tab | **Undo accept all**, **See changes** |
+| The agent, and MCP clients | `list_checkpoints` and `changes_since`, both read-only. Going back is the author's |
+| REST | `GET`/`POST /api/docs/{id}/checkpoints`, `PATCH`/`DELETE …/checkpoints/{cid}`, `GET …/checkpoints/{cid}/changes`, `POST …/checkpoints/{cid}/restore` (`{"blocks": [...]}` for some of them). `POST …/suggestions/accept-all` returns the `checkpoint` that undoes it |
+| Python | `Store.create_checkpoint(doc_id, name)`, `Store.list_checkpoints(doc_id)`, `Store.checkpoint_changes(doc_id, checkpoint_id)`, `Store.restore_checkpoint(doc_id, checkpoint_id, blocks=None)` |
+
+<!-- snippet: skip -->
+```python
+cp = httpx.post(f"{base}/api/docs/{doc_id}/checkpoints", json={"name": "Sent to legal"}).json()
+# ... a week of edits and accepted suggestions ...
+ch = httpx.get(f"{base}/api/docs/{doc_id}/checkpoints/{cp['id']}/changes").json()
+ch["counts"]        # {"edited": 11, "added": 2, "deleted": 1, "moved": 0, "total": 14}
+got = httpx.post(f"{base}/api/docs/{doc_id}/checkpoints/{cp['id']}/restore", json={}).json()["result"]
+httpx.post(f"{base}/api/docs/{doc_id}/checkpoints/{got['undo']}/restore", json={})   # undo that
+```
+
+A data directory from an earlier version opens as before. Its documents have no checkpoints until
+one is taken.
 
 ## Configuration
 
