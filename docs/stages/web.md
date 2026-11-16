@@ -80,6 +80,8 @@ land where the file browser shows them.
 - **Streaming chat** with inline tool calls (arguments, results, duration, status).
 - **Reasoning** from reasoning models, in a collapsed **Thinking** block above the answer.
 - **Starter prompts**: one-click suggestion chips on the empty screen.
+- **History**: reopen, continue or delete past conversations from any browser. See
+  [History](#history).
 - **Rich inline content**: HTML, Plotly, images, DataFrames, PDFs, JSON.
 - **Math**: TeX in a reply or a Canvas note renders as math, `\( … \)` inline and
   `\[ … \]` or `$$ … $$` as display. A single `$` is left alone, so "$5 and $10" stays
@@ -113,6 +115,43 @@ start it is a durable SQLite saver at `<workspace>/.langstage/checkpoints.db`. S
 conversation memory, interrupts and the task review gate work, and survive a
 restart. A graph that compiles in its own checkpointer keeps it.
 
+## History
+
+Every chat is saved in the checkpointer under its session id, so it outlives the page
+that started it. **History**, next to **New** in the header, lists those conversations
+newest first, titled by their first message.
+
+- **Reopen and continue.** Click a conversation to bring back its messages, tool calls
+  and reasoning. Your next message continues it on the same thread, with its earlier
+  context. **New** starts a fresh conversation and leaves the current one in History.
+- **From any browser, after a restart.** The list comes from the server, not from the
+  browser's storage.
+- **One window at a time.** A conversation that is open in another window, or has a
+  turn running, opens read-only: you see a copy that refreshes as it changes, and
+  **Continue here** becomes available once it is free.
+- **Paused on an approval.** Reopening a conversation that was waiting on an approval
+  shows the approval again, and answering it resumes the turn.
+- **Delete is permanent.** The trash icon removes the conversation from the
+  checkpointer after a confirmation. It is refused while a turn is running.
+- **Not restored:** per-turn timings, token counts and the Plan tab's list start from
+  zero in a reopened conversation.
+- **Not listed:** task and schedule runs. Those are on the Board.
+
+**Your own checkpointer.** History needs a checkpointer that can list threads
+(`alist`) and, for delete, remove one (`adelete_thread`). LangGraph's SQLite, Postgres
+and in-memory savers can. If yours can't list, the History button is hidden; if it
+can't delete, the trash icon is hidden. `langstage check` prints a `history` line that
+says which applies. With an in-memory checkpointer the list lasts until the server
+stops.
+
+**Large databases.** The server reads the checkpoint database once at startup, in the
+background, and lists the newest conversations first. On a 150 MB database with 300
+threads that takes about 20 seconds, and turns run normally meanwhile. After that the
+list is served from memory.
+
+**Access.** Anyone who can reach the server can read and delete every past
+conversation, as they can browse the workspace files. See [Security](#security).
+
 ## Command-line tools
 
 <!-- snippet: check -->
@@ -128,8 +167,8 @@ langstage init                                       # a fully commented langsta
 - Without `--agent`, `check` and `chat` use the same agent `run` serves: the
   configured one (`LANGSTAGE_AGENT_SPEC` or `[agent] spec`), or with nothing
   configured, the built-in default agent (which needs the `deepagents` extra).
-- `check` prints `[ ok ]` / `[warn]` lines for loading, the checkpointer, Canvas,
-  `write_todos` and the host tools. The static checks need no key.
+- `check` prints `[ ok ]` / `[warn]` lines for loading, the checkpointer, History,
+  Canvas, `write_todos` and the host tools. The static checks need no key.
 - `chat` adds the same per-message context the browser does (current time and the
   workspace path). Pass `--no-context` for a bare echo in scripts.
 - `config --strict` exits `1` if anything in the config was ignored or degraded:
@@ -194,6 +233,12 @@ seconds after its stream closes; reconnecting with the same `session_id` picks t
 conversation back up from the checkpointer. Tasks are under `/api/tasks`, schedules
 under `/api/cron` (not `/api/schedules`).
 
+Past conversations are under `/api/conversations`: `GET` lists them (`limit`,
+`offset`), `GET /api/conversations/{id}` returns one as a transcript, and `DELETE`
+removes it. To continue one from your own client, `POST
+/api/conversations/{id}/open`, then attach `GET /api/stream?session_id={id}`; `open`
+answers 409 while a turn is running in it or another client is attached.
+
 **Health.** `GET /api/health` is liveness (always auth-exempt). `GET
 /api/health?ready=1` is readiness: 200 only if the agent is a runnable graph and the
 task store is reachable, else 503. Use it for reverse proxies, Kubernetes and uptime
@@ -206,8 +251,8 @@ monitors.
   upgrades.
 - **Binding to the network.** The default `localhost` bind is reachable only from
   the same machine. If you bind a non-loopback host (`--host 0.0.0.0`) without a
-  password, the whole REST surface, including the file browser's read, write and
-  delete, is open to anyone on the network. LangStage prints a warning at startup
+  password, the whole REST surface, including every past conversation and the file
+  browser's read, write and delete, is open to anyone on the network. LangStage prints a warning at startup
   but still starts. The safer option is to keep `localhost` and use an SSH tunnel.
 - **Files.** The file routes stay inside the workspace, including through
   symlinks.
