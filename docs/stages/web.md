@@ -81,6 +81,10 @@ land where the file browser shows them.
 - **Reasoning** from reasoning models, in a collapsed **Thinking** block above the answer.
 - **Starter prompts**: one-click suggestion chips on the empty screen.
 - **Rich inline content**: HTML, Plotly, images, DataFrames, PDFs, JSON.
+- **Math**: TeX in a reply or a Canvas note renders as math, `\( … \)` inline and
+  `\[ … \]` or `$$ … $$` as display. A single `$` is left alone, so "$5 and $10" stays
+  money, and a formula that isn't valid TeX shows as written. KaTeX ships in the package
+  (no CDN) and loads with the first formula.
 - **Canvas panel**, a persistent report surface. Opt in by attaching
   `CanvasMiddleware` to your agent.
 - **File browser** with a syntax-highlighted viewer and live change detection.
