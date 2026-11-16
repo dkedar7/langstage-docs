@@ -132,6 +132,9 @@ cat prompt.txt | langstage-cli --demo # all of stdin is ONE message
 - Piped stdin is sent as a single message, like `-f`. Lines starting with `/` are
   part of the message, not commands.
 - An empty `MESSAGE` or empty stdin is an error, not a silent no-op.
+- When a turn ends on a tool result with no assistant text after it (a
+  `return_direct` tool), that result is the reply. A turn that leaves nothing to
+  print exits `1` with a note on stderr.
 - A terminal still gets the interactive REPL (on Windows, that includes mintty /
   Git Bash).
 - `-q` forces the same clean output in a terminal.
