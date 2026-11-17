@@ -126,9 +126,16 @@ newest first, titled by their first message.
   context. **New** starts a fresh conversation and leaves the current one in History.
 - **From any browser, after a restart.** The list comes from the server, not from the
   browser's storage.
-- **One window at a time.** A conversation that is open in another window, or has a
-  turn running, opens read-only: you see a copy that refreshes as it changes, and
-  **Continue here** becomes available once it is free.
+- **One window at a time.** One window reads a conversation's event stream, so a reply
+  is never split between two. A conversation that is open in another window, or has a
+  turn running, opens read-only: you see a copy that refreshes as it changes. A second
+  tab of the same browser counts as another window. **Continue here** moves the
+  conversation to the window you click it in, once no turn is running, and the window
+  that had it becomes the read-only copy.
+- **A reload is the same window.** Reloading the page, or a dropped connection coming
+  back, carries on with the conversation. The page catches up from the server on
+  load: a turn that was running shows as running and is complete when it ends, and an
+  approval it was paused on is shown again.
 - **Paused on an approval.** Reopening a conversation that was waiting on an approval
   shows the approval again, and answering it resumes the turn.
 - **Delete is permanent.** The trash icon removes the conversation from the
@@ -233,11 +240,20 @@ seconds after its stream closes; reconnecting with the same `session_id` picks t
 conversation back up from the checkpointer. Tasks are under `/api/tasks`, schedules
 under `/api/cron` (not `/api/schedules`).
 
+One connection reads a session's stream at a time: a second one gets 409, because two
+readers would split a turn's frames between them. Pass `client=<an id of yours>` to
+name the reader. A connection with the `client` of the current reader replaces it
+(your own reconnect), and a connection that is replaced gets a last `superseded`
+frame. `POST /api/chat/complete` with the `session_id` of a session that has an open
+stream is 409 for the same reason.
+
 Past conversations are under `/api/conversations`: `GET` lists them (`limit`,
 `offset`), `GET /api/conversations/{id}` returns one as a transcript, and `DELETE`
 removes it. To continue one from your own client, `POST
 /api/conversations/{id}/open`, then attach `GET /api/stream?session_id={id}`; `open`
-answers 409 while a turn is running in it or another client is attached.
+answers 409 while a turn is running in it or another client is attached. With
+`?takeover=true` a client that merely has it open is made to let go, and only a
+running turn is a 409.
 
 **Health.** `GET /api/health` is liveness (always auth-exempt). `GET
 /api/health?ready=1` is readiness: 200 only if the agent is a runnable graph and the
