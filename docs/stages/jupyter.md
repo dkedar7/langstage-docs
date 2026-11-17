@@ -115,6 +115,14 @@ reloaded (that would discard them); the sidebar says so and points you to
 `execute_cell` interrupts the kernel when a cell times out and keeps its partial
 output, and a cell that reads stdin (`input()`) fails at once instead of hanging.
 
+The agent can also read what a cell already produced. Asked "why did cell 4 fail?", it
+calls `read_cell_outputs`, which returns the cell's saved output and traceback without
+running the cell again, so the cell's side effects aren't repeated.
+`get_notebook_state` lists the cells whose saved outputs hold an error. Both read the
+notebook as last saved, so a run that JupyterLab hasn't saved yet isn't visible to
+them. Long output keeps its start and its end, and an image is shown as a placeholder
+such as `<image/png>`.
+
 ### Your own agent
 
 A custom agent gets the notebook tools only if you pass them. Leave them out and it
