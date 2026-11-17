@@ -207,7 +207,10 @@ four sources.
 
 **Audit log.** Every skill change the agent or the CLI makes is recorded:
 `langstage-hermes audit log`, `audit show <id> --diff`, `audit diff`, and
-`audit rollback <name> <id>`. Memory changes are in the same log (see
+`audit rollback <name> <id>`. Each row names who made the change and the session
+it happened in: `agent` for a skill saved during a turn, `review` for one the
+review that runs after a turn wrote on its own, `cli` for a change you made from
+the command line. Memory changes are in the same log (see
 [See and undo memory changes](#see-and-undo-memory-changes)).
 
 ## Curator
