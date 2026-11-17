@@ -304,6 +304,8 @@ Every tool takes a `doc_id`; `list_documents` and `create_document` get an agent
 
 Over stdio, `view_pages` works without a server too: it uses the one on the configured port if it
 is running, and otherwise starts a private in-process renderer the first time the tool is called.
+That renderer is stopped when the client disconnects, and on SIGTERM or Ctrl+C, so the server
+exits at once and leaves nothing in the client's MCP log.
 
 ### The toolset
 
