@@ -72,6 +72,10 @@ langstage-agui --agent my_agent.py:graph                 # http://localhost:8050
 - The port is bound **before** the `Serving … at <url>` banner prints, so a busy
   port is a clean one-line `error: cannot serve at <url>: …`, not a success banner
   followed by a crash.
+- The agent is built before that too. A spec that loads but isn't a runnable graph
+  (a `StateGraph` you forgot to `.compile()`, say) is one line,
+  `error: cannot serve agent 'my_agent.py:graph': TypeError: …`, with exit `1` and
+  no banner. Set `LANGSTAGE_DEBUG=1` for the traceback.
 - A graph compiled **without a checkpointer** gets an in-memory one attached (on a
   copy; your graph object isn't changed). AG-UI needs threaded state for
   interrupts and resume.
