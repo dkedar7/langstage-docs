@@ -6,7 +6,7 @@
     "langstage-cli": "0.6.55",
     "langstage-hermes": "0.5.5",
     "langstage-jupyter": "0.6.55",
-    "langstage-vscode": "0.5.43",
+    "langstage-vscode": "0.5.44",
     "langstage-codraft": "0.11.1"
   },
   "releases": {
