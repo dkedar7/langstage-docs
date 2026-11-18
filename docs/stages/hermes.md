@@ -163,7 +163,11 @@ langstage-hermes audit rollback memory:user <id>  # undo one change (memory:memo
 ```
 
 - **A rollback undoes one change and keeps the rest.** The entry that change removed or
-  replaced comes back, and the entry it wrote goes. Entries added later stay.
+  replaced comes back, and the entry it wrote goes. Entries added later stay. With
+  nothing changed since, the layer comes back exactly as it was, in the same order.
+- **A layer never holds the same entry twice.** The `memory` tool's `add` skips text the
+  layer already holds, and `replace` refuses to overwrite an entry with the text of
+  another one; it tells the agent to `remove` the entry it no longer needs.
 - **It refuses instead of guessing.** If the entry has been changed again since (by a
   later change, or by hand), or the result would exceed the layer's size budget,
   nothing is changed and the message names the change to undo first.
