@@ -173,6 +173,15 @@ langstage-hermes audit rollback memory:user <id>  # undo one change (memory:memo
   nothing is changed and the message names the change to undo first.
 - **A rollback is itself recorded,** so it can be undone the same way. It reaches the
   agent's prompt from the next session on.
+
+### Turn a memory layer off
+
+To keep the agent from building a profile of you, set `user_profile_enabled = false`
+under `[memory]` in `langstage-hermes.toml`. `USER.md` then stays out of the prompt,
+and the `memory` tool refuses to read or write it. `memory_enabled = false` does the
+same for `MEMORY.md`. With both off, the agent and its review get no `memory` tool at
+all, and `langstage-hermes tools` marks the toolset ✗. Files already on disk are left
+as they are.
 - **Hand edits are not recorded.** `audit log` notes when a layer on disk no longer
   matches its last recorded change, and `audit diff memory:user <id>` shows the
   difference.
