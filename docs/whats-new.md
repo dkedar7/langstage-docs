@@ -10,6 +10,16 @@ stage aren't listed; every package's full changelog is in its repository.
 
 ### Week of November 16
 
+- **Codraft 0.12.0:** export a Word **redline**, either of the changes since a
+  checkpoint or of the agent's pending suggestions. The changes are real tracked
+  changes that reviewers accept or reject in Word.
+  [Redline Word export](stages/codraft.md#redline-word-export-012)
+- **JupyterLab 0.6.56:** before each turn, the sidebar saves the notebook you're
+  looking at, so the agent sees the run you just did. Set `save_before_turn = false` to
+  turn this off. [In the sidebar](stages/jupyter.md#in-the-sidebar)
+- **Hermes 0.5.7:** `memory_enabled = false` and `user_profile_enabled = false` now keep
+  MEMORY.md and USER.md out of the agent's prompt and memory. With both off, the agent
+  has no `memory` tool. [Turn a memory layer off](stages/hermes.md#turn-a-memory-layer-off)
 - **Web 0.13.68:** one window reads a conversation at a time. Opening it in a second
   window or tab gives a read-only copy, and **Continue here** moves it.
   [History](stages/web.md#history)
