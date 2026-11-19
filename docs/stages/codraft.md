@@ -472,6 +472,7 @@ so **Changes since…** inside Codraft doesn't reach them, and a plain Word expo
 A **redline** is the Word export with the changes written as Word's own tracked changes, so the
 reviewer gets Word's **Accept** and **Reject**.
 
+<!-- snippet: skip -->
 ```bash
 langstage-codraft export DOC_ID -f docx --since "Sent to legal" -o redline.docx   # a checkpoint's name or id
 langstage-codraft export DOC_ID -f docx --pending -o suggestions.docx             # the pending suggestions
