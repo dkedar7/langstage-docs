@@ -119,9 +119,9 @@ The agent can also read what a cell already produced. Asked "why did cell 4 fail
 calls `read_cell_outputs`, which returns the cell's saved output and traceback without
 running the cell again, so the cell's side effects aren't repeated.
 `get_notebook_state` lists the cells whose saved outputs hold an error. Both read the
-notebook as last saved, so a run that JupyterLab hasn't saved yet isn't visible to
-them. Long output keeps its start and its end, and an image is shown as a placeholder
-such as `<image/png>`.
+notebook as last saved, and the sidebar saves the notebook you're looking at before
+each turn, so a run you just did is visible to them. Long output keeps its start and
+its end, and an image is shown as a placeholder such as `<image/png>`.
 
 ### Your own agent
 
@@ -162,6 +162,10 @@ langstage-jupyter -a my_agent.py:agent
 
 - **Context-aware.** Each message carries the focused notebook or file, the current
   directory, and your selection.
+- **Saves before a turn.** If the focused notebook has unsaved changes, the sidebar
+  saves it before sending your message or approval, so the agent reads what you see.
+  Other tabs are left alone. To turn it off, set `save_before_turn = false` under
+  `[jupyter]` in `langstage.toml`, or `LANGSTAGE_SAVE_BEFORE_TURN=false`.
 - **Reasoning** from reasoning models shows in a collapsed **Thinking** block above
   the answer.
 - **Human-in-the-loop.** A paused agent shows **Approve**, **Reject** and **Edit**
