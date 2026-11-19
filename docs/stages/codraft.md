@@ -64,6 +64,9 @@ langstage-codraft install-browser
   since, block by block, and go back: all of it or one block. One is taken before each agent
   turn and each **Accept all**, so accepting thirty suggestions at once has an **Undo**.
   See [Checkpoints](#checkpoints-what-changed-since-and-going-back-011).
+- **Redlines for reviewers in Word (0.12).** Export what changed since a checkpoint, or the
+  pending suggestions, as a Word file with real tracked changes. A reviewer accepts or rejects
+  them in Word without opening Codraft. See [Redline Word export](#redline-word-export-012).
 - **Sources per block.** The agent cites as it writes.
 - **The agent sees the page.** `view_pages` gives vision models screenshots of the rendered
   pages.
@@ -461,6 +464,41 @@ httpx.post(f"{base}/api/docs/{doc_id}/checkpoints/{got['undo']}/restore", json={
 
 A data directory from an earlier version opens as before. Its documents have no checkpoints until
 one is taken.
+
+### Redline Word export (0.12)
+
+Legal reviewed the version you sent and now asks for a redline against it. They work in Word,
+so **Changes since…** inside Codraft doesn't reach them, and a plain Word export is a clean copy.
+A **redline** is the Word export with the changes written as Word's own tracked changes, so the
+reviewer gets Word's **Accept** and **Reject**.
+
+<!-- snippet: skip -->
+```bash
+langstage-codraft export DOC_ID -f docx --since "Sent to legal" -o redline.docx   # a checkpoint's name or id
+langstage-codraft export DOC_ID -f docx --pending -o suggestions.docx             # the pending suggestions
+```
+
+In the editor, the file icon next to a checkpoint's **N changes since…** (or **Export redline** in
+its changes view) downloads `<title>-redline.docx`. **Export → Word with suggestions** downloads
+`<title>-suggestions.docx`, with each pending suggestion as a tracked change by the agent.
+
+| Change | In Word |
+|---|---|
+| Edited text, heading or callout | word by word, with bold, italic and links kept |
+| A paragraph added to or removed from a block | the whole paragraph inserted or deleted |
+| Added or deleted block | inserted where it is now, or deleted where it was |
+| Moved block | deleted where it was, inserted where it is now |
+| Edited table, row, stat tiles, chart or image | the old block deleted, the new one inserted |
+
+Each change carries its author and date from the version records: a collaborator's name, the
+agent's name, or "Author". Accept every change and the text reads as the document does now;
+reject every one and it reads as it did at the checkpoint. A chart or image as it was has no
+picture to show, so the redline names it (`[chart]`) next to its caption. Reviewers' tracked
+changes don't come back into Codraft.
+
+The same files come from `GET /api/docs/{id}/export?format=docx&since=<checkpoint>` (or
+`&pending=true`) and, in Python, from `export_document(data_dir, doc_id, "docx", since=...)` or
+`pending=True`.
 
 ## Configuration
 
