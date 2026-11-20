@@ -191,7 +191,9 @@ With one layer off, the agent's memory guidance and the review that runs after a
 ask only for what the other layer keeps. With the profile off, they are told not to
 save personal facts about you in `MEMORY.md` instead. With both off, the agent and its
 review get no `memory` tool at all, and `langstage-hermes tools` marks the toolset ✗.
-Files already on disk are left as they are.
+Files already on disk are left as they are. `memory show` and `/memory` still print an
+off layer's file, marked `OFF` with the setting that turned it off, and
+`memory show --json` reports `"enabled": false` for it.
 
 ## Skills
 

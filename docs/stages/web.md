@@ -217,7 +217,8 @@ chatting. There is no extra infrastructure: tasks live in a local SQLite file
 (`<workspace>/.langstage/tasks.db`, so the board survives a restart) and run on an
 in-process worker pool built on the core [task engine](../core.md#delegate-work-to-a-background-task).
 
-- A task moves `queued → ongoing → review → done`. Cancel or retry from any card.
+- A task moves `queued → ongoing → review → done`. Cancel or retry from any card;
+  a retry picks up where the task stopped instead of starting over.
 - Click a card to live-tail the agent's full stream, answer a task paused for
   review (approve, reject, edit or respond, whichever the interrupt allows), or
   send a follow-up.

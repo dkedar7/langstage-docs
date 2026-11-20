@@ -10,6 +10,12 @@ stage aren't listed; every package's full changelog is in its repository.
 
 ### Week of November 16
 
+- **Core 1.0.67:** retrying a failed or cancelled task, for example from a Board card,
+  continues from where it stopped, so finished steps don't run twice and the prompt
+  isn't repeated. [Task board](stages/web.md#task-board)
+- **Terminal 0.6.57:** in the approval menu, a number moves the highlight to that
+  option, and **Esc**, **q** or **Ctrl+D** leave it like **Ctrl+C**, with the turn still
+  paused. [Interactive commands](stages/cli.md#interactive-commands)
 - **Web 0.14.0:** type `@` in the chat to mention a workspace file, or use **Mention in
   chat** in the file browser. You can also drop a file on the chat to upload it and
   mention it. [Mention files in the chat](stages/web.md#mention-files-in-the-chat)
@@ -23,7 +29,8 @@ stage aren't listed; every package's full changelog is in its repository.
   [In the sidebar](stages/jupyter.md#in-the-sidebar)
 - **Hermes 0.5.7:** `memory_enabled = false` and `user_profile_enabled = false` now keep
   MEMORY.md and USER.md out of the agent's prompt and memory. With both off, the agent
-  has no `memory` tool. [Turn a memory layer off](stages/hermes.md#turn-a-memory-layer-off)
+  has no `memory` tool. Since 0.5.9, `memory show` marks a layer that's off.
+  [Turn a memory layer off](stages/hermes.md#turn-a-memory-layer-off)
 - **Web 0.13.68:** one window reads a conversation at a time. Opening it in a second
   window or tab gives a read-only copy, and **Continue here** moves it.
   [History](stages/web.md#history)

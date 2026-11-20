@@ -88,6 +88,10 @@ In the interactive loop:
 
 **Tab** completes commands, and **Ctrl+C** exits.
 
+In the approval menu, **↑**/**↓** or an option's number moves the highlight, and
+**Enter** confirms it. **Esc**, **q**, **Ctrl+D** and **Ctrl+C** leave without deciding:
+the CLI exits `2` and the turn stays paused.
+
 ## Sessions
 
 Every run saves its conversation, so a later run can continue it, the way Claude
