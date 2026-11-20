@@ -173,21 +173,25 @@ langstage-hermes audit rollback memory:user <id>  # undo one change (memory:memo
   nothing is changed and the message names the change to undo first.
 - **A rollback is itself recorded,** so it can be undone the same way. It reaches the
   agent's prompt from the next session on.
-
-### Turn a memory layer off
-
-To keep the agent from building a profile of you, set `user_profile_enabled = false`
-under `[memory]` in `langstage-hermes.toml`. `USER.md` then stays out of the prompt,
-and the `memory` tool refuses to read or write it. `memory_enabled = false` does the
-same for `MEMORY.md`. With both off, the agent and its review get no `memory` tool at
-all, and `langstage-hermes tools` marks the toolset ✗. Files already on disk are left
-as they are.
 - **Hand edits are not recorded.** `audit log` notes when a layer on disk no longer
   matches its last recorded change, and `audit diff memory:user <id>` shows the
   difference.
 - **Where the text lives.** The before and after text is stored in
   `<HERMES_HOME>/state.db`, next to your recorded conversations. Removing an entry
   from memory does not remove it from that log.
+
+### Turn a memory layer off
+
+To keep the agent from building a profile of you, set `user_profile_enabled = false`
+under `[memory]` in `langstage-hermes.toml`. `USER.md` then stays out of the prompt,
+and the `memory` tool no longer offers it; a call that names it anyway is refused.
+`memory_enabled = false` does the same for `MEMORY.md`.
+
+With one layer off, the agent's memory guidance and the review that runs after a turn
+ask only for what the other layer keeps. With the profile off, they are told not to
+save personal facts about you in `MEMORY.md` instead. With both off, the agent and its
+review get no `memory` tool at all, and `langstage-hermes tools` marks the toolset ✗.
+Files already on disk are left as they are.
 
 ## Skills
 
