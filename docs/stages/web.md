@@ -90,6 +90,8 @@ land where the file browser shows them.
 - **Canvas panel**, a persistent report surface. Opt in by attaching
   `CanvasMiddleware` to your agent.
 - **File browser** with a syntax-highlighted viewer and live change detection.
+- **File mentions**: type `@` in the chat to pick a workspace file, or drop a file on
+  the chat to upload and mention it. See [Mention files in the chat](#mention-files-in-the-chat).
 - **Task board** for background work, and **schedules** on cron.
 - **Human-in-the-loop** approval dialogs. See [Human-in-the-loop](../guides/human-in-the-loop.md).
 - **Slash commands**: `/save-workflow`, `/create-workflow`, `/run-workflow`.
@@ -114,6 +116,32 @@ agent follows a convention:
 start it is a durable SQLite saver at `<workspace>/.langstage/checkpoints.db`. So
 conversation memory, interrupts and the task review gate work, and survive a
 restart. A graph that compiles in its own checkpointer keeps it.
+
+## Mention files in the chat
+
+Type `@` in the chat input to pick a file or folder from the workspace. The list
+narrows as you type: `@sal` finds `data/sales.csv`, and `@q3 draft` finds
+`reports/q3/draft.md`. Arrow keys choose, **Enter** or **Tab** inserts, and **Escape**
+closes it.
+
+- **From the file browser.** The `@` button on a file row, or **Mention in chat** in the
+  right-click menu, inserts that path at the chat cursor.
+- **Drop a file on the chat** to upload it into the folder the Files tab shows and
+  mention it. The message isn't sent until you press Enter. An existing file is never
+  replaced; the upload is saved as `name (1).ext` instead.
+- **What the agent sees.** A mention is plain text: the workspace-relative path in
+  backticks, such as `` `data/sales.csv` ``. The file's contents aren't added to the
+  message. Your agent runs with the workspace root as its working directory, so the
+  path opens as written, with no agent changes.
+- **Left out.** The picker skips dot folders such as `.git` and `.langstage`, and the
+  folders the file tree hides, such as `node_modules` and `.venv`. Mentions and
+  dropping are off when the Files tab is hidden (`--no-show-files`) and in a read-only
+  conversation.
+
+Over REST, `GET /api/files/search?q=sal&limit=50` returns the matching paths, best
+first, and `POST /api/files/upload?path=dir/&unique=true` saves a copy under a new name
+instead of replacing a file. The search never leaves the workspace and stops after
+50,000 entries or one second, with `truncated: true`.
 
 ## History
 
