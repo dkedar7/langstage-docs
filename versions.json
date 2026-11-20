@@ -1,10 +1,10 @@
 {
   "_comment": "Package versions the docs were last verified against. The nightly drift job (.github/workflows/drift.yml) compares these with PyPI. After syncing the docs, run: python scripts/drift.py bump Entries under 'releases' are GitHub release tags (the VS Code extension ships as a .vsix there, not on PyPI); the drift job checks them too.",
   "packages": {
-    "langstage-core": "1.0.66",
+    "langstage-core": "1.0.67",
     "langstage": "0.14.0",
-    "langstage-cli": "0.6.56",
-    "langstage-hermes": "0.5.8",
+    "langstage-cli": "0.6.57",
+    "langstage-hermes": "0.5.9",
     "langstage-jupyter": "0.6.57",
     "langstage-vscode": "0.5.45",
     "langstage-codraft": "0.12.1"

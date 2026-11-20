@@ -187,6 +187,9 @@ A task is a `TypedDict`: read `task["state"]`, `task["result"]`, `task["error"]`
 cancelled`. Besides `resume`, you can `followup(task_id, message)` a finished task,
 `retry(task_id)` a failed or cancelled one, and `cancel(task_id)` a queued or
 running one. Each returns `False` when the task isn't in a state that allows it.
+A retry continues from the run's last checkpoint, so steps that already finished
+don't run again and the prompt isn't repeated. A task that never started is sent
+its prompt again.
 Give your agent `TASK_TOOLS` and it can delegate to copies of itself.
 
 ## Configuration helpers
