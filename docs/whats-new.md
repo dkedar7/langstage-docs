@@ -10,13 +10,17 @@ stage aren't listed; every package's full changelog is in its repository.
 
 ### Week of November 16
 
+- **Web 0.14.0:** type `@` in the chat to mention a workspace file, or use **Mention in
+  chat** in the file browser. You can also drop a file on the chat to upload it and
+  mention it. [Mention files in the chat](stages/web.md#mention-files-in-the-chat)
 - **Codraft 0.12.0:** export a Word **redline**, either of the changes since a
   checkpoint or of the agent's pending suggestions. The changes are real tracked
-  changes that reviewers accept or reject in Word.
-  [Redline Word export](stages/codraft.md#redline-word-export-012)
-- **JupyterLab 0.6.56:** before each turn, the sidebar saves the notebook you're
-  looking at, so the agent sees the run you just did. Set `save_before_turn = false` to
-  turn this off. [In the sidebar](stages/jupyter.md#in-the-sidebar)
+  changes that reviewers accept or reject in Word. Since 0.12.1, a moved block shows as
+  a Word move. [Redline Word export](stages/codraft.md#redline-word-export-012)
+- **JupyterLab 0.6.56:** before each turn, the sidebar saves your open notebooks (since
+  0.6.57, in every tab), so the agent sees the run you just did. Set
+  `save_before_turn = false` to turn this off.
+  [In the sidebar](stages/jupyter.md#in-the-sidebar)
 - **Hermes 0.5.7:** `memory_enabled = false` and `user_profile_enabled = false` now keep
   MEMORY.md and USER.md out of the agent's prompt and memory. With both off, the agent
   has no `memory` tool. [Turn a memory layer off](stages/hermes.md#turn-a-memory-layer-off)
