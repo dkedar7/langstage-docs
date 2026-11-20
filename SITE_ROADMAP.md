@@ -11,9 +11,9 @@ through `op run`, and each Gallery page names the model it was recorded on.
 
 ## Next
 
-1. **Home: show all six stages.** The demo tabs on the home page cover four stages.
-   Add Hermes and Codraft, using keyless demos like the other four. Codraft needs a
-   new recording script.
+1. **Home: Codraft tab.** The home page's demo tabs now cover five stages. Add Codraft
+   with a keyless demo like the others; it needs a new recording script, and CI
+   should re-record it like the rest.
 2. **Gallery: Codraft.** An agent drafts a short report, you accept and reject its
    suggestions, then you name a checkpoint and export a redline. Real model.
 3. **Gallery: JupyterLab.** An analysis notebook in which a cell fails. The agent reads
@@ -34,4 +34,5 @@ through `op run`, and each Gallery page names the model it was recorded on.
 
 ## Done
 
+- **Home: Hermes tab**, using the keyless demo CI already records.
 - **What's new page** (`docs/whats-new.md`), with this file.
