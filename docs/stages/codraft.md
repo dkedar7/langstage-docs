@@ -487,8 +487,9 @@ its changes view) downloads `<title>-redline.docx`. **Export → Word with sugge
 | Edited text, heading or callout | word by word, with bold, italic and links kept |
 | A paragraph added to or removed from a block | the whole paragraph inserted or deleted |
 | Added or deleted block | inserted where it is now, or deleted where it was |
-| Moved block | deleted where it was, inserted where it is now |
+| Moved block | Word's **Moved** marks, from where it was to where it is now; Accept or Reject takes both places at once (0.12.1). Moved and edited too: the edit is word by word inside the move |
 | Edited table, row, stat tiles, chart or image | the old block deleted, the new one inserted |
+| Moved table | deleted where it was, inserted where it is now (Word has no move marks for tables) |
 
 Each change carries its author and date from the version records: a collaborator's name, the
 agent's name, or "Author". Accept every change and the text reads as the document does now;
