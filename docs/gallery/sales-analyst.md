@@ -9,7 +9,7 @@
   <figcaption>Claude Sonnet 5, unscripted, one take. Waits on the model play at 3x; the finished report plays at real speed.</figcaption>
 </figure>
 
-**Stage:** the web app, `langstage`. **Shows:** a persistent Python session, Plotly
+**Stage:** the [web app](../stages/web.md), `langstage`. **Shows:** a persistent Python session, Plotly
 charts in the chat, and a written report built on the Canvas.
 
 Ask a question about your data, get the answer with the work shown. This example is
@@ -72,6 +72,13 @@ from a fixed seed. It has the patterns real retail data has, for the agent to fi
 its own: seasonal camping and apparel peaks, a growing online share, one region
 growing faster than the rest, and a footwear sizing problem in one region. Point the
 agent at your own CSV by changing the first paragraph of its prompt.
+
+## Related
+
+- [Web app](../stages/web.md): the chat, the Files tab and the Canvas this example
+  uses.
+- [Support triage](support-triage.md): the same stage with background tasks and an
+  approval.
 
 ## About this recording
 

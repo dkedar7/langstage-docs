@@ -9,7 +9,7 @@
   <figcaption>Claude Sonnet 5, unscripted, one take. Waits on the model play at 3x; reading the approval request plays at real speed.</figcaption>
 </figure>
 
-**Stage:** the web app, `langstage`. **Shows:** an agent that delegates work to
+**Stage:** the [web app](../stages/web.md), `langstage`. **Shows:** an agent that delegates work to
 background copies of itself, the Board, and a human approval inside a tool.
 
 Customer support is one of the most common jobs teams give an agent, and refunds are
@@ -72,6 +72,15 @@ The shop is fictional: Northwind Outfitters, four tickets, four orders and a one
 policy, all in [`workspace/`](https://github.com/dkedar7/langstage-docs/tree/main/gallery/support-triage/workspace).
 For your own desk, replace the file-reading tools with calls to your ticketing and
 order systems; the approval and the Board work the same way.
+
+## Related
+
+- [Task board](../stages/web.md#task-board): delegating work to background tasks, and
+  answering a task that waits for review.
+- [Human-in-the-loop](../guides/human-in-the-loop.md): how `interrupt()` pauses a tool
+  and which decisions each stage offers.
+- [Sales analyst](sales-analyst.md): the same stage, doing analysis instead of
+  operations.
 
 ## About this recording
 

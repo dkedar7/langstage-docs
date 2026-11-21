@@ -47,6 +47,10 @@ langstage-cli -f ./prompt.md                                   # read the messag
       <figcaption>The core's <code>langstage-agui --demo=tools</code>: <code>--verify</code>, <code>-m</code>, <code>--json</code>, and exit code 2 on a human-in-the-loop pause.</figcaption>
     </figure>
 
+To see the terminal with a real agent on a real model, the Gallery's
+[incident investigator](../gallery/incident-investigator.md) searches logs, finds a
+bad deploy and asks in the approval menu before it changes production config.
+
 ## Options
 
 | Flag | Purpose |

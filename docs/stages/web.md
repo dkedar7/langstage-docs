@@ -48,6 +48,11 @@ land where the file browser shows them.
   <figcaption>The keyless tool demo agent (<code>langstage run -a langstage_core.demo.tools:graph</code>): a tool call, a reasoning turn, the file browser, and a background task on the Board.</figcaption>
 </figure>
 
+To see the web app with a real agent on a real model, the Gallery has a
+[support desk](../gallery/support-triage.md) that delegates tickets to the Board and
+waits for a refund approval, and a [sales analyst](../gallery/sales-analyst.md) that
+charts a year of data and writes its report on the Canvas.
+
 ## What it looks like
 
 <figure markdown="span">
