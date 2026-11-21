@@ -24,15 +24,14 @@ through `op run`, and each Gallery page names the model it was recorded on.
    `memory show --history`. Real model.
 6. **Gallery: VS Code.** Editing a repository from the panel, with an approval. Real
    model.
-7. **Cross-links.** Each stage page links its Gallery entries, and each Gallery page
-   links back to its stage page and to the guide it relies on.
-8. **Troubleshooting page.** Collect the errors people hit first: no key, the port in
+7. **Troubleshooting page.** Collect the errors people hit first: no key, the port in
    use, an agent spec that won't import, Windows console output. Link each one to the
    page that fixes it.
-9. **Recipes.** Short, copyable answers to common tasks: use any model through
+8. **Recipes.** Short, copyable answers to common tasks: use any model through
    OpenRouter, add an approval step, run behind a proxy, schedule a job.
 
 ## Done
 
+- **Cross-links** between the stage pages and the Gallery.
 - **Home: Hermes tab**, using the keyless demo CI already records.
 - **What's new page** (`docs/whats-new.md`), with this file.
