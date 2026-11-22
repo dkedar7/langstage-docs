@@ -18,20 +18,20 @@ through `op run`, and each Gallery page names the model it was recorded on.
    suggestions, then you name a checkpoint and export a redline. Real model.
 3. **Gallery: JupyterLab.** An analysis notebook in which a cell fails. The agent reads
    the traceback with `read_cell_outputs` and proposes the fix. Real model.
-4. **"Which stage should I use?"** A one-screen chooser for the home page or Getting
-   started, mapping each job to a stage and linking each stage to its Gallery entry.
-5. **Gallery: Hermes.** Memory and skills across two sessions, then
+4. **Gallery: Hermes.** Memory and skills across two sessions, then
    `memory show --history`. Real model.
-6. **Gallery: VS Code.** Editing a repository from the panel, with an approval. Real
+5. **Gallery: VS Code.** Editing a repository from the panel, with an approval. Real
    model.
-7. **Troubleshooting page.** Collect the errors people hit first: no key, the port in
+6. **Troubleshooting page.** Collect the errors people hit first: no key, the port in
    use, an agent spec that won't import, Windows console output. Link each one to the
    page that fixes it.
-8. **Recipes.** Short, copyable answers to common tasks: use any model through
+7. **Recipes.** Short, copyable answers to common tasks: use any model through
    OpenRouter, add an approval step, run behind a proxy, schedule a job.
 
 ## Done
 
+- **"Which stage should I use?"** (`docs/getting-started/choose-a-stage.md`), first in
+  Getting started and linked from the home page.
 - **Cross-links** between the stage pages and the Gallery.
 - **Home: Hermes tab**, using the keyless demo CI already records.
 - **What's new page** (`docs/whats-new.md`), with this file.
