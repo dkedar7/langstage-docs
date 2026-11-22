@@ -141,7 +141,9 @@ langstage-hermes tools --implemented-only                     # the toolsets and
 ```
 
 - `search` understands FTS5 syntax: multi-word queries are AND, and `OR`, quoted
-  phrases and prefix `wildcards*` work. `--json` snippets are plain text with
+  phrases and prefix `wildcards*` work. Other punctuation just separates words, so
+  `localhost:8080` or `what's slow?` work as typed. A query that still can't run is an
+  error (exit 1), not "no match". `--json` snippets are plain text with
   `match_ranges` offsets.
 - `memory show` prints each layer's size against its budget. An over-budget layer is
   still injected in full; the agent's `memory` tool just refuses new entries until

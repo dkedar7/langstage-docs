@@ -614,6 +614,7 @@ it renders in-process, so a batch job or CI step is one command:
 langstage-codraft export doc_6e07ed1cea -f pdf -o report.pdf --data-dir .codraft
 
 # several documents and formats share one browser launch; -o is then a directory
+# (a directory works for one document too: -o out/ writes out/<title>.pdf)
 langstage-codraft export doc_6e07ed1cea doc_9a41c2d07b -f pdf -f png -o out/ --data-dir .codraft
 ```
 

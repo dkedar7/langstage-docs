@@ -10,6 +10,9 @@ stage aren't listed; every package's full changelog is in its repository.
 
 ### Week of November 16
 
+- **Terminal 0.6.59:** each session records its agent, `--list-sessions` shows it, and
+  `-c` continues the most recent session for the agent you're running, not another
+  agent's. [Sessions](stages/cli.md#sessions)
 - **Core 1.0.67:** retrying a failed or cancelled task, for example from a Board card,
   continues from where it stopped, so finished steps don't run twice and the prompt
   isn't repeated. [Task board](stages/web.md#task-board)
