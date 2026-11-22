@@ -66,6 +66,7 @@ nav:
   - Home: index.md
   - What's new: whats-new.md
   - Getting started:
+      - Which stage?: getting-started/choose-a-stage.md
       - Installation: getting-started/installation.md
       - Quickstart: getting-started/quickstart.md
       - Configuration: getting-started/configuration.md

@@ -94,6 +94,9 @@ That same `my_agent.py:graph` spec runs unchanged on every other stage below.
 | :material-file-document-edit: Documents | [`langstage-codraft`](stages/codraft.md) | `langstage-codraft run --agent my_agent.py:graph`: co-author paged documents, approve the agent's suggestions, export PDF/PNG/HTML |
 | :material-cog: Shared core | [`langstage-core`](core.md) | spec loading, layered config, the AG-UI bridge and the task engine behind every stage; `langstage-agui` serves any agent over AG-UI |
 
+Not sure which one fits? [Which stage should I use?](getting-started/choose-a-stage.md)
+maps each job to a stage and to an example of it working.
+
 ## Why LangStage
 
 - **Write once, run anywhere.** A single `module:attr` / `path/to/file.py:attr`
