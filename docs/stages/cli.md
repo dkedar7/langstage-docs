@@ -104,11 +104,18 @@ Code or Aider do. You don't need a checkpointer in your graph.
 <!-- snippet: check -->
 ```bash
 langstage-cli --demo "remember: my name is Kedar"   # a new session, saved
-langstage-cli --demo -c "what's my name?"           # continue the most recent session
+langstage-cli --demo -c "what's my name?"           # continue this agent's most recent session
 langstage-cli --list-sessions                       # sessions for this workspace
 langstage-cli --resume 3f2a                         # a specific one (an unambiguous prefix works)
 ```
 
+- Each session records the agent that made it, and `--list-sessions` shows it. `-c`
+  continues the most recent session **for the current agent**, so switching from
+  `--demo` to your own graph doesn't hand it the demo's conversation. If the workspace
+  only has other agents' sessions, `-c` starts a new one and says so. `--resume <id>`
+  with a different agent runs with a note naming both, but a session paused at an
+  approval is refused with exit 1 and the command that resumes it with its own agent.
+  Sessions saved before 0.6.59 have no recorded agent and still count for `-c`.
 - Sessions are stored per workspace in `~/.langstage/sessions/<workspace-hash>.sqlite`
   (under `LANGSTAGE_CONFIG_HOME` if set; `LANGSTAGE_CLI_SESSIONS_DIR` moves them).
 - Turn persistence off with `--no-persist`, `LANGSTAGE_PERSIST=0`, or
