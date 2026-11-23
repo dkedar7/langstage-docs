@@ -651,13 +651,15 @@ HTML is always a zip. A failed export raises `ExportError` (`.status` 404 for an
 ### Cut-off content (0.9.1)
 
 A block whose content is taller than the fixed height, or the pin's box, it was given is cut off
-on the page, and what doesn't fit is missing from the export. Two things keep that from happening
+on the page, and so is a block pinned partly or wholly off the page, and what doesn't fit is missing from the export. Two things keep that from happening
 unnoticed:
 
 - **The agent can't do it.** `set_block_layout` measures the block in the print view and refuses a
   height or a box that would cut off its text, table or cells. The refusal names the height the
-  content needs. Shortening a block is a content change, and that is a suggestion you approve. The
-  check is in the tool, so MCP clients and bring-your-own agents get it too.
+  content needs. Shortening a block is a content change, and that is a suggestion you approve. Since
+  0.12.4 it also refuses a pin that would put a text block even partly off the page (an image may
+  bleed, as long as most of it stays on the page), or onto a page past the last one. The check is
+  in the tool, so MCP clients and bring-your-own agents get it too.
 - **An export says what it cut off.** You can still give a block any height in the Block panel
   (the panel says how much is cut off and offers **Fit the content**). Every way to export then
   reports it:
