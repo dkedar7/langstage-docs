@@ -12,6 +12,7 @@ releases**, so what they show is what `pip install` gives a new user today.
 | `langstage-hermes`: `demo`, `search`, `skills list` | `tapes/hermes.tape` | VHS | `hermes.gif` / `hermes.webm` |
 | Web app: tool call, reasoning, Files, Board task | `scripts/record_web.py` | Playwright video + ffmpeg | `web.gif` / `web.webm` |
 | JupyterLab: notebook, tool call, Approve | `scripts/record_jupyter.py` | Playwright video + ffmpeg | `jupyter.gif` / `jupyter.webm` |
+| Codraft: comment, suggested edit, Accept, a drafted paragraph | `scripts/record_codraft.py` | Playwright video + ffmpeg | `codraft.gif` / `codraft.webm` |
 | VS Code panel: tool call, reasoning, Approve | [langstage-vscode](https://github.com/dkedar7/langstage-vscode) `extension/test/record/record-demo.ts` (`npm run record`) | Playwright video + ffmpeg | `vscode.gif` / `vscode.webm` |
 
 Every demo uses `langstage_core.demo.tools:graph` directly (the VS Code panel uses the
@@ -55,7 +56,7 @@ requests* (Settings > Actions > General) or a `DEMOS_PR_TOKEN` secret.
 pip install -U -r demos/requirements.txt
 python -m playwright install chromium
 bash demos/build.sh                # everything
-bash demos/build.sh web jupyter    # or a subset: cli agui hermes web jupyter vscode
+bash demos/build.sh web jupyter    # or a subset: cli agui hermes web jupyter codraft vscode
 ```
 
 The `vscode` target also needs git and Node 22.

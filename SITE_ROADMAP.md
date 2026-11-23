@@ -11,25 +11,24 @@ through `op run`, and each Gallery page names the model it was recorded on.
 
 ## Next
 
-1. **Home: Codraft tab.** The home page's demo tabs now cover five stages. Add Codraft
-   with a keyless demo like the others; it needs a new recording script, and CI
-   should re-record it like the rest.
-2. **Gallery: Codraft.** An agent drafts a short report, you accept and reject its
+1. **Gallery: Codraft.** An agent drafts a short report, you accept and reject its
    suggestions, then you name a checkpoint and export a redline. Real model.
-3. **Gallery: JupyterLab.** An analysis notebook in which a cell fails. The agent reads
+2. **Gallery: JupyterLab.** An analysis notebook in which a cell fails. The agent reads
    the traceback with `read_cell_outputs` and proposes the fix. Real model.
-4. **Gallery: Hermes.** Memory and skills across two sessions, then
+3. **Gallery: Hermes.** Memory and skills across two sessions, then
    `memory show --history`. Real model.
-5. **Gallery: VS Code.** Editing a repository from the panel, with an approval. Real
+4. **Gallery: VS Code.** Editing a repository from the panel, with an approval. Real
    model.
-6. **Troubleshooting page.** Collect the errors people hit first: no key, the port in
+5. **Troubleshooting page.** Collect the errors people hit first: no key, the port in
    use, an agent spec that won't import, Windows console output. Link each one to the
    page that fixes it.
-7. **Recipes.** Short, copyable answers to common tasks: use any model through
+6. **Recipes.** Short, copyable answers to common tasks: use any model through
    OpenRouter, add an approval step, run behind a proxy, schedule a job.
 
 ## Done
 
+- **Home: Codraft tab** (`demos/scripts/record_codraft.py`, keyless), so the home page
+  now has a demo for every stage.
 - **"Which stage should I use?"** (`docs/getting-started/choose-a-stage.md`), first in
   Getting started and linked from the home page.
 - **Cross-links** between the stage pages and the Gallery.

@@ -23,7 +23,7 @@ from importlib import metadata
 from pathlib import Path
 
 PACKAGES = ["langstage-core", "langstage", "langstage-cli", "langstage-jupyter", "langstage-hermes",
-            "langstage-vscode"]
+            "langstage-vscode", "langstage-codraft"]
 EXTENSION = "langstage-vscode-extension"
 EXTENSION_REPO = "https://github.com/dkedar7/langstage-vscode"
 MANIFEST = Path(__file__).resolve().parents[2] / "docs" / "assets" / "demos" / "versions.json"

@@ -48,9 +48,16 @@ become stages your agent can perform on.
       ![Animated demo: langstage-hermes demo closes the reflection-to-skill loop keyless, then search finds the session and skills list shows the library](assets/demos/hermes.gif){ width="760" loading="lazy" }
     </figure>
 
-One agent spec, five of the stages. The first four run the keyless demo agent
-(`langstage_core.demo.tools:graph`); Hermes runs its own keyless demo, which turns a
-session into a reusable skill. All of them use the latest releases, and CI re-records
+=== "Documents"
+
+    <figure markdown="span">
+      ![Animated demo: in Codraft, the author asks for a shorter paragraph in a comment, accepts the co-author's suggested edit, then accepts a paragraph it drafted from chat](assets/demos/codraft.gif){ width="760" loading="lazy" }
+    </figure>
+
+One agent spec, six stages. The first four run the keyless demo agent
+(`langstage_core.demo.tools:graph`). Hermes runs its own keyless demo, which turns a
+session into a reusable skill, and Documents runs Codraft's keyless scripted
+co-author, whose edits wait for you to accept them. All of them use the latest releases, and CI re-records
 them when a release lands. To see real agents doing real work on a real model, a
 support desk, a data analyst and an on-call investigator, visit the
 [Gallery](gallery/index.md). For the latest features, see [What's new](whats-new.md).

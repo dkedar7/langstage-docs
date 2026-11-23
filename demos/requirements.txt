@@ -6,4 +6,5 @@ langstage-cli
 langstage-jupyter
 langstage-hermes
 langstage-vscode
+langstage-codraft
 playwright

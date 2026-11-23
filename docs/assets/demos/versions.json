@@ -6,6 +6,7 @@
     "langstage-jupyter": "0.6.37",
     "langstage-hermes": "0.4.36",
     "langstage-vscode": "0.5.33",
+    "langstage-codraft": "0.12.3",
     "langstage-vscode-extension": "extension-v0.6.0"
   }
 }

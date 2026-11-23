@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Build every automatable demo into docs/assets/demos/.
 #   demos/build.sh                 # all of them
-#   demos/build.sh web jupyter     # a subset: cli agui hermes web jupyter vscode
+#   demos/build.sh web jupyter     # a subset: cli agui hermes web jupyter codraft vscode
 # Needs: the LangStage packages (demos/requirements.txt), Playwright's Chromium,
 # ffmpeg, VHS + ttyd for the terminal tapes, and git + Node 22 for vscode. CI
 # (.github/workflows/demos.yml) installs all of these on ubuntu-latest.
@@ -16,7 +16,7 @@ cd "$(dirname "$0")/.."
 mkdir -p docs/assets/demos
 
 targets=("$@")
-[ ${#targets[@]} -eq 0 ] && targets=(cli agui hermes web jupyter vscode)
+[ ${#targets[@]} -eq 0 ] && targets=(cli agui hermes web jupyter codraft vscode)
 
 record_vscode() {
   local repo="${VSCODE_REPO_DIR:-}"
@@ -47,7 +47,7 @@ for t in "${targets[@]}"; do
   echo "::group::demo: $t"
   case "$t" in
     cli|agui|hermes) vhs "demos/tapes/$t.tape" ;;
-    web|jupyter)     python "demos/scripts/record_$t.py" ;;
+    web|jupyter|codraft) python "demos/scripts/record_$t.py" ;;
     vscode)          record_vscode ;;
     *) echo "unknown demo: $t" >&2; exit 64 ;;
   esac
