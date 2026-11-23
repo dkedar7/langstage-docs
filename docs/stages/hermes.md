@@ -61,9 +61,10 @@ langstage-hermes chat -a my_agent.py:graph   # chat with a different agent
 sound. `verify --json` and `doctor --json` print a top-level `ok` plus a per-check
 list, and `.ok` matches the exit code, so `langstage-hermes doctor --json | jq -e .ok`
 is a one-line gate. Without a key, `verify --json` reports the live round-trip as
-`skipped`, so a keyless CI check never makes a paid call. `doctor` also checks the
-provider package for the auxiliary (reflection) model when it differs from the main
-one.
+`skipped`, so a keyless CI check never makes a paid call. `doctor` checks that the
+model's provider package is installed, for any provider LangChain knows (`ollama:`,
+`google_genai:`, `groq:`...), and names the package to install. It does the same for
+the auxiliary (reflection) model when it differs from the main one.
 
 In `chat`: `/skills`, `/model <id>`, `/memory`, `/compress`, `/quit`.
 
