@@ -70,6 +70,7 @@ nav:
       - Installation: getting-started/installation.md
       - Quickstart: getting-started/quickstart.md
       - Configuration: getting-started/configuration.md
+      - Troubleshooting: getting-started/troubleshooting.md
   - Gallery:
       - Overview: gallery/index.md
       - Support triage: gallery/support-triage.md
