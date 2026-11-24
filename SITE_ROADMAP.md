@@ -7,7 +7,9 @@ number when it merges. Add ideas at the end of **Next**, and reorder the list wh
 priorities change.
 
 Real-model recordings for the Gallery cost about $1 at most per sweep. Keys come only
-through `op run`, and each Gallery page names the model it was recorded on.
+through `op run`, and each Gallery page names the model it was recorded on. Items 1–4
+wait on OpenRouter credit (empty as of Nov 24) or a recording on gpt-5.4; take the
+next keyless item meanwhile.
 
 ## Next
 
@@ -19,14 +21,13 @@ through `op run`, and each Gallery page names the model it was recorded on.
    `memory show --history`. Real model.
 4. **Gallery: VS Code.** Editing a repository from the panel, with an approval. Real
    model.
-5. **Troubleshooting page.** Collect the errors people hit first: no key, the port in
-   use, an agent spec that won't import, Windows console output. Link each one to the
-   page that fixes it.
-6. **Recipes.** Short, copyable answers to common tasks: use any model through
+5. **Recipes.** Short, copyable answers to common tasks: use any model through
    OpenRouter, add an approval step, run behind a proxy, schedule a job.
 
 ## Done
 
+- **Troubleshooting page** (`docs/getting-started/troubleshooting.md`): the first
+  errors people hit, each with the real message and the fix, under Getting started.
 - **Home: Codraft tab** (`demos/scripts/record_codraft.py`, keyless), so the home page
   now has a demo for every stage.
 - **"Which stage should I use?"** (`docs/getting-started/choose-a-stage.md`), first in
