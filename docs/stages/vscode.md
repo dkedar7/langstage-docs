@@ -286,5 +286,9 @@ need this if you're writing another client.
   cancelled prompt is rolled back out of the history (when the checkpointer can be
   read synchronously, as the default in-memory one can).
 - Commands are read as UTF-8 whatever the system locale.
+- Only the sidecar reads the command pipe and writes the frame stream. The agent
+  and any process it starts see an empty stdin and write their stdout to stderr, so
+  a tool that prompts gets end-of-file and fails fast instead of swallowing a
+  command, and stray prints can't corrupt the frames (0.5.48).
 - Wait for `turn_end`, not `complete`: an agent error ends `error → turn_end`, and a
   cancelled turn ends `cancelled → turn_end`.
