@@ -79,6 +79,7 @@ nav:
   - Guides:
       - Human-in-the-loop: guides/human-in-the-loop.md
       - Multi-agent supervisor: guides/multi-agent-supervisor.md
+      - Recipes: guides/recipes.md
   - The stages:
       - Web — langstage: stages/web.md
       - Terminal — langstage-cli: stages/cli.md

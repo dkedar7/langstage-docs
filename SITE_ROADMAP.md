@@ -21,11 +21,16 @@ next keyless item meanwhile.
    `memory show --history`. Real model.
 4. **Gallery: VS Code.** Editing a repository from the panel, with an approval. Real
    model.
-5. **Recipes.** Short, copyable answers to common tasks: use any model through
-   OpenRouter, add an approval step, run behind a proxy, schedule a job.
+5. **Test your agent in CI.** A guide page with a GitHub Actions job that gates a PR on
+   the keyless preflights (`langstage check --json`, `langstage-cli --verify` with a
+   fake model) and reads the exit codes. Keyless.
+6. **Recipes, second batch.** Add answers as questions come up: a custom system
+   prompt per stage, a workspace folder for file tools, tracing with LangSmith.
 
 ## Done
 
+- **Recipes** (`docs/guides/recipes.md`): any model through OpenRouter, an approval
+  step, a scheduled prompt, the web app behind a proxy, serving to your own frontend.
 - **Troubleshooting page** (`docs/getting-started/troubleshooting.md`): the first
   errors people hit, each with the real message and the fix, under Getting started.
 - **Home: Codraft tab** (`demos/scripts/record_codraft.py`, keyless), so the home page
