@@ -73,18 +73,20 @@ without running a turn, for any provider LangChain knows.
 ## No API key (it may say "Connection error")
 
 With no key set, the Anthropic client doesn't say the key is missing. It fails to
-send the request, and the error reads:
+send the request, retries for about a minute, then gives up with a connection error.
+Since langstage-core 1.0.69 the error names the variable that isn't set:
 
 <!-- snippet: skip -->
 ```text
-Error: AnthropicConnectionError: Connection error.
+Error: AnthropicConnectionError: Connection error. (hint: ANTHROPIC_API_KEY is not set)
 ```
 
-If you see that and your network is fine, check the key first:
-`ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `OPENROUTER_API_KEY`, or whatever your
-provider reads. Keys are ordinary environment variables. LangStage doesn't store
-them, and `--show-config` doesn't print them. A wrong key, as opposed to a missing
-one, gives the provider's own `401` / authentication error.
+Set that variable and run again. The hint covers the common providers
+(`ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `OPENROUTER_API_KEY`, `GOOGLE_API_KEY`, and
+so on). It prints only the variable's name, never a key. With an older core you see
+the same line without the hint. Keys are ordinary environment variables: LangStage
+doesn't store them, and `--show-config` doesn't print them. A wrong key, as opposed
+to a missing one, gives the provider's own `401` / authentication error.
 
 The static `langstage check` (without `--live`) needs no key, so it passes either way.
 Add `--live` to prove a real turn works.
@@ -96,14 +98,14 @@ one process can hold it:
 
 <!-- snippet: skip -->
 ```text
-ERROR:    [Errno 10048] error while attempting to bind on address ('127.0.0.1', 8050)
+Error: port 8050 is already in use on 127.0.0.1; pass --port or set LANGSTAGE_PORT
 error: cannot serve at http://localhost:8050/: Only one usage of each socket address …
 ```
 
-The first line is the web app, the second `langstage-agui`. On Linux and macOS the
-message ends in `Address already in use` instead. The web app prints its URL before
-it tries to bind, so ignore that line. Another LangStage, or anything else, already
-has the port. Stop it, or pick another port:
+The first line is the web app (since langstage 0.14.3), the second `langstage-agui`.
+On Linux and macOS the `langstage-agui` message ends in `Address already in use`
+instead. Another LangStage, or anything else, already has the port. Stop it, or
+pick another port:
 
 <!-- snippet: skip -->
 ```bash

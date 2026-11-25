@@ -558,6 +558,9 @@ To host Codraft inside another FastAPI app, call
 
 Behind a proxy, set two things:
 - `proxy_secret`: the proxy sends it as `X-Codraft-Proxy-Secret`. It can also send its public path as `X-Forwarded-Prefix`.
+  The prefix must be a plain URL path such as `/apps/codraft`. Anything else, such as `//host`, is
+  ignored (since 0.12.5). Have the proxy set or clear the header itself rather than pass on the
+  client's.
 - `user_header` (for example `X-User-Email`): the header that names the user on edits and presence.
 
 `auth_username` and `auth_password` turn on HTTP basic auth, on its own or together with the proxy
