@@ -49,6 +49,12 @@ On a cp1252 console the first line prints as `résumé ✓ \U0001f600`.
   terminal (you get the interactive REPL), even though its stdin is technically a
   pipe. A real pipe (`echo hi | langstage-cli`) is still one single-shot message, and
   `<NUL` counts as empty stdin (an error), not a terminal.
+- **Approvals need a real console.** The terminal's approval menu reads keys from the
+  console. When stdin is `NUL` (Task Scheduler, services, `stdin=DEVNULL`), a pipe, or
+  a Git Bash / mintty terminal, a turn that needs an approval exits `2` with
+  `Error: approval required but stdin is not a terminal.` instead of waiting (since
+  0.6.60 for `NUL`, which used to hang). Use Windows Terminal or `cmd.exe` to answer
+  approvals, or `--no-interactive` to approve automatically.
 - **Prompt files in "ANSI" encoding.** `langstage-cli -f prompt.txt` reads UTF-8 (a
   BOM is dropped), then falls back to the locale's legacy encoding, then cp1252.
 - **VS Code sidecar input.** The sidecar reads its stdio commands as UTF-8 whatever

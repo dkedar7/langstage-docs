@@ -8,6 +8,12 @@ stage aren't listed; every package's full changelog is in its repository.
 
 ## November 2026
 
+### Week of November 23
+
+- **Core 1.0.69 and web 0.14.3:** clearer first-run errors. A missing API key now
+  names the variable to set instead of only saying "Connection error", and a busy port
+  is one line from `langstage run`. [Troubleshooting](getting-started/troubleshooting.md)
+
 ### Week of November 16
 
 - **Terminal 0.6.59:** each session records its agent, `--list-sessions` shows it, and
