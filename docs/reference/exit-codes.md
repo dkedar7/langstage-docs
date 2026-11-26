@@ -76,6 +76,7 @@ scripts. Any of them exits `64` on a usage error.
 | `langstage-vscode-sidecar --repl` | clean session | the agent couldn't start | the session ended with an unanswered interrupt |
 | `langstage-vscode-sidecar` (the stdio loop the extension runs) | `shutdown` or end of input, even if a turn failed | the agent couldn't be served: a load error, or not a runnable graph (it writes `ready`, then `error`) | — |
 | `langstage-hermes verify` / `doctor` | all checks passed | a check failed | — |
+| `langstage-hermes cron run-due` | every due job ran, or none was due | a job in the tick failed | — |
 | `python -m langstage_hermes.cron` | stopped with Ctrl+C, or `--help` / `--version` | the daemon can't start | — |
 
 A `—` means the command doesn't exit `2`: the preflights treat a clean interrupt as

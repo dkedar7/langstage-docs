@@ -96,6 +96,11 @@ In the approval menu, **↑**/**↓** or an option's number moves the highlight,
 **Enter** confirms it. **Esc**, **q**, **Ctrl+D** and **Ctrl+C** leave without deciding:
 the CLI exits `2` and the turn stays paused.
 
+In Git Bash / mintty, which can't drive the arrow-key menu, the same options are
+numbered and you type a number or the start of an option's name (`a`, `r`), then
+**Enter** (since 0.6.61). **Enter** alone picks option 1, and `q`, **Ctrl+C** or end
+of input leave the turn paused with exit `2`.
+
 ## Sessions
 
 Every run saves its conversation, so a later run can continue it, the way Claude
