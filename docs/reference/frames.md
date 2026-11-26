@@ -49,6 +49,9 @@ must ignore a frame type or a key it doesn't know.
   interrupt, else `"complete"`. An interrupted turn still ends with `complete`.
   Detect the pause from the `interrupt` frame or from `outcome`, not from whether
   `complete` arrived.
+- **`interrupt.hitl`** *(additive, core 1.0.70)* is `true` when the pause came from
+  `HumanInTheLoopMiddleware` and `false` for your own `interrupt(...)` or a legacy
+  `HumanInterrupt`. Only a `hitl` pause has to be answered in the decision verbs.
 - **`error` is terminal.** Nothing follows it, and there is no `complete`. Content
   that earlier nodes already produced is streamed before it. With
   `LANGSTAGE_DEBUG=1`, the `error` frame also carries a `traceback`.

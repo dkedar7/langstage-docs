@@ -10,6 +10,10 @@ stage aren't listed; every package's full changelog is in its repository.
 
 ### Week of November 23
 
+- **Terminal 0.6.61:** approvals work in Git Bash / mintty, with a typed menu (a number
+  or `a` / `r`) where the arrow-key menu can't run. [Interactive commands](stages/cli.md#interactive-commands)
+- **Hermes 0.5.13:** `cron run-due` exits `1` when a job fails, so crontab, systemd
+  or CI see the failure. [Scheduled runs](stages/hermes.md#scheduled-runs-cron)
 - **Core 1.0.69 and web 0.14.3:** clearer first-run errors. A missing API key now
   names the variable to set instead of only saying "Connection error", and a busy port
   is one line from `langstage run`. [Troubleshooting](getting-started/troubleshooting.md)

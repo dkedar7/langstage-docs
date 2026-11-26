@@ -119,6 +119,11 @@ For any stage, `--show-config` lists every key it reads.
 
 ## See what resolved
 
+A key LangStage doesn't know, such as a typo (`[agent] spce`) or the spec outside its
+table (a top-level `spec`), is ignored. Since langstage 0.14.4, `langstage run`,
+`check` and `chat` print a `note:` naming it and the key you probably meant.
+`langstage config --strict` fails on it.
+
 Never guess which layer won. Every stage prints each value, its source, and the env
 var and TOML key that set it:
 

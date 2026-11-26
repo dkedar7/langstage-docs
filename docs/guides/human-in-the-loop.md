@@ -50,6 +50,11 @@ print(DECISION_VERBS, DECISION_ALIASES)
 `normalize_decision(verb)` with no `allowed` list just maps an alias to its
 canonical verb.
 
+`decision_problems(frame)` and the task board's resume check the verbs only for a
+middleware pause. Since core 1.0.70 an `interrupt` frame says which kind it is
+(`"hitl": true`), and an answer to your own `interrupt(...)` is passed through as
+sent.
+
 ## Resuming from Python
 
 Resume by running the next turn on the **same `thread_id`** with `resume=`. It takes

@@ -266,6 +266,10 @@ langstage-hermes cron daemon            # run forever
   in the list, disabled, with its error.
 - A failed run logs one line; set `LANGSTAGE_DEBUG=1` for the traceback. The daemon
   recovers from a lock file left by a crash.
+- `cron run-due` exits `1` if any job in the tick failed, with
+  `error: <n> of <m> cron job(s) failed: <ids>` on stderr, and `0` when every due job
+  succeeded or nothing was due (since 0.5.13). So a crontab or systemd timer that runs
+  it sees the failure. The daemon keeps running after a failed job.
 
 ### Letting the agent schedule jobs
 
