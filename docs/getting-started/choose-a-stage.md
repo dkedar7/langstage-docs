@@ -10,7 +10,7 @@ so you can run one agent on several stages and switch whenever you like.
 | Work in a terminal, script a turn, or check an agent in CI | [Terminal](../stages/cli.md) | `langstage-cli --demo "hello"` | [Incident investigator](../gallery/incident-investigator.md) |
 | Do data work next to your notebooks, with an agent that can read and edit cells | [JupyterLab](../stages/jupyter.md) | `langstage-jupyter --demo` | [Demo](../stages/jupyter.md#demo) |
 | Keep the agent in your editor: VS Code, Cursor, VSCodium, Windsurf or code-server | [VS Code](../stages/vscode.md) | the LangStage panel ([Install](../stages/vscode.md#install)) | [Demo](../stages/vscode.md) |
-| Write a document with the agent as co-author, approve each change it suggests, and export a PDF | [Documents](../stages/codraft.md) | `langstage-codraft run --demo` | [Launch video](../stages/codraft.md) |
+| Write a document with the agent as co-author, approve each change it suggests, and export a PDF | [Documents](../stages/codraft.md) | `langstage-codraft run --demo` | [Board update](../gallery/board-update.md), [Launch video](../stages/codraft.md) |
 | Run a ready-made agent that remembers you and learns skills across sessions | [Hermes](../stages/hermes.md) | `langstage-hermes demo` | [Demo](../stages/hermes.md#demo) |
 | Build your own frontend, or run an agent with no UI at all | [Shared core](../core.md) | `pip install "langstage-core[agui]"` | [Stream a turn](../core.md#stream-a-turn) |
 

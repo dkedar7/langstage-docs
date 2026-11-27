@@ -295,6 +295,11 @@ Without `--agent`, Codraft builds a default agent from `--model` or the first AP
 Each document is its own agent thread (thread id = document id), stored in SQLite so it
 survives restarts. The same agent is also served at `POST /agui` for any AG-UI client.
 
+For a complete agent with its own tools, see the Gallery's
+[board update](../gallery/board-update.md): it drafts a quarterly update from the numbers
+through `CodraftMiddleware(extra_prompt=...)`, then fixes a figure from a comment, with a
+checkpoint showing what changed.
+
 ### Any agent, over MCP
 
 <!-- snippet: skip -->

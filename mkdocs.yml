@@ -76,6 +76,7 @@ nav:
       - Support triage: gallery/support-triage.md
       - Sales analyst: gallery/sales-analyst.md
       - Incident investigator: gallery/incident-investigator.md
+      - Board update: gallery/board-update.md
   - Guides:
       - Human-in-the-loop: guides/human-in-the-loop.md
       - Multi-agent supervisor: guides/multi-agent-supervisor.md

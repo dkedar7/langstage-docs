@@ -1,0 +1,13 @@
+{
+  "company": "Northwind Outfitters",
+  "quarter": "Q3 2026",
+  "revenue_usd": {"q3_2026": 4820000, "q2_2026": 4100000, "q3_2025": 3950000},
+  "orders": {"q3_2026": 61200, "q2_2026": 54900},
+  "average_order_value_usd": {"q3_2026": 78.76, "q2_2026": 74.68},
+  "repeat_customer_share_pct": {"q3_2026": 38, "q2_2026": 35},
+  "return_rate_pct": {"q3_2026": 6.4, "q2_2026": 4.9,
+                       "note": "Q3 is preliminary. Finance closes the books on Oct 20."},
+  "returns_cost_usd": {"q3_2026": 310000, "q2_2026": 196000},
+  "nps": {"q3_2026": 41, "q2_2026": 46},
+  "top_categories_by_revenue_usd": {"tents": 1310000, "footwear": 1120000, "jackets": 980000, "packs": 640000, "other": 770000}
+}
