@@ -10,6 +10,13 @@ stage aren't listed; every package's full changelog is in its repository.
 
 ### Week of November 23
 
+- **Hermes 0.5.14:** skills the agent writes stay in your Hermes home or project folder.
+  A shared `skills.external_dirs` checkout is read-only to Hermes: it never writes,
+  edits, pins or archives skills there. [Where skills live](stages/hermes.md#where-skills-live)
+- **Hermes 0.5.16:** cron, `verify` and chat errors name an unset provider key, as
+  `Connection error. (hint: ANTHROPIC_API_KEY is not set)`. [Scheduled runs](stages/hermes.md#scheduled-runs-cron)
+- **Gallery:** a [board update](gallery/board-update.md) co-authored in Codraft, with
+  suggestions, a comment-driven correction and a checkpoint, recorded on a real model.
 - **Terminal 0.6.61:** approvals work in Git Bash / mintty, with a typed menu (a number
   or `a` / `r`) where the arrow-key menu can't run. [Interactive commands](stages/cli.md#interactive-commands)
 - **Hermes 0.5.13:** `cron run-due` exits `1` when a job fails, so crontab, systemd
