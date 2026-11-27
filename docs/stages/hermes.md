@@ -224,6 +224,32 @@ it to the model. Bundled skills can't be removed (hide one with
 `skills.disabled` / `LANGSTAGE_HERMES_SKILLS_DISABLED`); when the agent edits a
 bundled skill, it edits a copy in your skills directory.
 
+### Where skills live
+
+Hermes reads skills from four places. When two have a skill with the same name, the
+later one wins:
+
+1. the bundled skills that ship with Hermes
+2. `<HERMES_HOME>/skills`, your own
+3. `./.langstage-hermes/skills`, the project's, if that folder exists
+4. each directory in `skills.external_dirs` (`LANGSTAGE_HERMES_SKILLS_EXTERNAL_DIRS`,
+   comma-separated), for example a team's shared skills checkout
+
+<!-- snippet: check -->
+```toml
+# langstage-hermes.toml
+[skills]
+external_dirs = ["~/src/team-skills"]
+```
+
+`skills install` puts a skill in `<HERMES_HOME>/skills`. A skill the agent writes, or
+the review after a turn, goes to the project folder if it exists, else to
+`<HERMES_HOME>/skills`. External dirs are
+read-only to Hermes (since 0.5.14). The agent's `skill_manage`, `skills remove` and
+`curator pin` refuse to change a skill there and name the directory, and the curator
+never marks one stale or archives it. Change it in that checkout instead, or hide it
+with `skills.disabled`.
+
 **Plugins.** `langstage-hermes plugins list` shows the plugins discovered from all
 four sources.
 
@@ -264,7 +290,9 @@ langstage-hermes cron daemon            # run forever
   `once at 2026-10-01T09:00`. A one-shot time in the past is refused.
 - `pause`, `resume` and `delete` manage jobs. A one-shot job whose run failed stays
   in the list, disabled, with its error.
-- A failed run logs one line; set `LANGSTAGE_DEBUG=1` for the traceback. The daemon
+- A failed run logs one line; set `LANGSTAGE_DEBUG=1` for the traceback. When the
+  provider's key isn't set, the line says so:
+  `Connection error. (hint: ANTHROPIC_API_KEY is not set)` (since 0.5.16). The daemon
   recovers from a lock file left by a crash.
 - `cron run-due` exits `1` if any job in the tick failed, with
   `error: <n> of <m> cron job(s) failed: <ids>` on stderr, and `0` when every due job
