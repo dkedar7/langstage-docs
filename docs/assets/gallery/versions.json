@@ -1,4 +1,13 @@
 {
+  "board-update": {
+    "model": "Claude Sonnet 5",
+    "packages": {
+      "langstage-codraft": "0.12.5",
+      "langstage-core": "1.0.70"
+    },
+    "recorded": "2026-11-27",
+    "speedup": "3x while waiting on the model"
+  },
   "incident-investigator": {
     "model": "Claude Sonnet 5",
     "packages": {

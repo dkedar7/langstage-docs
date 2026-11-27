@@ -37,6 +37,15 @@ on the model are shortened; each page says by how much.
     An on-call agent traces a spike of 503s to a bad deploy, fixes the config once
     you approve, and writes the incident note.
 
+-   [![A Codraft document with one paragraph changed since the "Sent to finance" checkpoint, shown as a word diff](../assets/gallery/board-update.png)](board-update.md)
+
+    **[Board update with suggestions](board-update.md)**
+
+    Documents · suggestions · checkpoints
+
+    A co-author agent drafts a quarterly update from the numbers, then fixes the
+    figure finance corrected, and a checkpoint shows what changed.
+
 </div>
 
 ## What they have in common
@@ -48,8 +57,10 @@ on the model are shortened; each page says by how much.
   with LangGraph's `interrupt()`. LangStage shows the request and the decisions it
   allows in whichever stage you're using: the web app's dialog or Board, or the
   terminal's approval menu. See [Human-in-the-loop](../guides/human-in-the-loop.md).
+  In Codraft every change the agent makes to the document is a suggestion you accept.
 - **Real files.** The agents read and write a workspace you can open: tickets and
-  replies, a CSV and its charts, logs and an incident note.
+  replies, a CSV and its charts, logs and an incident note, the numbers behind a
+  board update.
 
 The source for every example, and the scripts that recorded them, are in the docs
 repository under

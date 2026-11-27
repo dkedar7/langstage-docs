@@ -9,6 +9,7 @@ works on.
 | [`support-triage/`](support-triage/) | Web app: Board, human-in-the-loop | `langstage run --agent agent.py:graph --workspace workspace` |
 | [`sales-analyst/`](sales-analyst/) | Web app: Python, inline charts, Canvas | `langstage run --agent agent.py:graph --workspace workspace` |
 | [`incident-investigator/`](incident-investigator/) | Terminal: approval menu | `cd workspace && langstage-cli --agent ../agent.py:graph` |
+| [`board-update/`](board-update/) | Documents (Codraft): suggestions, checkpoints | `langstage-codraft run --agent agent.py:graph` |
 
 Each agent uses Claude Sonnet 5: directly with `ANTHROPIC_API_KEY`
 (`pip install langchain-anthropic`), or through OpenRouter when `OPENROUTER_API_KEY`
