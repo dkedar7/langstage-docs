@@ -10,6 +10,9 @@ stage aren't listed; every package's full changelog is in its repository.
 
 ### Week of November 23
 
+- **Guide: [Test your agent in CI](guides/test-in-ci.md).** A GitHub Actions job that
+  checks, with no API key, that your agent loads, runs a turn and still stops for
+  approval on gated tools.
 - **Hermes 0.5.14:** skills the agent writes stay in your Hermes home or project folder.
   A shared `skills.external_dirs` checkout is read-only to Hermes: it never writes,
   edits, pins or archives skills there. [Where skills live](stages/hermes.md#where-skills-live)

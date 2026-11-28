@@ -114,7 +114,8 @@ the first chat:
 | AG-UI server | `langstage-agui --verify` |
 
 They all exit `0` when the agent is healthy and non-zero when it isn't. See
-[Exit codes](../reference/exit-codes.md). If one fails,
+[Exit codes](../reference/exit-codes.md). To run them on every pull request with no API
+key, see [Test your agent in CI](../guides/test-in-ci.md). If one fails,
 [Troubleshooting](troubleshooting.md) covers the common first errors.
 
 Next: [Quickstart](quickstart.md) →
