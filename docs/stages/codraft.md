@@ -626,6 +626,12 @@ langstage-codraft export doc_6e07ed1cea -f pdf -o report.pdf --data-dir .codraft
 langstage-codraft export doc_6e07ed1cea doc_9a41c2d07b -f pdf -f png -o out/ --data-dir .codraft
 ```
 
+A file is named after the document's title: lower case, words joined by `-`, at most 60
+characters. Accented Latin letters lose only their accents (`rapport-d-activite-2026.pdf`), and
+other scripts keep their letters (`日本の報告.pdf`, `отчёт-за-год.pdf`). Since 0.12.7, the
+download from the editor's **Export** menu has the same name. Earlier versions dropped
+accented letters and named non-Latin titles `document.pdf`.
+
 It is the same renderer. The command starts the Codraft app inside its own process, prints through
 the page route the editor's Export button uses, and shuts down, so the output matches a running
 server's. That in-process app listens on `127.0.0.1` only, on a port the OS picks, and every request

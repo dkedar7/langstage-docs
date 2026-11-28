@@ -10,6 +10,9 @@ stage aren't listed; every package's full changelog is in its repository.
 
 ### Week of November 23
 
+- **Documents 0.12.7:** exports are named after the title in any language,
+  `rapport-d-activite-2026.pdf` or `日本の報告.pdf`, instead of dropping accents or
+  falling back to `document.pdf`. [Export without a running server](stages/codraft.md#export-without-a-running-server)
 - **Guide: [Test your agent in CI](guides/test-in-ci.md).** A GitHub Actions job that
   checks, with no API key, that your agent loads, runs a turn and still stops for
   approval on gated tools.
