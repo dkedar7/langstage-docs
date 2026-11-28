@@ -97,6 +97,9 @@ The agent's file tools and its notebook tools must agree on one directory:
   `langstage.toml`, or the launch directory's `.env`), the launcher serves that
   directory (`--ServerApp.root_dir`), so the file browser, the file tools and the
   notebook tools all use it.
+- With no Jupyter server at all, as in `--ask` and `--verify`, the notebook tools
+  read and write files on disk under the same root: the pinned workspace, or else
+  the directory you ran from (since 0.6.59).
 - If you pass your own `--notebook-dir` / `--ServerApp.root_dir`, or start
   `jupyter lab` yourself, and it differs from the pinned workspace, the launcher and
   the server log warn you, naming both directories.
