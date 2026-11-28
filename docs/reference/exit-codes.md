@@ -50,7 +50,8 @@ esac
 ```
 
 The bundled tool demo interrupts on "ask me", so this prints
-`paused: waiting for a human decision`. See
+`paused: waiting for a human decision`. [Test your agent in CI](../guides/test-in-ci.md)
+uses the same exit code to check, on every pull request, that a gated tool still waits. See
 [Human-in-the-loop](../guides/human-in-the-loop.md) for how to answer a pause.
 
 ## What each command returns
